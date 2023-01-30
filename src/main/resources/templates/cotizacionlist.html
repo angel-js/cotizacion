@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
     <head>
         <title>Cotizacion</title>
         <meta charset="UTF-8">
@@ -39,82 +39,12 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-12 col-md-4 col-lg-3 pt-3 d-flex justify-content-center">
+                <div th:each="coti: ${cotizacion}" class="col-sm-12 col-md-4 col-lg-3 pt-3 d-flex justify-content-center">
                     <div class="card" style="width: 18rem;">
                         <div class="card-body">
-                            <h5 class="card-title">Reparación congeladores</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">PJD Costanera</h6>
-                            <p class="card-text">monto: 1.000.000</p>
-                            <button class="btn btn-primary">Ver más detalle</button>
-                        </div>
-                    </div>
-                </div>
-                  <div class="col-sm-12 col-md-4  col-lg-3 pt-3 d-flex justify-content-center">
-                    <div class="card" style="width: 18rem;">
-                        <div class="card-body">
-                            <h5 class="card-title">Reparación congeladores</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">PJD Costanera</h6>
-                            <p class="card-text">monto: 1.000.000</p>
-                            <button class="btn btn-primary">Ver más detalle</button>
-                        </div>
-                    </div>
-                </div>
-                  <div class="col-sm-12 col-md-4 col-lg-3 pt-3 d-flex justify-content-center">
-                    <div class="card" style="width: 18rem;">
-                        <div class="card-body">
-                            <h5 class="card-title">Reparación congeladores</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">PJD Costanera</h6>
-                            <p class="card-text">monto: 1.000.000</p>
-                            <button class="btn btn-primary">Ver más detalle</button>
-                        </div>
-                    </div>
-                </div>
-                  <div class="col-sm-12 col-md-4 col-lg-3 pt-3 d-flex justify-content-center">
-                    <div class="card" style="width: 18rem;">
-                        <div class="card-body">
-                            <h5 class="card-title">Reparación congeladores</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">PJD Costanera</h6>
-                            <p class="card-text">monto: 1.000.000</p>
-                            <button class="btn btn-primary">Ver más detalle</button>
-                        </div>
-                    </div>
-                </div>
-                  <div class="col-sm-12 col-md-4 col-lg-3 pt-3 d-flex justify-content-center">
-                    <div class="card" style="width: 18rem;">
-                        <div class="card-body">
-                            <h5 class="card-title">Reparación congeladores</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">PJD Costanera</h6>
-                            <p class="card-text">monto: 1.000.000</p>
-                            <button class="btn btn-primary">Ver más detalle</button>
-                        </div>
-                    </div>
-                </div>
-                  <div class="col-sm-12 col-md-4 col-lg-3 pt-3 d-flex justify-content-center">
-                    <div class="card" style="width: 18rem;">
-                        <div class="card-body">
-                            <h5 class="card-title">Reparación congeladores</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">PJD Costanera</h6>
-                            <p class="card-text">monto: 1.000.000</p>
-                            <button class="btn btn-primary">Ver más detalle</button>
-                        </div>
-                    </div>
-                </div>
-                  <div class="col-sm-12 col-md-4 col-lg-3 pt-3 d-flex justify-content-center">
-                    <div class="card" style="width: 18rem;">
-                        <div class="card-body">
-                            <h5 class="card-title">Reparación congeladores</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">PJD Costanera</h6>
-                            <p class="card-text">monto: 1.000.000</p>
-                            <button class="btn btn-primary">Ver más detalle</button>
-                        </div>
-                    </div>
-                </div>
-                  <div class="col-sm-12 col-md-4 col-lg-3 pt-3 d-flex justify-content-center">
-                    <div class="card" style="width: 18rem;">
-                        <div class="card-body">
-                            <h5 class="card-title">Reparación congeladores</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">PJD Costanera</h6>
-                            <p class="card-text">monto: 1.000.000</p>
+                            <h5 class="card-title" th:text="${coti.motivo}"></h5>
+                            <h6 class="card-subtitle mb-2 text-muted" >PJD Costanera</h6>
+                            <p class="card-text" th:text="${coti.monto}"></p>
                             <button class="btn btn-primary">Ver más detalle</button>
                         </div>
                     </div>
