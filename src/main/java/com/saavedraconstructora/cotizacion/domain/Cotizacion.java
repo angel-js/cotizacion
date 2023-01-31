@@ -1,9 +1,8 @@
 package com.saavedraconstructora.cotizacion.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.hibernate.annotations.CreationTimestamp;
+
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
@@ -14,9 +13,20 @@ public class Cotizacion {
     private String motivo;
     private String descripcion;
     private int monto;
+
+    @Column(name = "fecha_cotizacion", columnDefinition = "date not null")
+    @CreationTimestamp
     private LocalDate fecha_cotizacion;
 
-    public Cotizacion() {
+    @ManyToOne
+    private Departamento departamento;
+
+    public Departamento getDepartamento() {
+        return departamento;
+    }
+
+    public void setDepartamento(Departamento departamento) {
+        this.departamento = departamento;
     }
 
     public Integer getId() {

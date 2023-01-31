@@ -36,25 +36,25 @@
   <div class="row">
     <div class="col-md-12">
       <h1>Nueva Cotizacion</h1>
-      <form  method="post" action=""
-             object="">
+      <form  method="post" th:action="@{/cotizacion/guardar}"
+             th:object="${cotizacion}">
         <div class="mb-3">
           <label for="motivo" class="form-label">Motivo</label>
-          <input type="text" class="form-control" field="" id="motivo" placeholder="Motivo de la Cotización">
+          <input type="text" class="form-control" th:field="*{motivo}" id="motivo" placeholder="Motivo de la Cotización">
         </div>
         <div class="mb-3">
           <label for="descripcion" class="form-label">Descripcion</label>
-          <textarea class="form-control" field="" id="descripcion" rows="3"></textarea>
+          <textarea class="form-control" th:field="*{descripcion}" id="descripcion" rows="3"></textarea>
         </div>
         <div class="mb-3">
           <label for="monto" class="form-label">Monto</label>
-          <input type="number" class="form-control" field="" id="monto" placeholder="Monto $">
+          <input type="number" class="form-control" th:field="*{monto}" id="monto" placeholder="Monto $">
         </div>
         <div class="mb-3">
           <label for="Local" class="form-label">Local</label>
-          <select class="form-control" id="Local" field="">
-            <option each="" value=""
-                    text="">PJD</option>
+          <select class="form-control" id="Local" th:field="*{departamento}">
+            <option th:each="dep: ${departamentos}" th:value="${dep.id}"
+                    th:text="${dep.nombre}"></option>
           </select>
         </div>
         <button type="submit" class="btn btn-primary">Guardar</button>

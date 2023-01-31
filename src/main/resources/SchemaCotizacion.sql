@@ -31,7 +31,7 @@ create table cotizacion (
        id int primary key auto_increment,
        motivo varchar(100) not null,
        descripcion varchar(500) not null,
-       monto int,
+       monto int not null,
        fecha_cotizacion date not null
 );
 
