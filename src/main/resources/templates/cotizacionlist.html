@@ -45,11 +45,16 @@
                             <h5 class="card-title" th:text="${coti.motivo}"></h5>
                             <h6 class="card-subtitle mb-2 text-muted" th:text="${coti.departamento.nombre}"></h6>
                             <p class="card-text" th:text="${coti.monto}"></p>
-                            <button class="btn btn-primary">Ver más detalle</button>
+                            <p class="card-text" th:text="${coti.fecha_cotizacion}"></p>
+                            <div class="d-flex justify-content-center">
+                                <a th:href="@{/cotizacion/detalle/__${coti.id}__}">
+                                    <button class="btn btn-primary">Ver más detalle</button>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-           
-         </body>
+        </div>
+    </body>
 </html>

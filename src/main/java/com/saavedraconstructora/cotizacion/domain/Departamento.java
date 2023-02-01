@@ -1,9 +1,6 @@
 package com.saavedraconstructora.cotizacion.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Departamento {
@@ -12,7 +9,26 @@ public class Departamento {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nombre;
+    private String direccion;
 
+    @ManyToOne
+    private Empleado empleado;
+
+    public Empleado getEmpleado() {
+        return empleado;
+    }
+
+    public void setEmpleado(Empleado empleado) {
+        this.empleado = empleado;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
     @Override
     public String toString() {
         return "Departamento{" +

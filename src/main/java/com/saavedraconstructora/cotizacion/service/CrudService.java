@@ -7,6 +7,7 @@ import com.saavedraconstructora.cotizacion.repository.DepartamentoRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CrudService {
@@ -29,5 +30,9 @@ public class CrudService {
 
     public Cotizacion guardar(Cotizacion cotizacion) {
         return cotizacionRepository.save(cotizacion);
+    }
+
+    public Optional<Cotizacion> findById(Integer id) {
+        return cotizacionRepository.findById(id);
     }
 }
