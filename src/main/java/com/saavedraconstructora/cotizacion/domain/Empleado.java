@@ -1,9 +1,7 @@
 package com.saavedraconstructora.cotizacion.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Empleado {
@@ -13,6 +11,21 @@ public class Empleado {
     private String nombre;
     private String apellido;
     private String telefono;
+    @ManyToMany
+    @JoinTable(
+            name = "empleado_departamento",
+            joinColumns = @JoinColumn(name = "empleado_id"),
+            inverseJoinColumns = @JoinColumn(name = "departamento_id")
+    )
+    private Set<Departamento> departamentos;
+
+    public Set<Departamento> getDepartamentos() {
+        return departamentos;
+    }
+
+    public void setDepartamentos(Set<Departamento> departamentos) {
+        this.departamentos = departamentos;
+    }
 
     public Empleado() {
     }

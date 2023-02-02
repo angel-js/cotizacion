@@ -1,6 +1,9 @@
 package com.saavedraconstructora.cotizacion.domain;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Departamento {
@@ -11,22 +14,15 @@ public class Departamento {
     private String nombre;
     private String direccion;
 
-    @ManyToMany(cascade = {
-            CascadeType.PERSIST,
-            CascadeType.MERGE
-    })
-    @JoinTable(name= "deparment_employee",
-        joinColumns = @JoinColumn(name = "deparment_id"),
-            inverseJoinColumns = @JoinColumn(name = "employee_id")
-    )
-    private Empleado empleado;
+    @ManyToMany(mappedBy = "departamentos")
+    private Set<Empleado> empleados;
 
-    public Empleado getEmpleado() {
-        return empleado;
+    public Set<Empleado> getEmpleados() {
+        return empleados;
     }
 
-    public void setEmpleado(Empleado empleado) {
-        this.empleado = empleado;
+    public void setEmpleados(Set<Empleado> empleados) {
+        this.empleados = empleados;
     }
 
     public String getDireccion() {

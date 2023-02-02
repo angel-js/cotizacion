@@ -25,6 +25,7 @@ create table empleado (
     id int primary key auto_increment,
     nombre varchar(40) not null,
     apellido varchar(50) not null,
+    correo varchar(120),
     telefono varchar(15)
 );
 
@@ -416,10 +417,10 @@ insert into comuna ( id, nombre, region_id ) values
 (345,'Tiltil',16),
 (346,'Vitacura',16);
 
-insert into empleado ( id, nombre, apellido, telefono ) values
-(1, 'Mario', 'Kruburgerzt', '967832521'),
-(2, 'Jose', 'Aravena', '992452722'),
-(3, 'Juan Pablo', 'Gonzalez', '982432423');
+insert into empleado ( id, nombre, apellido, correo, telefono ) values
+(1, 'Mario', 'Kruburgerzt', 'mario@example.com','967832521'),
+(2, 'Jose', 'Aravena', 'jose@example.com','992452722'),
+(3, 'Juan Pablo', 'Gonzalez', 'juanpa@example.com', '982432423');
 
 insert into departamento ( id, nombre, direccion,comuna_id, empleado_id ) values
 (1, 'PJD Costanera', 'Andrés Bello 123', 329,1),

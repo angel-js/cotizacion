@@ -37,22 +37,40 @@
         <div class="col-md-12 pt-4 d-flex justify-content-center">
             <h2>Detalle de la cotización</h2>
         </div>
-        <div class="col-md-12 pt-4 d-flex justify-content-center">
+        <div class="col-sm-12 col-md-6 pt-4 d-flex justify-content-center">
             <div class="d-flex">
                 <p>id:  </p>
                 <p th:text="${cotizacion.id}"></p>
             </div>
         </div>
-        <div class="col-md-12 pt-4 d-flex justify-content-center">
+        <div class="col-sm-12 col-md-6 pt-4 d-flex justify-content-center">
             <div class="d-flex">
                 <p>Local:  </p>
                 <p th:text="${cotizacion.departamento.nombre}"></p>
             </div>
         </div>
-        <div class="col-md-12 pt-4 d-flex justify-content-center">
+        <div class="col-sm-12 col-md-6 pt-4 d-flex justify-content-center">
             <div class="d-flex">
-                <p>id: </p>
-                <p th:text="${cotizacion.id}"></p>
+                <p>Monto:  </p>
+                <p th:text="${cotizacion.monto}"></p>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-6 pt-4 d-flex justify-content-center">
+            <div class="d-flex">
+                <p>Fecha de la Cotización:  </p>
+                <p th:text="${cotizacion.fecha_cotizacion}"></p>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-6 pt-4 d-flex justify-content-center">
+            <div class="d-flex">
+                <p>Dirección del local: </p>
+                <p th:text="${cotizacion.departamento.direccion}"></p>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-6 pt-4 d-flex justify-content-center">
+            <div class="d-flex">
+                <p>Dirección del local: </p>
+                <!--<p th:text="${cotizacion.departamento.empleados}"></p>-->
             </div>
         </div>
     </div>
