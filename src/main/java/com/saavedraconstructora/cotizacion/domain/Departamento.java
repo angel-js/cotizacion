@@ -11,7 +11,14 @@ public class Departamento {
     private String nombre;
     private String direccion;
 
-    @ManyToOne
+    @ManyToMany(cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    })
+    @JoinTable(name= "deparment_employee",
+        joinColumns = @JoinColumn(name = "deparment_id"),
+            inverseJoinColumns = @JoinColumn(name = "employee_id")
+    )
     private Empleado empleado;
 
     public Empleado getEmpleado() {
