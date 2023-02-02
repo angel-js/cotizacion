@@ -35,4 +35,8 @@ public class CrudService {
     public Optional<Cotizacion> findById(Integer id) {
         return cotizacionRepository.findById(id);
     }
+
+    public List<Cotizacion> busqueda(String consulta) {
+        return cotizacionRepository.findByMotivoContaining(consulta);
+    }
 }

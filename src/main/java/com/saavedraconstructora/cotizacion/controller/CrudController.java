@@ -6,6 +6,8 @@ import com.saavedraconstructora.cotizacion.repository.CotizacionRepository;
 import com.saavedraconstructora.cotizacion.service.CrudService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,6 +38,19 @@ public class CrudController {
         model.addAttribute("cotizacion", todos);
         System.out.println("Retorno de Lista en HTML con JPA");
         return "cotizacionlist";
+    }
+
+    @RequestMapping("/busquedaConParametros")
+    public String busqueda(@RequestParam("q") String consulta, Model model) {
+        List<Cotizacion> todos = crudService.busqueda(consulta);
+        model.addAttribute("cotizacion", todos);
+        if(!todos.isEmpty()){
+            System.out.println("Retorno de Lista en HTML con JPA con Parametros");
+            return "cotizacionlist";
+        } else {
+            System.out.println("La Consulta esta vacía parametro busca");
+            return "errorView";
+        }
     }
 
     @RequestMapping("/crear")

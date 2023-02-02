@@ -1,10 +1,6 @@
 package com.saavedraconstructora.cotizacion.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.GenerationType;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
 public class Comuna {
@@ -14,8 +10,8 @@ public class Comuna {
     private Integer id;
     private String nombre;
     @ManyToOne
-    private Region region_id;
-
+    @JoinColumn(unique = true)
+    private Region region;
     public Integer getId() {
         return id;
     }
@@ -31,5 +27,7 @@ public class Comuna {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
+    public Region getRegion() {
+        return region;
+    }
 }

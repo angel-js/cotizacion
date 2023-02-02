@@ -11,4 +11,5 @@ public interface CotizacionRepository extends JpaRepository<Cotizacion, Integer>
     @Query("from Cotizacion c order by c.motivo")
     List<Cotizacion> buscarTodos();
 
+    List<Cotizacion> findByMotivoContaining(String consulta);
 }

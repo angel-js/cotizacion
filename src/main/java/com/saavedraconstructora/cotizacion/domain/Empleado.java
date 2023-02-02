@@ -11,6 +11,8 @@ public class Empleado {
     private String nombre;
     private String apellido;
     private String telefono;
+    private String correo;
+    private String cargo;
     @ManyToMany
     @JoinTable(
             name = "empleado_departamento",
@@ -38,6 +40,22 @@ public class Empleado {
                 ", apellido='" + apellido + '\'' +
                 ", telefono='" + telefono + '\'' +
                 '}';
+    }
+
+    public String getCargo() {
+        return cargo;
+    }
+
+    public void setCargo(String cargo) {
+        this.cargo = cargo;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
     }
 
     public Integer getId() {

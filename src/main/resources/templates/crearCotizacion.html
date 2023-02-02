@@ -21,10 +21,7 @@
       <div class="">
         <ul class="navbar-nav ">
           <li class="nav-item">
-            <a class="nav-link" href="#">Crear Cotización</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Buscar</a>
+            <a class="nav-link" th:href="@{/cotizacion/buscar}">Buscar</a>
           </li>
         </ul>
       </div>
@@ -35,7 +32,7 @@
 <div class="container mt-4 as-destacados">
   <div class="row">
     <div class="col-md-12">
-      <h1>Nueva Cotizacion</h1>
+      <h1>Nueva Cotización</h1>
       <form  method="post" th:action="@{/cotizacion/guardar}"
              th:object="${cotizacion}">
         <div class="mb-3">

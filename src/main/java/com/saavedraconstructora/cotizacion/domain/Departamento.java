@@ -13,7 +13,8 @@ public class Departamento {
     private Integer id;
     private String nombre;
     private String direccion;
-
+    @ManyToOne
+    private Comuna comuna;
     @ManyToMany(mappedBy = "departamentos")
     private Set<Empleado> empleados;
 
@@ -38,6 +39,14 @@ public class Departamento {
                 "id=" + id +
                 ", nombre='" + nombre + '\'' +
                 '}';
+    }
+
+    public Comuna getComuna() {
+        return comuna;
+    }
+
+    public void setComuna(Comuna comuna) {
+        this.comuna = comuna;
     }
 
     public Integer getId() {

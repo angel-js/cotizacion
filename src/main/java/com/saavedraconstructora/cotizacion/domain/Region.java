@@ -9,7 +9,7 @@ import javax.persistence.Id;
 public class Region {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO) // De esta forma indicamos que la lógica del ID es AUTO INCREMENTAL
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // De esta forma indicamos que la lógica del ID es AUTO INCREMENTAL
     private Integer id;
     private String nombre;
 

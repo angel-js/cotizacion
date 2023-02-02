@@ -1,4 +1,5 @@
 use cotizacion;
+drop table if exists empleado_departamento;
 drop table if exists cotizacion;
 drop table if exists departamento;
 drop table if exists empleado;
@@ -26,7 +27,8 @@ create table empleado (
     nombre varchar(40) not null,
     apellido varchar(50) not null,
     correo varchar(120),
-    telefono varchar(15)
+    telefono varchar(15),
+    cargo varchar(35)
 );
 
 create table cotizacion (
@@ -43,13 +45,19 @@ alter table comuna
 
 alter table departamento 
     add column comuna_id int,
-    add column empleado_id int,
-    add foreign key (comuna_id) references comuna(id),
-    add foreign key (empleado_id) references empleado(id);
+    add foreign key (comuna_id) references comuna(id);
 
 alter table cotizacion 
     add column departamento_id int,
     add foreign key (departamento_id) references departamento(id);
+
+CREATE TABLE empleado_departamento (
+  empleado_id int NOT NULL,
+  departamento_id int NOT NULL,
+  PRIMARY KEY (empleado_id, departamento_id),
+  FOREIGN KEY (empleado_id) REFERENCES empleado (id),
+  FOREIGN KEY (departamento_id) REFERENCES departamento (id)
+);
 
 insert into region ( id, nombre ) values
 (1, 'Arica y Parinacota'),
@@ -417,17 +425,24 @@ insert into comuna ( id, nombre, region_id ) values
 (345,'Tiltil',16),
 (346,'Vitacura',16);
 
-insert into empleado ( id, nombre, apellido, correo, telefono ) values
-(1, 'Mario', 'Kruburgerzt', 'mario@example.com','967832521'),
-(2, 'Jose', 'Aravena', 'jose@example.com','992452722'),
-(3, 'Juan Pablo', 'Gonzalez', 'juanpa@example.com', '982432423');
+insert into empleado ( id, nombre, apellido, correo, telefono, cargo ) values
+(1, 'Mario', 'Kruburgerzt', 'mario@example.com','967832521', 'Supervisor'),
+(2, 'Jose', 'Aravena', 'jose@example.com','992452722', 'Gerente'),
+(3, 'Juan Pablo', 'Gonzalez', 'juanpa@example.com', '982432423', 'Supervisor');
 
-insert into departamento ( id, nombre, direccion,comuna_id, empleado_id ) values
-(1, 'PJD Costanera', 'Andrés Bello 123', 329,1),
-(2, 'PJD Maipu', 'Av Rinconada 4623',319,2),
-(3, 'PJD La FLorida', 'Av Vespucion 21311',309,1);
+insert into departamento ( id, nombre, direccion,comuna_id ) values
+(1, 'PJD Costanera', 'Andrés Bello 123', 329),
+(2, 'PJD Maipu', 'Av Rinconada 4623',319),
+(3, 'PJD La FLorida', 'Av Vespucion 21311',309);
 
 insert into cotizacion ( id, motivo, descripcion, monto, fecha_cotizacion, departamento_id ) values
 (1, 'Congelador', 'Se debe revisar el motor de congelador', 300000,'2023-01-17',1),
 (2, 'Cortina Metalica', 'Instalacion de cortina metalica',600000,'2022-12-26', 2),
 (3, 'Servicio Electrico', 'La luz presenta problemas y cortes electricos se debe realizar chequeo general', 150000, '2022-12-30', 3);
+
+insert into empleado_departamento (empleado_id, departamento_id)  values
+(1,3),
+(2,1),
+(3,2),
+(2,3),
+(1,2);

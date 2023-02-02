@@ -37,40 +37,74 @@
         <div class="col-md-12 pt-4 d-flex justify-content-center">
             <h2>Detalle de la cotización</h2>
         </div>
-        <div class="col-sm-12 col-md-6 pt-4 d-flex justify-content-center">
-            <div class="d-flex">
-                <p>id:  </p>
-                <p th:text="${cotizacion.id}"></p>
+        <div class="col-sm-12 col-md-6 pt-4 ">
+            <div class="d-flex justify-content-center">
+                <h6>ID: <span th:text="${cotizacion.id}"></span></h6>
+            </div>
+            <div class="d-flex justify-content-center">
+                <h6> Fecha: <span th:text="${#temporals.format(cotizacion.fecha_cotizacion, 'dd/MM/yyyy')}"></span></h6>
             </div>
         </div>
         <div class="col-sm-12 col-md-6 pt-4 d-flex justify-content-center">
             <div class="d-flex">
-                <p>Local:  </p>
-                <p th:text="${cotizacion.departamento.nombre}"></p>
+                <h4>Local: <span th:text="${cotizacion.departamento.nombre}"></span></h4>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-6 pt-4">
+            <div class="d-flex justify-content-center">
+                <h4>Descripción: </h4>
+            </div>
+            <div class="d-flex justify-content-center pe-4 ps-4">
+                <h6 th:text="${cotizacion.descripcion}"></h6>
             </div>
         </div>
         <div class="col-sm-12 col-md-6 pt-4 d-flex justify-content-center">
             <div class="d-flex">
-                <p>Monto:  </p>
-                <p th:text="${cotizacion.monto}"></p>
+                <h4>Monto: $<span th:text="${#numbers.formatDecimal(cotizacion.monto, 0, 'POINT', 0, 'COMMA')}"></span>
+                </h4>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-6 pt-4">
+            <div class="d-flex justify-content-center">
+                <h4>Dirección del local: </h4>
+            </div>
+            <div class="d-flex justify-content-center">
+                <h6>
+                    Region: <span th:text="${cotizacion.departamento.comuna.region.nombre}"></span> <br/>
+                    Comuna: <span th:text="${cotizacion.departamento.comuna.nombre}"></span> <br/>
+                    <span th:text="${cotizacion.departamento.direccion}"></span> <br/>
+                </h6>
             </div>
         </div>
         <div class="col-sm-12 col-md-6 pt-4 d-flex justify-content-center">
-            <div class="d-flex">
-                <p>Fecha de la Cotización:  </p>
-                <p th:text="${cotizacion.fecha_cotizacion}"></p>
-            </div>
-        </div>
-        <div class="col-sm-12 col-md-6 pt-4 d-flex justify-content-center">
-            <div class="d-flex">
-                <p>Dirección del local: </p>
-                <p th:text="${cotizacion.departamento.direccion}"></p>
-            </div>
-        </div>
-        <div class="col-sm-12 col-md-6 pt-4 d-flex justify-content-center">
-            <div class="d-flex">
-                <p>Dirección del local: </p>
-                <!--<p th:text="${cotizacion.departamento.empleados}"></p>-->
+            <div class="container-fluid">
+                <div class="d-flex justify-content-center">
+                    <h4>Empleados en el local: </h4>
+                </div>
+                <div th:each="empleado: ${cotizacion.departamento.empleados}">
+                    <div class="d-flex justify-content-center">
+                        <h6>Nombre:
+                            <span th:text="${empleado.nombre}"></span>
+                            <span th:text="${empleado.apellido}"></span>
+                        </h6>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <h6>Cargo:
+                            <span th:text="${empleado.cargo}"></span>
+                        </h6>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <h6>Correo:
+                            <span th:text="${empleado.correo}"></span>
+                        </h6>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <h6>Teléfono:
+                            <span th:text="${empleado.telefono}"></span>
+                        </h6>
+                    </div>
+                    <hr class="hr"/>
+                </div>
             </div>
         </div>
     </div>
