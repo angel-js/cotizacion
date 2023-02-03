@@ -18,6 +18,8 @@ target/
 *.iws
 *.iml
 *.ipr
+src/main/resources/SchemaCotizacion.sql
+
 
 ### NetBeans ###
 /nbproject/private/
