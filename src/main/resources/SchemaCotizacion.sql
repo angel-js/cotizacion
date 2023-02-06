@@ -1,8 +1,11 @@
 use cotizacion;
-drop table if exists empleado_departamento;
+
 drop table if exists cotizacion;
+drop table if exists supervisor_departamento;
+drop table if exists gerente_departamento;
+drop table if exists supervisor;
+drop table if exists gerente;
 drop table if exists departamento;
-drop table if exists empleado;
 drop table if exists comuna;
 drop table if exists region;
 
@@ -22,13 +25,20 @@ create table departamento (
     direccion varchar(100)
 );
 
-create table empleado (
+create table supervisor (
     id int primary key auto_increment,
     nombre varchar(40) not null,
     apellido varchar(50) not null,
     correo varchar(120),
     telefono varchar(15),
     cargo varchar(35)
+);
+
+create table gerente(
+    id int primary key auto_increment,
+    nombre varchar(40) not null,
+    apellido varchar(50) not null,
+    cargo varchar(10) not null
 );
 
 create table cotizacion (
@@ -51,11 +61,19 @@ alter table cotizacion
     add column departamento_id int,
     add foreign key (departamento_id) references departamento(id);
 
-CREATE TABLE empleado_departamento (
-  empleado_id int NOT NULL,
+CREATE TABLE supervisor_departamento (
+  supervisor_id int NOT NULL,
   departamento_id int NOT NULL,
-  PRIMARY KEY (empleado_id, departamento_id),
-  FOREIGN KEY (empleado_id) REFERENCES empleado (id),
+  PRIMARY KEY (supervisor_id, departamento_id),
+  FOREIGN KEY (supervisor_id) REFERENCES supervisor (id),
+  FOREIGN KEY (departamento_id) REFERENCES departamento (id)
+);
+
+CREATE TABLE gerente_departamento (
+  gerente_id int NOT NULL,
+  departamento_id int NOT NULL,
+  PRIMARY KEY (gerente_id, departamento_id),
+  FOREIGN KEY (gerente_id) REFERENCES gerente (id),
   FOREIGN KEY (departamento_id) REFERENCES departamento (id)
 );
 
@@ -426,7 +444,7 @@ insert into comuna ( id, nombre, region_id ) values
 (346,'Vitacura',16);
 
 /*Supervisores*/
-insert into empleado ( id, nombre, apellido, correo, telefono, cargo ) values
+insert into supervisor ( id, nombre, apellido, correo, telefono, cargo ) values
 (1, 'Pilar', 'barraza', 'pbarraza@uniservice.cl','993426888', 'Supervisor'),
 (2, 'Jose', 'Aravena', 'jaravena@pjd.cl','938606177', 'Supervisor'),
 (3, 'Marcela', 'De la Rosa', 'mdelarosa@pjd.cl', '934065963', 'Supervisor'),
@@ -440,9 +458,9 @@ insert into empleado ( id, nombre, apellido, correo, telefono, cargo ) values
 (11, 'Cristian', 'Diaz', 'sin correo', '942065823', 'Supervisor');
 
 /*Gerentes*/
-insert into empleado (id, nombre, apellido, cargo) values
-(12, 'Carolina', 'Silva', 'Gerente'),
-(13, 'Cecilia', 'Madrid', 'Gerente'),
+insert into gerente (id, nombre, apellido, cargo) values
+(1, 'Carolina', 'Silva', 'Gerente'),
+(2, 'Cecilia', 'Madrid', 'Gerente'),
 (14, 'JESSICA', 'VILLA', 'Gerente');
 
 insert into departamento ( id, nombre) values
@@ -548,7 +566,7 @@ insert into cotizacion ( id, motivo, descripcion, monto, fecha_cotizacion, depar
 (2, 'Cortina Metalica', 'Instalacion de cortina metalica',600000,'2022-12-26', 2),
 (3, 'Servicio Electrico', 'La luz presenta problemas y cortes electricos se debe realizar chequeo general', 150000, '2022-12-30', 3);
 
-insert into empleado_departamento (empleado_id, departamento_id)  values
+insert into supervisor_departamento (supervisor_id, departamento_id)  values
 (1,1),
 (1,2),
 (1,3),
@@ -632,7 +650,39 @@ insert into empleado_departamento (empleado_id, departamento_id)  values
 (11,81),
 (11,82),
 (11,83),
-(11,84),
+(11,84);
+
+insert into gerente_departamento (gerente_id, departamento_id)  values
+(1, 64),
+(1, 65),
+(1, 66),
+(1, 67),
+(1, 68),
+(1, 69),
+(1, 70),
+(1, 71),
+(1, 72),
+(2, 64),
+(2, 65),
+(2, 66),
+(2, 67),
+(2, 68),
+(2, 69),
+(2, 70),
+(2, 71),
+(2, 72),
+(2, 73),
+(2, 74),
+(2, 75),
+(2, 76),
+(2, 77),
+(2, 78),
+(2, 79),
+(2, 80),
+(2, 81),
+(2, 82),
+(2, 83),
+(2, 84),
 (14, 1),
 (14, 2),
 (14, 3),
@@ -696,38 +746,4 @@ insert into empleado_departamento (empleado_id, departamento_id)  values
 (14, 61),
 (14, 62),
 (14, 63),
-(14, 64),
-(12, 64),
-(12, 65),
-(12, 66),
-(12, 67),
-(12, 68),
-(12, 69),
-(12, 70),
-(12, 71),
-(12, 72),
-(13, 64),
-(13, 65),
-(13, 66),
-(13, 67),
-(13, 68),
-(13, 69),
-(13, 70),
-(13, 71),
-(13, 72),
-(13, 73),
-(13, 74),
-(13, 75),
-(13, 76),
-(13, 77),
-(13, 78),
-(13, 79),
-(13, 80),
-(13, 81),
-(13, 82),
-(13, 83),
-(13, 84);
-
-
-
-
+(14, 64);

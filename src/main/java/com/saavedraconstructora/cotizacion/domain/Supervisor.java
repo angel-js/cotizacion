@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-public class Empleado {
+public class Supervisor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -15,8 +15,8 @@ public class Empleado {
     private String cargo;
     @ManyToMany
     @JoinTable(
-            name = "empleado_departamento",
-            joinColumns = @JoinColumn(name = "empleado_id"),
+            name = "supervisor_departamento",
+            joinColumns = @JoinColumn(name = "supervisor_id"),
             inverseJoinColumns = @JoinColumn(name = "departamento_id")
     )
     private Set<Departamento> departamentos;
@@ -29,7 +29,7 @@ public class Empleado {
         this.departamentos = departamentos;
     }
 
-    public Empleado() {
+    public Supervisor() {
     }
 
     @Override

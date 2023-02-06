@@ -1,8 +1,6 @@
 package com.saavedraconstructora.cotizacion.domain;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -16,14 +14,33 @@ public class Departamento {
     @ManyToOne
     private Comuna comuna;
     @ManyToMany(mappedBy = "departamentos")
-    private Set<Empleado> empleados;
+    private Set<Supervisor> supervisors;
 
-    public Set<Empleado> getEmpleados() {
-        return empleados;
+    public Set<Supervisor> getSupervisors() {
+        return supervisors;
     }
 
-    public void setEmpleados(Set<Empleado> empleados) {
-        this.empleados = empleados;
+    public void setSupervisors(Set<Supervisor> supervisors) {
+        this.supervisors = supervisors;
+    }
+
+    public Set<Gerente> getGerentes() {
+        return gerentes;
+    }
+
+    public void setGerentes(Set<Gerente> gerentes) {
+        this.gerentes = gerentes;
+    }
+
+    @ManyToMany(mappedBy = "departamentos")
+    private Set<Gerente> gerentes;
+
+    public Set<Supervisor> getEmpleados() {
+        return supervisors;
+    }
+
+    public void setEmpleados(Set<Supervisor> supervisors) {
+        this.supervisors = supervisors;
     }
 
     public String getDireccion() {

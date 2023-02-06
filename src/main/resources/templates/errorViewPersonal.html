@@ -35,21 +35,21 @@
     </div>
 </nav>
 <div class="container">
-    <div class="row pt-4">
-        <div class="col-md-12">
+    <div class="row pt-4 ">
+        <div class="col-md-12 m-4">
             <div class="jumbotron jumbotron-fluid">
                 <div class="container">
-                    <h1 class="display-4">Bienvenidos a Saavedra Construcciones!</h1>
+                    <h4 class="display-4">Lo sentimos la búsqueda realizada no es correcta!</h4>
                     <p class="lead">Inserte la búsqueda a realizar</p>
                 </div>
             </div>
         </div>
     </div>
     <div class="row pt-4">
-        <div class="col-md-3"></div>
-        <div class="col-md-6">
+        <div class="col-md-3 col-sm-12"></div>
+        <div class="col-md-6 col-sm-12">
             <!-- Search form -->
-            <form class="form-inline" th:action="@{/cotizacion/busquedaConParametros}" role="search">
+            <form class="form-inline" th:action="@{/personal/busquedaPersonalizada}" role="search">
                 <i class="fas fa-search" aria-hidden="true"></i>
                 <div class="d-flex justify-content-center">
                     <input class="form-control form-control-sm ml-3 w-75" autofocus="autofocus" type="text"
@@ -61,7 +61,7 @@
                 </div>
             </form>
         </div>
-        <div class="col-md-3"></div>
+        <div class="col-md-3 col-sm-12"></div>
     </div>
 </div>
 </body>

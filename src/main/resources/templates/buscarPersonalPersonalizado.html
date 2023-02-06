@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Saavedra Constructora</title>
+    <title>Personal</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -21,9 +21,6 @@
             <div class="">
                 <ul class="navbar-nav ">
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/personal/buscar}">Personal</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" th:href="@{/cotizacion/crear}">Crear Cotización</a>
                     </li>
                     <li class="nav-item">
@@ -34,34 +31,30 @@
         </div>
     </div>
 </nav>
+<!-- Listas -->
 <div class="container">
-    <div class="row pt-4">
-        <div class="col-md-12">
-            <div class="jumbotron jumbotron-fluid">
-                <div class="container">
-                    <h1 class="display-4">Bienvenidos a Saavedra Construcciones!</h1>
-                    <p class="lead">Inserte la búsqueda a realizar</p>
+    <div class="row">
+        <div class="col-md-12 d-flex justify-content-center pt-4">
+            <h2>Personal</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div th:each="super: ${supervisores}" class="col-sm-12 col-md-4 col-lg-3 pt-3 d-flex justify-content-center">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5><span class="card-title" th:text="${super.nombre}"></span>
+                        <span class="card-title" th:text="${super.apellido}"></span>
+                    </h5>
+                    <h6 class="card-subtitle mb-2 text-muted" th:text="${super.correo}"></h6>
+                    <h6 class="card-subtitle mb-2 text-muted" th:text="${super.cargo}"></h6>
+                    <div class="d-flex justify-content-center">
+                        <a th:href="@{/personal/detalle/__${super.id}__}">
+                            <button class="btn btn-primary">Ver más detalle</button>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row pt-4">
-        <div class="col-md-3"></div>
-        <div class="col-md-6">
-            <!-- Search form -->
-            <form class="form-inline" th:action="@{/cotizacion/busquedaConParametros}" role="search">
-                <i class="fas fa-search" aria-hidden="true"></i>
-                <div class="d-flex justify-content-center">
-                    <input class="form-control form-control-sm ml-3 w-75" autofocus="autofocus" type="text"
-                           placeholder="Buscar"
-                           aria-label="Search" name="q">
-                </div>
-                <div class="d-flex justify-content-center pt-4">
-                    <button type="submit" class="btn btn-primary m-2 pt-4">Buscar</button>
-                </div>
-            </form>
-        </div>
-        <div class="col-md-3"></div>
     </div>
 </div>
 </body>
