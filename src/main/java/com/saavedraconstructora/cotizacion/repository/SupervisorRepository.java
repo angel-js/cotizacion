@@ -1,6 +1,5 @@
 package com.saavedraconstructora.cotizacion.repository;
 
-import com.saavedraconstructora.cotizacion.domain.Cotizacion;
 import com.saavedraconstructora.cotizacion.domain.Supervisor;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -13,4 +12,6 @@ public interface SupervisorRepository extends JpaRepository<Supervisor, Integer>
     List<Supervisor> buscarTodos();
 
     List<Supervisor> findByNombreOrApellidoContaining(String nombre, String apellido);
+
+     void deleteById(Integer id); // Delete Supervisor
 }

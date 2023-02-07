@@ -5,13 +5,12 @@ import com.saavedraconstructora.cotizacion.domain.Supervisor;
 import com.saavedraconstructora.cotizacion.repository.SupervisorRepository;
 import com.saavedraconstructora.cotizacion.service.CrudService;
 import com.saavedraconstructora.cotizacion.service.PersonalService;
+import net.bytebuddy.implementation.bind.annotation.Super;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -78,5 +77,32 @@ public class PersonalController {
         System.out.println("Se guarda la informacion del Supervisor  ------> " + supervisor);
         personalService.guardar(supervisor);
         return "redirect:/personal/buscar";
+    }
+
+    @GetMapping("/update/{id}")
+    public String showUpdateForm(@PathVariable Integer id, Model model) {
+        Supervisor supervisor = personalService.findById(id);
+        model.addAttribute("supervisor", supervisor);
+        model.addAttribute("departamentos", crudService.buscarDepart());
+        return "updateSupervisorForm";
+    }
+
+    @PostMapping("/update/{id}")
+    public String update(@PathVariable Integer id, @ModelAttribute Supervisor supervisor) {
+        System.out.println("Actualizar info  ------> " + supervisor);
+        personalService.update(id, supervisor);
+        return "redirect:/personal/buscar";
+    }
+
+    @PostMapping("/delete/{id}")
+    public String deleteSupervisor(@PathVariable Integer id, @RequestParam(required = false) String _method) {
+        if ("delete".equals(_method)) {
+            System.out.println("Delete supervisor of DATABASE  ------> " + id);
+            personalService.deleteSupervisor(id);
+            return "redirect:/personal/buscar";
+        } else {
+            System.out.println("Error to eliminate  ------> " + id);
+            return "Error 404";
+        }
     }
 }

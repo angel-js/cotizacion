@@ -2,6 +2,7 @@ package com.saavedraconstructora.cotizacion.service;
 
 import com.saavedraconstructora.cotizacion.domain.Cotizacion;
 import com.saavedraconstructora.cotizacion.domain.Supervisor;
+import com.saavedraconstructora.cotizacion.exception.ResourceNotFoundException;
 import com.saavedraconstructora.cotizacion.repository.GerenteRepository;
 import com.saavedraconstructora.cotizacion.repository.SupervisorRepository;
 import net.bytebuddy.implementation.bind.annotation.Super;
@@ -28,5 +29,27 @@ public class PersonalService {
 
     public Supervisor guardar(Supervisor supervisor) {
         return supervisorRepository.save(supervisor);
+    }
+
+    public Supervisor findById(Integer id) {
+        return supervisorRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Supervisor not found with id ", "id", id));
+    }
+
+    // Update a Supervisor
+    public void update(Integer id, Supervisor supervisorDetails) {
+        System.out.println("UPDATE method of supervisor");
+        Supervisor supervisor = findById(id);
+        supervisor.setNombre(supervisorDetails.getNombre());
+        supervisor.setApellido(supervisorDetails.getApellido());
+        supervisor.setCorreo(supervisorDetails.getCorreo());
+        supervisor.setTelefono(supervisorDetails.getTelefono());
+        supervisor.setDepartamentos(supervisorDetails.getDepartamentos());
+        System.out.println("Data of supervisor " + supervisor);
+        supervisorRepository.save(supervisor);
+    }
+
+    // Delete a Supervisor
+    public void deleteSupervisor(Integer id) {
+        supervisorRepository.deleteById(id);
     }
 }

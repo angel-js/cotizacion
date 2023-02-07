@@ -73,12 +73,13 @@
         </div>
         <div class="col-md-12 col-sm-12 pt-4">
             <div class="d-flex justify-content-around">
-                <a href="#">
+                <a th:href="@{/personal/update/__${supervisor.id}__}">
                     <button class="btn btn-primary">Editar</button>
                 </a>
-                <a href="#">
-                    <button class="btn btn-danger">Eliminar</button>
-                </a>
+                <form  method="post" th:action="@{/personal/delete/__${supervisor.id}__}">
+                    <input type="hidden" name="_method" value="delete"/>
+                    <button class="btn btn-danger" type="submit" onclick="return confirm('¿Esta seguro que desea eliminar este supervisor?');" >Eliminar</button>
+                </form>
             </div>
         </div>
     </div>
