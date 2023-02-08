@@ -11,7 +11,7 @@ public class HomeController {
     private static final Logger log = LoggerFactory.getLogger(HomeController.class);
     @RequestMapping("/")
     public String homeList() {
-        log.debug("This is the home page");
+        log.info("This is the home page");
         return "Home";
     }
 

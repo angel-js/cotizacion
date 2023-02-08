@@ -24,27 +24,27 @@ public class CotizacionService {
     }
 
     public List<Cotizacion> buscar() {
-        log.debug("Cotizacion Service: buscar");
+        log.info("Cotizacion Service: buscar");
         return cotizacionRepository.buscarTodos();
     }
 
     public List<Departamento> buscarDepart() {
-        log.debug("Cotizacion Service: buscarDepart");
+        log.info("Cotizacion Service: buscarDepart");
         return departamentoRepository.buscarTodos();
     }
 
     public Cotizacion guardar(Cotizacion cotizacion) {
-        log.debug("Cotizacion Service: guardar");
+        log.info("Cotizacion Service: guardar");
         return cotizacionRepository.save(cotizacion);
     }
 
     public Optional<Cotizacion> findById(Integer id) {
-        log.debug("Cotizacion Service: findById");
+        log.info("Cotizacion Service: findById");
         return cotizacionRepository.findById(id);
     }
 
     public List<Cotizacion> busqueda(String consulta) {
-        log.debug("Cotizacion Service: busqueda");
+        log.info("Cotizacion Service: busqueda");
         return cotizacionRepository.findByMotivoContaining(consulta);
     }
 }

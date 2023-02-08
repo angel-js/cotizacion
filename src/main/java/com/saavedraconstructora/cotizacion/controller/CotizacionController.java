@@ -31,11 +31,11 @@ public class CotizacionController {
 
     @RequestMapping("/buscar")
     public String buscarCotizaciones(Model model) {
-        log.debug("Search of all cotizaciones PATH:/buscar");
+        log.info("Search of all cotizaciones PATH:/buscar");
         List<Cotizacion> todos = cotizacionService.buscar();
         model.addAttribute("cotizacion", todos);
         if(!todos.isEmpty()){
-        log.debug("Retorno de Lista en HTML con JPA");
+        log.info("Retorno de Lista en HTML con JPA");
         return "CotizacionList";
         } else {
             log.debug("The request is empty!");
@@ -45,13 +45,13 @@ public class CotizacionController {
 
     @RequestMapping("/busquedaConParametros")
     public String busqueda(@RequestParam("q") String consulta, Model model) {
-        log.debug("Search of cotizacion with any parameter PATH:/busquedaConParametros");
-        log.debug("The parameter is "+ consulta);
+        log.info("Search of cotizacion with any parameter PATH:/busquedaConParametros");
+        log.info("The parameter is "+ consulta);
         List<Cotizacion> todos = cotizacionService.busqueda(consulta);
         model.addAttribute("cotizacion", todos);
         model.addAttribute("consulta", consulta);
         if(!todos.isEmpty()){
-            log.debug("Return a list of JPA parameters");
+            log.info("Return a list of JPA parameters");
             return "CotizacionBuscado";
         } else {
             log.debug("The request is empty!");
@@ -62,7 +62,7 @@ public class CotizacionController {
 
     @RequestMapping("/crear")
     public String crearCotizaciones(Model model) {
-        log.debug("Create of cotizacion PATH:/crear");
+        log.info("Create of cotizacion PATH:/crear");
         model.addAttribute("departamentos", cotizacionService.buscarDepart());
         model.addAttribute("cotizacion", new Cotizacion());
         return "CotizacionCreate";
@@ -70,20 +70,21 @@ public class CotizacionController {
 
     @PostMapping("/guardar")
     public String guardar(Cotizacion cotizacion) {
-        log.debug("Save of cotizacion PATH:/crear ---> " + cotizacion);cotizacionService.guardar(cotizacion);
+        log.info("Save of cotizacion PATH:/crear ---> " + cotizacion);cotizacionService.guardar(cotizacion);
         return "redirect:/home/";
     }
 
     @RequestMapping("/detalle/{id}")
     public String detalle(@PathVariable Integer id, Model model) {
         Optional<Cotizacion> cotOptional = cotizacionService.findById(id);
-        log.debug("COTIZACION OBJECT BEFORE JPA ------------> " + cotOptional);
+        log.info("COTIZACION OBJECT BEFORE JPA ------------> " + cotOptional);
         if (cotOptional.isPresent()) { // Se valida si el objeto viene en el array y se desempaqueta
-            log.debug("The object is ready to inyect and is not empty");
+            log.info("The object is ready to inyect and is not empty");
             Cotizacion cot = cotOptional.get(); // Para ser pasado en nuevo objeto
             model.addAttribute("cotizacion", cot); // Y finalmente mostrado en la vista
             return "CotizacionDetalle";
         } else {
+            log.debug("The object is empty");
             return "CotizacionErrorView";
         }
     }

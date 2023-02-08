@@ -30,7 +30,7 @@ public class SupervisorController {
     /* READ */
     @RequestMapping("/buscar")
     public String buscarPersonal(Model model) {
-        log.debug("This is the search of supervisor PATH: /buscar");
+        log.info("This is the search of supervisor PATH: /buscar");
         List<Supervisor> supervisores = supervisorService.buscar();
         model.addAttribute("supervisores", supervisores);
         return "SupervisorBuscar";
@@ -38,11 +38,11 @@ public class SupervisorController {
 
     @RequestMapping("/busquedaPersonalizada")
     public String busqueda(@RequestParam("q") String consulta, Model model) {
-        log.debug("This is the search of supervisor with any parameter PATH: /busquedaPersonalizada");
+        log.info("This is the search of supervisor with any parameter PATH: /busquedaPersonalizada");
         List<Supervisor> todos = supervisorService.busqueda(consulta);
         model.addAttribute("supervisores", todos);
         if (!todos.isEmpty()) { /* If request is not empty show Template with JPA */
-            log.debug("Return a list of HTML with JPA parameters");
+            log.info("Return a list of HTML with JPA parameters");
             return "SupervisorBuscarPersonalizado";
         } else {
             log.debug("The request is empty!");
@@ -53,8 +53,8 @@ public class SupervisorController {
     @RequestMapping("/detalle/{id}")
     public String detalle(@PathVariable Integer id, Model model) {
         Optional<Supervisor> supervisorOptional = supervisorRepository.findById(id);
-        log.debug("This is unique info of supervisor with ID PATH: /detalle/{id}");
-        log.debug("COTIZACION OBJECT BEFORE JPA ------------> " + supervisorOptional);
+        log.info("This is unique info of supervisor with ID PATH: /detalle/{id}");
+        log.info("COTIZACION OBJECT BEFORE JPA ------------> " + supervisorOptional);
         if (supervisorOptional.isPresent()) { // Validate if the object come in the array and if unpacking
             Supervisor supervisor = supervisorOptional.get(); // Then turn in the new object
             model.addAttribute("supervisor", supervisor); //And finally show in the template
@@ -68,7 +68,7 @@ public class SupervisorController {
     /* CREATE */
     @RequestMapping("/crear")
     public String crearSupervisor(Model model) {
-        log.debug("This is a create Method of supervisor PATH: /crear");
+        log.info("This is a create Method of supervisor PATH: /crear");
         model.addAttribute("departamentos", cotizacionService.buscarDepart());
         model.addAttribute("supervisor", new Supervisor());
         return "SupervisorCreate";
@@ -76,8 +76,8 @@ public class SupervisorController {
 
     @PostMapping("/guardar")
     public String guardar(Supervisor supervisor) {
-        log.debug("This is a save of create instance PATH: /guardar");
-        log.debug("Se guarda la informacion del Supervisor  ------> " + supervisor);
+        log.info("This is a save of create instance PATH: /guardar");
+        log.info("Se guarda la informacion del Supervisor  ------> " + supervisor);
         supervisorService.guardar(supervisor);
         return "redirect:/personal/buscar";
     }
@@ -85,7 +85,7 @@ public class SupervisorController {
     /* UPDATE */
     @GetMapping("/update/{id}")
     public String showUpdateForm(@PathVariable Integer id, Model model) {
-        log.debug("This is update of supervisor PATH: /update/{id}");
+        log.info("This is update of supervisor PATH: /update/{id}");
         Supervisor supervisor = supervisorService.findById(id);
         model.addAttribute("supervisor", supervisor);
         model.addAttribute("departamentos", cotizacionService.buscarDepart());
@@ -94,8 +94,8 @@ public class SupervisorController {
 
     @PostMapping("/update/{id}")
     public String update(@PathVariable Integer id, @ModelAttribute Supervisor supervisor) {
-        log.debug("This is save instance of supervisor PATH: /update/{id}");
-        log.debug("Update info  ------> " + supervisor);
+        log.info("This is save instance of supervisor PATH: /update/{id}");
+        log.info("Update info  ------> " + supervisor);
         supervisorService.update(id, supervisor);
         return "redirect:/personal/buscar";
     }
@@ -104,8 +104,8 @@ public class SupervisorController {
     @PostMapping("/delete/{id}")
     public String deleteSupervisor(@PathVariable Integer id, @RequestParam(required = false) String _method) {
         if ("delete".equals(_method)) { /* If delete comes in HTML method execute this code*/
-            log.debug("This is delete of supervisor PATH: /delete/{id}");
-            log.debug("Delete supervisor of DATABASE  ------> " + id);
+            log.info("This is delete of supervisor PATH: /delete/{id}");
+            log.info("Delete supervisor of DATABASE  ------> " + id);
             supervisorService.deleteSupervisor(id);
             return "redirect:/personal/buscar";
         } else {

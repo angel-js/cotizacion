@@ -8,6 +8,7 @@ drop table if exists gerente;
 drop table if exists departamento;
 drop table if exists comuna;
 drop table if exists region;
+drop table if exists usuario;
 
 create table region (
     id int primary key auto_increment,
@@ -49,6 +50,14 @@ create table cotizacion (
        fecha_cotizacion date not null
 );
 
+create table usuario (
+    id int primary key auto_increment,
+    nombre varchar(30) not null,
+    apellido varchar(50) not null,
+    correo varchar(120) not null,
+    clave varchar(50) not null
+);
+
 alter table comuna 
     add column region_id int,
     add foreign key (region_id) references region(id);
@@ -76,6 +85,9 @@ CREATE TABLE gerente_departamento (
   FOREIGN KEY (gerente_id) REFERENCES gerente (id),
   FOREIGN KEY (departamento_id) REFERENCES departamento (id)
 );
+
+insert into usuario (id, nombre, apellido, correo, clave) values
+(1, 'Angel', 'Serrano', 'angelserrano143@gmail.com', 'AsWcasdf#as11532');
 
 insert into region ( id, nombre ) values
 (1, 'Arica y Parinacota'),
