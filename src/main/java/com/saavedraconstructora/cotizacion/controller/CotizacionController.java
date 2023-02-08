@@ -1,6 +1,6 @@
 package com.saavedraconstructora.cotizacion.controller;
 
-import com.saavedraconstructora.cotizacion.domain.Cotizacion;
+import com.saavedraconstructora.cotizacion.model.Cotizacion;
 import com.saavedraconstructora.cotizacion.repository.CotizacionRepository;
 import com.saavedraconstructora.cotizacion.service.CotizacionService;
 import org.springframework.stereotype.Controller;

@@ -1,6 +1,6 @@
 package com.saavedraconstructora.cotizacion.repository;
 
-import com.saavedraconstructora.cotizacion.domain.Supervisor;
+import com.saavedraconstructora.cotizacion.model.Supervisor;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

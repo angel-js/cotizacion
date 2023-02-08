@@ -1,4 +1,4 @@
-package com.saavedraconstructora.cotizacion.domain;
+package com.saavedraconstructora.cotizacion.model;
 
 import org.hibernate.annotations.CreationTimestamp;
 

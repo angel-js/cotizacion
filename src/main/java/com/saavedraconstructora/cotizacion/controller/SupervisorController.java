@@ -1,6 +1,6 @@
 package com.saavedraconstructora.cotizacion.controller;
 
-import com.saavedraconstructora.cotizacion.domain.Supervisor;
+import com.saavedraconstructora.cotizacion.model.Supervisor;
 import com.saavedraconstructora.cotizacion.repository.SupervisorRepository;
 import com.saavedraconstructora.cotizacion.service.CotizacionService;
 import com.saavedraconstructora.cotizacion.service.SupervisorService;

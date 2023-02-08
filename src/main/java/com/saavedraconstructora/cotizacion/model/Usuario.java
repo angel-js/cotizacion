@@ -1,4 +1,4 @@
-package com.saavedraconstructora.cotizacion.domain;
+package com.saavedraconstructora.cotizacion.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,14 +13,14 @@ public class Usuario {
     private String nombre;
     private String apellido;
     private String correo;
-    private String clave;
+    private String contra;
 
-    public String getClave() {
-        return clave;
+    public String getContra() {
+        return contra;
     }
 
-    public void setClave(String clave) {
-        this.clave = clave;
+    public void setContra(String contra) {
+        this.contra = contra;
     }
 
     public Integer getId() {

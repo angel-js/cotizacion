@@ -1,6 +1,6 @@
 package com.saavedraconstructora.cotizacion.service;
 
-import com.saavedraconstructora.cotizacion.domain.Supervisor;
+import com.saavedraconstructora.cotizacion.model.Supervisor;
 import com.saavedraconstructora.cotizacion.exception.ResourceNotFoundException;
 import com.saavedraconstructora.cotizacion.repository.GerenteRepository;
 import com.saavedraconstructora.cotizacion.repository.SupervisorRepository;

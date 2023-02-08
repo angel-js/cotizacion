@@ -1,18 +1,17 @@
-package com.saavedraconstructora.cotizacion.domain;
+package com.saavedraconstructora.cotizacion.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
-public class Region {
+public class Comuna {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // De esta forma indicamos que la lógica del ID es AUTO INCREMENTAL
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String nombre;
-
+    @ManyToOne
+    @JoinColumn(unique = true)
+    private Region region;
     public Integer getId() {
         return id;
     }
@@ -28,12 +27,16 @@ public class Region {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+    public Region getRegion() {
+        return region;
+    }
 
     @Override
     public String toString() {
-        return "Region{" +
+        return "Comuna{" +
                 "id=" + id +
                 ", nombre='" + nombre + '\'' +
+                ", region=" + region +
                 '}';
     }
 }

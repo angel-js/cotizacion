@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Cotizacion</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+  <!-- comment -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <div class="container-fluid d-flex">
+    <a class="navbar-brand" th:href="@{/home/}">Saavedra</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse  justify-content-end" id="collapsibleNavbar">
+      <div class="">
+        <ul class="navbar-nav ">
+          <li class="nav-item">
+            <a class="nav-link" th:href="@{/personal/buscar}">Personal</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" th:href="@{/cotizacion/buscar}">Buscar</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
+<!-- Formulario -->
+<div class="container mt-4 as-destacados">
+  <div class="row">
+    <div class="col-md-12">
+
+      <h2 class="display-2">Nueva Cotización</h2>
+      <form  method="post" th:action="@{/cotizacion/guardar}"
+             th:object="${cotizacion}">
+        <div class="mb-3">
+          <label for="motivo" class="form-label">Motivo</label>
+          <input type="text" class="form-control" th:field="*{motivo}" id="motivo" placeholder="Motivo de la Cotización">
+        </div>
+        <div class="mb-3">
+          <label for="descripcion" class="form-label">Descripcion</label>
+          <textarea class="form-control" th:field="*{descripcion}" id="descripcion" rows="3"></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="monto" class="form-label">Monto</label>
+          <input type="number" class="form-control" th:field="*{monto}" id="monto" placeholder="Monto $">
+        </div>
+        <div class="mb-3">
+          <label for="Local" class="form-label">Local</label>
+          <select class="form-control" id="Local" th:field="*{departamento}">
+            <option th:each="dep: ${departamentos}" th:value="${dep.id}"
+                    th:text="${dep.nombre}"></option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+      </form>
+    </div>
+  </div>
+</div>
+</body>
+</html>

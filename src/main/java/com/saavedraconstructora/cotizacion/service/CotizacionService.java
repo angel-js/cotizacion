@@ -1,7 +1,7 @@
 package com.saavedraconstructora.cotizacion.service;
 
-import com.saavedraconstructora.cotizacion.domain.Cotizacion;
-import com.saavedraconstructora.cotizacion.domain.Departamento;
+import com.saavedraconstructora.cotizacion.model.Cotizacion;
+import com.saavedraconstructora.cotizacion.model.Departamento;
 import com.saavedraconstructora.cotizacion.repository.CotizacionRepository;
 import com.saavedraconstructora.cotizacion.repository.DepartamentoRepository;
 import org.slf4j.Logger;
