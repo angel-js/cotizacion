@@ -11,7 +11,7 @@ public interface SupervisorRepository extends JpaRepository<Supervisor, Integer>
     @Query("from Supervisor s order by s.nombre")
     List<Supervisor> buscarTodos();
 
-    List<Supervisor> findByNombreOrApellidoContaining(String nombre, String apellido);
+    List<Supervisor> findByNombreContainingIgnoreCaseOrApellidoContainingIgnoreCase(String nombre, String apellido);
 
      void deleteById(Integer id); // Delete Supervisor
 }

@@ -24,7 +24,7 @@ public class SupervisorService {
     /* READ */
     public List<Supervisor> busqueda(String consulta) {
         log.debug("Supervisor Service: busqueda");
-        return supervisorRepository.findByNombreOrApellidoContaining(consulta, consulta);
+        return supervisorRepository.findByNombreContainingIgnoreCaseOrApellidoContainingIgnoreCase(consulta, consulta);
     }
     public List<Supervisor> buscar() {
         log.debug("Supervisor Service: buscar");

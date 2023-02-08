@@ -32,18 +32,6 @@ public class Supervisor {
     public Supervisor() {
     }
 
-    @Override
-    public String toString() {
-        return "Supervisor{" +
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                ", apellido='" + apellido + '\'' +
-                ", telefono='" + telefono + '\'' +
-                ", correo='" + correo + '\'' +
-                ", cargo='" + cargo + '\'' +
-                ", departamentos=" + departamentos +
-                '}';
-    }
 
     public String getCargo() {
         return cargo;
