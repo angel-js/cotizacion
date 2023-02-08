@@ -13,7 +13,7 @@
 <!-- Navbar -->
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
   <div class="container-fluid d-flex">
-    <a class="navbar-brand" href="#">Saavedra</a>
+    <a class="navbar-brand" th:href="@{/home/}">Saavedra</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -35,7 +35,8 @@
 <div class="container mt-4 as-destacados">
   <div class="row">
     <div class="col-md-12">
-      <h1>Nueva Cotización</h1>
+
+      <h2 class="display-2">Nueva Cotización</h2>
       <form  method="post" th:action="@{/cotizacion/guardar}"
              th:object="${cotizacion}">
         <div class="mb-3">

@@ -51,4 +51,15 @@ public class Gerente {
     public void setCargo(String cargo) {
         this.cargo = cargo;
     }
+
+    @Override
+    public String toString() {
+        return "Gerente{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", apellido='" + apellido + '\'' +
+                ", cargo='" + cargo + '\'' +
+                ", departamentos=" + departamentos +
+                '}';
+    }
 }

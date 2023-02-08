@@ -39,15 +39,15 @@
         <div class="col-md-12 m-4">
             <div class="jumbotron jumbotron-fluid">
                 <div class="container">
-                    <h4 class="display-4">Lo sentimos la búsqueda realizada no es correcta!</h4>
-                    <p class="lead">Inserte la búsqueda a realizar</p>
+                        <h5 class="display-5"> <b>Lo sentimos la búsqueda realizada no es correcta!</b></h5>
+                        <h5 class="display-5">Has intentado buscar: <span th:text="${consulta}"></span></h5>
                 </div>
             </div>
         </div>
     </div>
     <div class="row pt-4">
-        <div class="col-md-3 col-sm-12"></div>
-        <div class="col-md-6 col-sm-12">
+        <div class="col-md-2 col-sm-12"></div>
+        <div class="col-md-8 col-sm-12">
             <!-- Search form -->
             <form class="form-inline" th:action="@{/cotizacion/busquedaConParametros}" role="search">
                 <i class="fas fa-search" aria-hidden="true"></i>
@@ -57,11 +57,11 @@
                            aria-label="Search" name="q">
                 </div>
                 <div class="d-flex justify-content-center pt-4">
-                    <button type="submit" class="btn btn-primary m-2 pt-4">Buscar</button>
+                    <button type="submit" class="btn btn-primary m-2">Buscar</button>
                 </div>
             </form>
         </div>
-        <div class="col-md-3 col-sm-12"></div>
+        <div class="col-md-2 col-sm-12"></div>
     </div>
 </div>
 </body>

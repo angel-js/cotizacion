@@ -30,4 +30,13 @@ public class Comuna {
     public Region getRegion() {
         return region;
     }
+
+    @Override
+    public String toString() {
+        return "Comuna{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", region=" + region +
+                '}';
+    }
 }

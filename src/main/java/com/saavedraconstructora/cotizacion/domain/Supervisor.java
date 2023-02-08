@@ -34,11 +34,14 @@ public class Supervisor {
 
     @Override
     public String toString() {
-        return "Empleado{" +
+        return "Supervisor{" +
                 "id=" + id +
                 ", nombre='" + nombre + '\'' +
                 ", apellido='" + apellido + '\'' +
                 ", telefono='" + telefono + '\'' +
+                ", correo='" + correo + '\'' +
+                ", cargo='" + cargo + '\'' +
+                ", departamentos=" + departamentos +
                 '}';
     }
 
