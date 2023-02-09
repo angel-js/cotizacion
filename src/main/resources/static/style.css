@@ -5,3 +5,13 @@
 .btnSb {
   width: 50%;
 }
+
+body {
+    font-family: 'Overpass', sans-serif;
+    font-weight: normal;
+    font-size: 100%;
+    color: #1b262c;
+
+    margin: 0;
+    background-color: #0f4c75;
+}

@@ -1,36 +1,22 @@
 package com.saavedraconstructora.cotizacion.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String nombre;
-    private String apellido;
-    private String correo;
-    private String contra;
+    private String username;
+    private String password;
 
-    public Usuario() {
-    }
+    @ManyToOne
+    @JoinColumn(name = "role_id")
+    private Role role;
 
-    public Usuario(String nombre, String correo, String contra) {
-        this.nombre = nombre;
-        this.correo = correo;
-        this.contra = contra;
-    }
-
-    public String getContra() {
-        return contra;
-    }
-
-    public void setContra(String contra) {
-        this.contra = contra;
-    }
+    @OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<Authority> authorities;
 
     public Integer getId() {
         return id;
@@ -40,28 +26,35 @@ public class Usuario {
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getUsername() {
+        return username;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getApellido() {
-        return apellido;
+    public String getPassword() {
+        return password;
     }
 
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public String getCorreo() {
-        return correo;
+    public Role getRole() {
+        return role;
     }
 
-    public void setCorreo(String correo) {
-        this.correo = correo;
+    public void setRole(Role role) {
+        this.role = role;
     }
 
+    public Set<Authority> getAuthorities() {
+        return authorities;
+    }
+
+    public void setAuthorities(Set<Authority> authorities) {
+        this.authorities = authorities;
+    }
 }

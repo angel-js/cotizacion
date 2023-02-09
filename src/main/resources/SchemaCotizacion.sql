@@ -9,6 +9,8 @@ drop table if exists departamento;
 drop table if exists comuna;
 drop table if exists region;
 drop table if exists usuario;
+drop table if exists role;
+drop table if exists authority;
 
 create table region (
     id int primary key auto_increment,
@@ -50,12 +52,20 @@ create table cotizacion (
        fecha_cotizacion date not null
 );
 
+create table role (
+     id int primary key auto_increment,
+     name varchar(25) not null
+);
+
+create table authority (
+     id int primary key auto_increment,
+     name varchar(25) not null,
+);
+
 create table usuario (
     id int primary key auto_increment,
-    nombre varchar(30) not null,
-    apellido varchar(50) not null,
-    correo varchar(120) not null,
-    contra varchar(50) not null
+    username varchar(50) not null,
+    password varchar(150) not null
 );
 
 alter table comuna 
@@ -86,8 +96,14 @@ CREATE TABLE gerente_departamento (
   FOREIGN KEY (departamento_id) REFERENCES departamento (id)
 );
 
-insert into usuario (id, nombre, apellido, correo, clave) values
-(1, 'Angel', 'Serrano', 'angelserrano143@gmail.com', 'AsWcasdf#as11532');
+alter table authority
+    add column usuario_id int,
+    add foreign key (usuario_id) references usuario(id);
+
+alter table usuario
+    add column role_id int,
+    add foreign key (role_id) references role(id);
+
 
 insert into region ( id, nombre ) values
 (1, 'Arica y Parinacota'),
