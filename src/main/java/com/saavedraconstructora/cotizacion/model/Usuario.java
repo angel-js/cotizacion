@@ -15,6 +15,15 @@ public class Usuario {
     private String correo;
     private String contra;
 
+    public Usuario() {
+    }
+
+    public Usuario(String nombre, String correo, String contra) {
+        this.nombre = nombre;
+        this.correo = correo;
+        this.contra = contra;
+    }
+
     public String getContra() {
         return contra;
     }
@@ -54,4 +63,5 @@ public class Usuario {
     public void setCorreo(String correo) {
         this.correo = correo;
     }
+
 }

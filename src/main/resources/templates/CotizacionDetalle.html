@@ -38,7 +38,10 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12 pt-4 d-flex justify-content-center">
-            <h2>Detalle de la cotización</h2>
+            <h2 class="display-2">Detalle de la cotización</h2>
+        </div>
+        <div class="col-md-12 pt-4 d-flex justify-content-center">
+            <h4 class="display-4" th:text="${cotizacion.motivo}"></h4>
         </div>
         <div class="col-sm-12 col-md-6 pt-4 ">
             <div class="d-flex justify-content-center">
@@ -47,22 +50,16 @@
             <div class="d-flex justify-content-center">
                 <h6> Fecha: <span th:text="${#temporals.format(cotizacion.fecha_cotizacion, 'dd/MM/yyyy')}"></span></h6>
             </div>
-        </div>
-        <div class="col-sm-12 col-md-6 pt-4 d-flex justify-content-center">
-            <div class="d-flex">
+            <div class="d-flex justify-content-center">
                 <h4>Local: <span th:text="${cotizacion.departamento.nombre}"></span></h4>
             </div>
-        </div>
-        <div class="col-sm-12 col-md-6 pt-4">
             <div class="d-flex justify-content-center">
                 <h4>Descripción: </h4>
             </div>
             <div class="d-flex justify-content-center pe-4 ps-4">
                 <h6 th:text="${cotizacion.descripcion}"></h6>
             </div>
-        </div>
-        <div class="col-sm-12 col-md-6 pt-4 d-flex justify-content-center">
-            <div class="d-flex">
+            <div class="d-flex justify-content-center">
                 <h4>Monto: $<span th:text="${#numbers.formatDecimal(cotizacion.monto, 0, 'POINT', 0, 'COMMA')}"></span>
                 </h4>
             </div>
@@ -122,6 +119,17 @@
                     </div>
                     <hr class="hr"/>
                 </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-sm-12 pt-4">
+            <div class="d-flex justify-content-around">
+                <a th:href="@{/cotizacion/update/__${cotizacion.id}__}">
+                    <button class="btn btn-primary">Editar</button>
+                </a>
+                <form  method="post" th:action="@{/cotizacion/delete/__${cotizacion.id}__}">
+                    <input type="hidden" name="_method" value="delete"/>
+                    <button class="btn btn-danger" type="submit" onclick="return confirm('¿Esta seguro que desea eliminar esta cotización?');" >Eliminar</button>
+                </form>
             </div>
         </div>
     </div>

@@ -31,11 +31,6 @@ public class SupervisorService {
         return supervisorRepository.buscarTodos();
     }
 
-    public Supervisor findById(Integer id) {
-        log.info("Supervisor Service: findById");
-        return supervisorRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Supervisor not found with id ", "id", id));
-    }
-
     /* SAVE */
     public Supervisor guardar(Supervisor supervisor) {
         log.info("Supervisor Service: guardar");
@@ -43,6 +38,10 @@ public class SupervisorService {
     }
 
     /* UPDATE */
+    public Supervisor findById(Integer id) {
+        log.info("Supervisor Service: findById");
+        return supervisorRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Supervisor not found with id ", "id", id));
+    }
     public void update(Integer id, Supervisor supervisorDetails) {
         log.info("Supervisor Service: update");
         Supervisor supervisor = findById(id);

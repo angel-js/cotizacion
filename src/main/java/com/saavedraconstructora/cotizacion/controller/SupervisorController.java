@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,6 +34,7 @@ public class SupervisorController {
     public String buscarPersonal(Model model) {
         log.info("This is the search of supervisor PATH: /buscar");
         List<Supervisor> supervisores = supervisorService.buscar();
+        Collections.sort(supervisores, (s1, s2) -> Integer.compare(s1.getId(), s2.getId()));
         model.addAttribute("supervisores", supervisores);
         return "SupervisorBuscar";
     }
