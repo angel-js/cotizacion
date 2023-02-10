@@ -42,33 +42,4 @@ public class HomeController {
         log.info("This is a Login page");
         return "HomeLoginPage";
     }
-
-    @PostMapping("/login")
-    public String login(@RequestParam("username") String username,
-                        @RequestParam("password") String password, Model model) {
-        // Verificar si el usuario existe y la contraseña es válida
-        Usuario usuario = usuarioService.findByUsernameAndPassword(username, password);
-        if (usuario != null) {
-            Set<Authority> authorities = usuario.getAuthorities();
-            Collection<? extends GrantedAuthority> grantedAuthorities = authorities.stream()
-                    .map(a -> (GrantedAuthority) a)
-                    .collect(Collectors.toList());
-            Authentication authentication = new UsernamePasswordAuthenticationToken(usuario, null, grantedAuthorities);
-            Authentication authenticatedUser = authenticationManager.authenticate(authentication);
-            SecurityContextHolder.getContext().setAuthentication(authenticatedUser);
-            return "redirect:/home";
-        } else {
-            model.addAttribute("errorMessage", "Usuario o contraseña inválidos.");
-            return "redirect:/login";
-        }
-    }
-
-    @GetMapping("/login")
-    public String login(@RequestParam(value="error", required=false) String error, Model model) {
-        if (error != null) {
-            model.addAttribute("errorMessage", "Usuario o contraseña inválidos.");
-        }
-        return "HomeLoginPage";
-    }
-
 }
