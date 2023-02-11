@@ -1,15 +1,18 @@
 package com.saavedraconstructora.cotizacion.controller;
 
+import com.saavedraconstructora.cotizacion.dto.SupervisorDto;
 import com.saavedraconstructora.cotizacion.model.Supervisor;
 import com.saavedraconstructora.cotizacion.repository.SupervisorRepository;
 import com.saavedraconstructora.cotizacion.service.CotizacionService;
 import com.saavedraconstructora.cotizacion.service.SupervisorService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.validation.Valid;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -23,6 +26,7 @@ public class SupervisorController {
     private final SupervisorRepository supervisorRepository;
     private final CotizacionService cotizacionService;
     private static final Logger log = LoggerFactory.getLogger(SupervisorController.class);
+
     public SupervisorController(SupervisorService supervisorService, SupervisorRepository supervisorRepository, CotizacionService cotizacionService) {
         this.supervisorService = supervisorService;
         this.supervisorRepository = supervisorRepository;
@@ -78,8 +82,40 @@ public class SupervisorController {
     }
 
     @PostMapping("/guardar")
-    public String guardar(Supervisor supervisor) {
+    public String guardar(@Valid SupervisorDto supervisorDto, BindingResult result, Model model) {
         log.info("This is a save of create instance PATH: /guardar");
+
+        if (supervisorDto.getNombre() == "" || supervisorDto.getNombre() == null ||
+                supervisorDto.getApellido() == "" || supervisorDto.getApellido() == null ||
+                supervisorDto.getCorreo() == "" || supervisorDto.getDepartamentos() == null
+        ) {
+            model.addAttribute("departamentos", cotizacionService.buscarDepart());
+            model.addAttribute("supervisor", new Supervisor());
+            model.addAttribute("errorMessage", "Uno de los campos esta vacío!!!");
+            return "SupervisorCreate";
+        }
+
+        if (result.hasErrors()) {
+            model.addAttribute("departamentos", cotizacionService.buscarDepart());
+            model.addAttribute("supervisor", new Supervisor());
+            return "SupervisorCreate";
+        }
+
+        Supervisor supervisor = new Supervisor();
+        try {
+            supervisor.setNombre(supervisorDto.getNombre());
+            supervisor.setApellido(supervisorDto.getApellido());
+            supervisor.setTelefono(supervisorDto.getTelefono());
+            supervisor.setCorreo(supervisorDto.getCorreo());
+            supervisor.setCargo(supervisorDto.getCargo());
+            supervisor.setDepartamentos(supervisorDto.getDepartamentos());
+        } catch (Exception e) {
+            log.debug(e.getMessage());
+            model.addAttribute("departamentos", cotizacionService.buscarDepart());
+            model.addAttribute("supervisor", new Supervisor());
+            return "SupervisorCreate";
+        }
+
         log.info("Se guarda la informacion del Supervisor  ------> " + supervisor);
         supervisorService.guardar(supervisor);
         return "redirect:/admin/personal/buscar";
@@ -113,7 +149,7 @@ public class SupervisorController {
             return "redirect:/admin/personal/buscar";
         } else {
             log.debug("Error to eliminate  ------> " + id);
-            return "Error 404";
+            return "Error404";
         }
     }
 }

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-  <title>Cotizacion</title>
+  <title>Saavedra Constructora</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -24,6 +24,9 @@
             <a class="nav-link" th:href="@{/admin/personal/buscar}">Personal</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" th:href="@{/admin/cotizacion/crear}">Crear Cotización</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" th:href="@{/admin/cotizacion/buscar}">Buscar</a>
           </li>
         </ul>
@@ -31,39 +34,33 @@
     </div>
   </div>
 </nav>
-<!-- Formulario -->
-<div class="container mt-4 as-destacados">
-  <div class="row">
-    <div class="col-md-12">
-
-      <h2 class="display-2 text-center">Nueva Cotización</h2>
-      <h5 th:text="${errM}" class="text-center text-danger"></h5>
-      <form  method="post" th:action="@{/admin/cotizacion/guardar}"
-             th:object="${cotizacion}">
-        <div class="mb-3">
-          <label for="motivo" class="form-label">Motivo</label>
-          <input type="text" class="form-control" th:field="*{motivo}" id="motivo" placeholder="Motivo de la Cotización">
+<div class="container">
+  <div class="row pt-4 ">
+    <div class="col-md-12 m-4">
+      <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+          <h5 class="display-5"> <b>Lo sentimos la búsqueda realizada no es correcta!</b></h5>
         </div>
-        <div class="mb-3">
-          <label for="descripcion" class="form-label">Descripcion</label>
-          <textarea class="form-control" th:field="*{descripcion}" id="descripcion" rows="3"></textarea>
-        </div>
-        <div class="mb-3">
-          <label for="monto" class="form-label">Monto</label>
-          <input type="number" class="form-control" th:field="*{monto}" id="monto" placeholder="Monto $">
-        </div>
-        <div class="mb-3">
-          <label for="Local" class="form-label">Local</label>
-          <select class="form-control" id="Local" th:field="*{departamento}">
-            <option th:each="dep: ${departamentos}" th:value="${dep.id}"
-                    th:text="${dep.nombre}"></option>
-          </select>
-        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row pt-4">
+    <div class="col-md-2 col-sm-12"></div>
+    <div class="col-md-8 col-sm-12">
+      <!-- Search form -->
+      <form class="form-inline" th:action="@{/admin/cotizacion/busquedaConParametros}" role="search">
+        <i class="fas fa-search" aria-hidden="true"></i>
         <div class="d-flex justify-content-center">
-          <button type="submit" class="btn btn-primary">Guardar</button>
+          <input class="form-control form-control-sm ml-3 w-75" autofocus="autofocus" type="text"
+                 placeholder="Buscar"
+                 aria-label="Search" name="q">
+        </div>
+        <div class="d-flex justify-content-center pt-4">
+          <button type="submit" class="btn btn-primary m-2">Buscar</button>
         </div>
       </form>
     </div>
+    <div class="col-md-2 col-sm-12"></div>
   </div>
 </div>
 </body>

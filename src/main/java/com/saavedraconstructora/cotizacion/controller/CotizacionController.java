@@ -1,19 +1,26 @@
 package com.saavedraconstructora.cotizacion.controller;
 
+import com.saavedraconstructora.cotizacion.dto.CotizacionDto;
 import com.saavedraconstructora.cotizacion.model.Cotizacion;
 import com.saavedraconstructora.cotizacion.model.Supervisor;
 import com.saavedraconstructora.cotizacion.repository.CotizacionRepository;
 import com.saavedraconstructora.cotizacion.service.CotizacionService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
 @Controller
+@PreAuthorize("isAuthenticated()")
 @RequestMapping("/admin/cotizacion")
 public class CotizacionController {
 
@@ -28,10 +35,9 @@ public class CotizacionController {
     }
 
     /* READ */
-
     @RequestMapping("/home")
-    public String homePage(){
-        return "Home";
+    public String  homePage(){
+        return"Home";
     }
 
     @RequestMapping("/buscar")
@@ -76,13 +82,41 @@ public class CotizacionController {
     public String crearCotizaciones(Model model) {
         log.info("Create of cotizacion PATH:/crear");
         model.addAttribute("departamentos", cotizacionService.buscarDepart());
-        model.addAttribute("cotizacion", new Cotizacion());
+        model.addAttribute("cotizacion", new CotizacionDto());
         return "CotizacionCreate";
     }
 
     @PostMapping("/guardar")
-    public String guardar(Cotizacion cotizacion) {
-        log.info("Save of cotizacion PATH:/crear ---> " + cotizacion);cotizacionService.guardar(cotizacion);
+    public String guardar(@Valid CotizacionDto cotizacionDto, BindingResult result, Model model) {
+        if (result.hasErrors()){
+            log.debug("Errors in the creation of the quotation");
+            model.addAttribute("departamentos", cotizacionService.buscarDepart());
+            model.addAttribute("errM", "Uno de los campos esta vacío!!!");
+            model.addAttribute("cotizacion", new CotizacionDto());
+            return "CotizacionCreate";
+        }
+        log.info("Save of cotizacion PATH:/crear ---> " + cotizacionDto);
+        Cotizacion cotizacion = new Cotizacion();
+        System.out.println("------------------> " + cotizacionDto.getMotivo());
+        if(cotizacionDto.getMotivo() == null || cotizacionDto.getMotivo() == "") {
+            model.addAttribute("errM", "Uno de los campos esta vacío!!!");
+            model.addAttribute("departamentos", cotizacionService.buscarDepart());
+            model.addAttribute("cotizacion", new CotizacionDto());
+            return "CotizacionCreate";
+        }
+        try {
+            cotizacion.setMotivo(cotizacionDto.getMotivo());
+            cotizacion.setDescripcion(cotizacionDto.getDescripcion());
+            cotizacion.setMonto(cotizacionDto.getMonto());
+            cotizacion.setDepartamento(cotizacionDto.getDepartamento());
+            cotizacionService.guardar(cotizacion);
+        } catch (Exception e) {
+            log.debug(e.getMessage());
+            model.addAttribute("errM", "Uno de los campos esta vacío!!!");
+            model.addAttribute("departamentos", cotizacionService.buscarDepart());
+            model.addAttribute("cotizacion", new CotizacionDto());
+            return "CotizacionCreate/";
+        }
         return "redirect:/admin/cotizacion/home/";
     }
 
@@ -120,7 +154,7 @@ public class CotizacionController {
             return "redirect:/admin/cotizacion/buscar";
         } else {
             log.debug("Error to eliminate  ------> " + id);
-            return "Error 404";
+            return "Error404";
         }
     }
 

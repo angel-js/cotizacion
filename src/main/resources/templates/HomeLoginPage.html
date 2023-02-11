@@ -33,7 +33,7 @@
                     <div class="card-body p-1 m-2">
                         <h6 class="display-6 text-center mb-4">Iniciar Sesión</h6>
                         <h6 th:text="${errorMessage}" class="text-center text-danger"></h6>
-                        <form method="post" th:action="@{/login}">
+                        <form method="post" th:action="@{/home/login}">
                             <div class="form-group p-2">
                                 <label for="username">Nombre de Usuario</label>
                                 <input type="text" class="form-control" id="username" aria-describedby="emailHelp">

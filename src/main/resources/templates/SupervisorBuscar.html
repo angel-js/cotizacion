@@ -35,19 +35,19 @@
 <!-- Listas -->
 <div class="container">
     <div class="row">
-        <div class="col-md-12 m-4 d-flex justify-content-around pt-2">
-            <h2>Personal</h2>
-            <form class="form-inline d-flex justify-content-around" th:action="@{/admin/personal/busquedaPersonalizada}" role="search">
-                <input class="form-control me-2 fmSb" type="search" placeholder="Buscar" aria-label="Buscar" name="q">
+        <div class="col-md-12 m-1 pt-2">
+            <h2 class="text-center pt-3">Supervisor</h2>
+            <form class="form-inline d-flex justify-content-around mb-4 mt-2" th:action="@{/admin/personal/busquedaPersonalizada}" role="search">
+                <input class="form-control fmSb" type="search" placeholder="Buscar" aria-label="Buscar" name="q">
                 <button class="btn btn-outline-success btnSb" type="submit">Buscar</button>
             </form>
         </div>
     </div>
     <div class="row">
         <div class="col-md-12 pt-4 pb-4 d-flex justify-content-around bg-dark bg-gradient">
-            <h3 class="text-white">Crear un Usuario</h3>
+            <h3 class="text-white">Crear un Supervisor</h3>
             <a th:href="@{/admin/personal/crear}">
-                <button class="btn btn-success">Crear Supervisor</button>
+                <button class="btn btn-success">Crear</button>
             </a>
         </div>
     </div>
@@ -57,20 +57,18 @@
             <th scope="col">ID</th>
             <th scope="col">Nombre</th>
             <th scope="col">Apellido</th>
-            <th scope="col">Cargo</th>
             <th scope="col">Detalle</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="sup: ${supervisores}">
-            <th th:text="${sup.id}" scope="row">1</th>
+            <th th:text="${sup.id}"></th>
             <td th:text="${sup.nombre}"></td>
             <td th:text="${sup.apellido}"></td>
-            <td th:text="${sup.cargo}"></td>
             <td>
                 <div class="d-flex justify-content-center">
                     <a th:href="@{/admin/personal/detalle/__${sup.id}__}">
-                        <button class="btn btn-primary">Información</button>
+                        <button class="btn btn-primary">Info</button>
                     </a>
                 </div>
             </td>

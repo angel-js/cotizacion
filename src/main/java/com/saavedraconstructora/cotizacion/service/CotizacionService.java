@@ -34,11 +34,6 @@ public class CotizacionService {
         return departamentoRepository.buscarTodos();
     }
 
-    public Cotizacion guardar(Cotizacion cotizacion) {
-        log.info("Cotizacion Service: guardar");
-        return cotizacionRepository.save(cotizacion);
-    }
-
     public Optional<Cotizacion> findById(Integer id) {
         log.info("Cotizacion Service: findById");
         return cotizacionRepository.findById(id);
@@ -47,6 +42,12 @@ public class CotizacionService {
     public List<Cotizacion> busqueda(String consulta) {
         log.info("Cotizacion Service: busqueda");
         return cotizacionRepository.findByMotivoContaining(consulta);
+    }
+
+    /*  SAVE  */
+    public Cotizacion guardar(Cotizacion cotizacion) {
+        log.info("Cotizacion Service: guardar");
+        return cotizacionRepository.save(cotizacion);
     }
 
     /*  UPDATE  */

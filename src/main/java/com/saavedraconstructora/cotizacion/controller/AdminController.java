@@ -13,15 +13,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/admin/users")
-public class UsuarioController {
-
-    @Autowired
-    private UsuarioService usuarioService;
+public class AdminController {
     private static final Logger log = LoggerFactory.getLogger(CotizacionController.class);
-    @GetMapping
-    public String getAllUsers(Model model) {
-        List<Usuario> usuarios = usuarioService.findAll();
-        model.addAttribute("usuarios", usuarios);
-        return "UsuarioFindAll";
+    @GetMapping("/")
+    public String homeUsers(Model model) {
+        return "AdminHome";
+    }
+
+    @GetMapping("/busquedaPersonalizada")
+    public String SearchUsers(Model model) {
+        return "AdminList";
     }
 }

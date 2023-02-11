@@ -43,8 +43,10 @@
 <!-- Formulario -->
 <div class="container mt-4 as-destacados">
   <div class="row">
-    <div class="col-md-12">
-      <h1>Nuevo Supervisor</h1>
+    <div class="col-md-2 col-sm-2 "></div>
+    <div class="col-md-10 col-sm-10">
+      <h2 class="display-2 text-center">Nuevo Supervisor</h2>
+      <h5 th:text="${errorMessage}" class="text-center text-danger"></h5>
       <form  method="post" th:action="@{/admin/personal/guardar}"
              th:object="${supervisor}">
         <div class="mb-3">
@@ -75,9 +77,12 @@
             <option th:each="dep: ${departamentos}" th:value="${dep.id}" th:text="${dep.nombre}"></option>
           </select>
         </div>
-        <button type="submit" class="btn btn-primary">Guardar</button>
+        <div class="d-flex justify-content-center p-3">
+          <button type="submit" class="btn btn-lg btn-primary mb-4">Guardar</button>
+        </div>
       </form>
     </div>
+      <div class="col-md-2 col-sm-2 "></div>
   </div>
 </div>
 </body>
