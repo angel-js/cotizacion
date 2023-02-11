@@ -8,16 +8,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequestMapping("/home")
 public class HomeController {
 
     @Autowired
     private UsuarioService usuarioService;
 
     private static final Logger log = LoggerFactory.getLogger(HomeController.class);
-    @RequestMapping("/home")
+    @RequestMapping("/")
     public String homeList() {
         log.info("This is the home page");
-        return "Home";
+        return "HomeLogin";
     }
 
     @RequestMapping("/login")

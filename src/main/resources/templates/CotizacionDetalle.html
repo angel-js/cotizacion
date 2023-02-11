@@ -13,7 +13,7 @@
 <!-- Navbar -->
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
     <div class="container-fluid d-flex">
-        <a class="navbar-brand" th:href="@{/home/}">Saavedra</a>
+        <a class="navbar-brand" th:href="@{/admin/home/}">Saavedra</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -21,13 +21,13 @@
             <div class="">
                 <ul class="navbar-nav ">
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/personal/buscar}">Personal</a>
+                        <a class="nav-link" th:href="@{/admin/personal/buscar}">Personal</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/cotizacion/crear}">Crear Cotización</a>
+                        <a class="nav-link" th:href="@{/admin/cotizacion/crear}">Crear Cotización</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/cotizacion/buscar}">Buscar</a>
+                        <a class="nav-link" th:href="@{/admin/cotizacion/buscar}">Buscar</a>
                     </li>
                 </ul>
             </div>
@@ -123,10 +123,10 @@
         </div>
         <div class="col-md-12 col-sm-12 pt-4">
             <div class="d-flex justify-content-around">
-                <a th:href="@{/cotizacion/update/__${cotizacion.id}__}">
+                <a th:href="@{/admin/cotizacion/update/__${cotizacion.id}__}">
                     <button class="btn btn-primary">Editar</button>
                 </a>
-                <form  method="post" th:action="@{/cotizacion/delete/__${cotizacion.id}__}">
+                <form  method="post" th:action="@{/admin/cotizacion/delete/__${cotizacion.id}__}">
                     <input type="hidden" name="_method" value="delete"/>
                     <button class="btn btn-danger" type="submit" onclick="return confirm('¿Esta seguro que desea eliminar esta cotización?');" >Eliminar</button>
                 </form>

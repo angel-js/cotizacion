@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/personal")
+@RequestMapping("/admin/personal")
 public class SupervisorController {
 
     //Injection of dependencies

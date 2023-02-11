@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/cotizacion")
+@RequestMapping("/admin/cotizacion")
 public class CotizacionController {
 
     //Injection of dependencies
@@ -28,18 +28,17 @@ public class CotizacionController {
     }
 
     /* READ */
+
+    @RequestMapping("/home")
+    public String homePage(){
+        return "Home";
+    }
+
     @RequestMapping("/buscar")
     public String buscarCotizaciones(Model model) {
         log.info("Search of all cotizaciones PATH:/buscar");
-        List<Cotizacion> todos = cotizacionService.buscar();
-        model.addAttribute("cotizacion", todos);
-        if(!todos.isEmpty()){
         log.info("Retorno de Lista en HTML con JPA");
         return "CotizacionList";
-        } else {
-            log.debug("The request is empty!");
-            return "CotizacionErrorView";
-        }
     }
 
     @RequestMapping("/busquedaConParametros")
@@ -84,7 +83,7 @@ public class CotizacionController {
     @PostMapping("/guardar")
     public String guardar(Cotizacion cotizacion) {
         log.info("Save of cotizacion PATH:/crear ---> " + cotizacion);cotizacionService.guardar(cotizacion);
-        return "redirect:/home/";
+        return "redirect:/admin/home/";
     }
 
     /* UPDATE */
@@ -108,7 +107,7 @@ public class CotizacionController {
         log.info("This is save instance of supervisor PATH: /update/{id}");
         log.info("Update info  ------> " + cotizacion);
         cotizacionService.update(id, cotizacion);
-        return "redirect:/cotizacion/buscar";
+        return "redirect:/admin/cotizacion/buscar";
     }
 
     /* DELETE */
@@ -118,7 +117,7 @@ public class CotizacionController {
             log.info("This is delete of Cotizacion PATH: /delete/{id}");
             log.info("Cotizacion supervisor of DATABASE  ------> " + id);
             cotizacionService.deleteCotizacion(id);
-            return "redirect:/cotizacion/buscar";
+            return "redirect:/admin/cotizacion/buscar";
         } else {
             log.debug("Error to eliminate  ------> " + id);
             return "Error 404";
