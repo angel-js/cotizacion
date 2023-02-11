@@ -8,12 +8,15 @@ import com.saavedraconstructora.cotizacion.service.UsuarioService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.server.csrf.CsrfToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/home")
@@ -25,20 +28,69 @@ public class HomeController {
     private UsuarioService usuarioService;
 
     @Autowired
-    private EncoderService encoderService;
+    private AuthenticationManager authenticationManager;
+
 
     private static final Logger log = LoggerFactory.getLogger(HomeController.class);
+
     @RequestMapping("/")
     public String homeList() {
         log.info("This is the home page");
         return "HomeLogin";
     }
 
-    @RequestMapping("/login")
-    public String login() {
-        log.info("This is a Login page");
+    @RequestMapping("/home")
+    public String homeView() {
+        log.info("This is the home page");
+        return "Home";
+    }
+
+    @Autowired
+    private EncoderService encoderService;
+
+    @PostMapping("/loginIn")
+    public String login(Usuario us
+                        /** @RequestParam("username") String username,
+                         @RequestParam("password") String password**/,
+                        Model model) {
+        Usuario usuario = usuarioService.findByUsername(us.getUsername());
+        if (usuario != null) {
+            System.out.println("USUARIO---------------------: " + us.getUsername());
+            System.out.println("USUARIO---------------------: " + us.getPassword());
+            if (usuario != null && encoderService.isValidPassword(us.getPassword(), usuario.getPassword())) {
+                System.out.println("ENTRE ----------------------------------");
+                UsernamePasswordAuthenticationToken usuario2 = new UsernamePasswordAuthenticationToken(usuario.getUsername(), usuario.getPassword());
+                System.out.println("USUARIO 2 ------------------------------------" + usuario2);
+                try {
+                    Authentication authentication = authenticationManager.authenticate(usuario2);
+                    if (authentication.isAuthenticated()) {
+                        // autenticación exitosa
+                        SecurityContextHolder.getContext().setAuthentication(authentication);
+                        System.out.println("Autenticación exitosa");
+                        return "redirect:/admin/users/";
+                    } else {
+                        System.out.println("Autenticación fallida");
+                        model.addAttribute("errorMessage", "Error de inicio de sesión");
+                        return "HomeLoginPage";
+                    }
+                } catch (AuthenticationException e) {
+                    System.out.println("Autenticación fallida");
+                    model.addAttribute("errorMessage", "Error de inicio de sesión");
+                    return "HomeLoginPage";
+                }
+            }
+        }
+        model.addAttribute("errorMessage", "Error de inicio de sesión");
         return "HomeLoginPage";
     }
+
+    @RequestMapping("/login")
+    public String showLoginPage(Model model) {
+        /*model.addAttribute("_csrf", new CsrfToken());*/
+        model.addAttribute("usuario", new Usuario());
+        return "HomeLoginPage";
+    }
+
     @GetMapping("/register")
     public String CreateUser(Model model) {
         model.addAttribute("usuario", new Usuario());

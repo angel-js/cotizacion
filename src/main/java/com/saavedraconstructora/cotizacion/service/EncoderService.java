@@ -11,8 +11,13 @@ public class EncoderService {
         return passwordEncoder().encode(password);
     }
 
-    @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    public Boolean isValidPassword(String password, String password2) {
+        System.out.println("PASSWORD -------------->>>>> "+ password);
+        System.out.println("PASSWORD 2 -------------->>>>> "+ password2);
+        return passwordEncoder().matches(password, password2);
     }
 }
