@@ -589,10 +589,15 @@ insert into departamento ( id, nombre) values
 (84,'PS OSORNO');
 /* Estos son los locales de Cristian*/
 
-insert into cotizacion ( id, motivo, descripcion, monto, fecha_cotizacion, departamento_id ) values
-(1, 'Congelador', 'Se debe revisar el motor de congelador', 300000,'2023-01-17',1),
-(2, 'Cortina Metalica', 'Instalacion de cortina metalica',600000,'2022-12-26', 2),
-(3, 'Servicio Electrico', 'La luz presenta problemas y cortes electricos se debe realizar chequeo general', 150000, '2022-12-30', 3);
+insert into status (id, name) values
+(1, "En proceso"),
+(2, "Por cobrar"),
+(3, "Terminado");
+
+insert into cotizacion ( id, motivo, descripcion, monto, fecha_cotizacion, departamento_id, status_id ) values
+(1, 'Congelador', 'Se debe revisar el motor de congelador', 300000,'2023-01-17',1, 1),
+(2, 'Cortina Metalica', 'Instalacion de cortina metalica',600000,'2022-12-26', 2,1),
+(3, 'Servicio Electrico', 'La luz presenta problemas y cortes electricos se debe realizar chequeo general', 150000, '2022-12-30', 3, 1);
 
 
 
@@ -777,3 +782,8 @@ insert into gerente_departamento (gerente_id, departamento_id)  values
 (14, 62),
 (14, 63),
 (14, 64);
+
+insert into role (id, name) values
+(1, "ADMIN"),
+(2, "USER");
+

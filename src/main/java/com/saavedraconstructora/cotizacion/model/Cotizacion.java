@@ -21,6 +21,17 @@ public class Cotizacion {
     @ManyToOne
     private Departamento departamento;
 
+    @ManyToOne
+    private Status status;
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
     public Departamento getDepartamento() {
         return departamento;
     }

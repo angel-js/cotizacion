@@ -3,10 +3,16 @@ package com.saavedraconstructora.cotizacion.service;
 import com.saavedraconstructora.cotizacion.exception.ResourceNotFoundException;
 import com.saavedraconstructora.cotizacion.model.Cotizacion;
 import com.saavedraconstructora.cotizacion.model.Departamento;
+import com.saavedraconstructora.cotizacion.model.Status;
 import com.saavedraconstructora.cotizacion.repository.CotizacionRepository;
 import com.saavedraconstructora.cotizacion.repository.DepartamentoRepository;
+import com.saavedraconstructora.cotizacion.repository.StatusRepository;
 import org.slf4j.Logger;
+import org.springframework.data.domain.Sort;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,10 +24,14 @@ public class CotizacionService {
     private final CotizacionRepository cotizacionRepository;
     private final DepartamentoRepository departamentoRepository;
     private static final Logger log = LoggerFactory.getLogger(CotizacionService.class);
+    private final StatusRepository statusRepository;
+
     public CotizacionService(CotizacionRepository cotizacionRepository,
-                             DepartamentoRepository departamentoRepository) {
+                             DepartamentoRepository departamentoRepository,
+                             StatusRepository statusRepository) {
         this.cotizacionRepository = cotizacionRepository;
         this.departamentoRepository = departamentoRepository;
+        this.statusRepository = statusRepository;
     }
     /*  READ  */
     public List<Cotizacion> buscar() {
@@ -37,11 +47,6 @@ public class CotizacionService {
     public Optional<Cotizacion> findById(Integer id) {
         log.info("Cotizacion Service: findById");
         return cotizacionRepository.findById(id);
-    }
-
-    public List<Cotizacion> busqueda(String consulta) {
-        log.info("Cotizacion Service: busqueda");
-        return cotizacionRepository.findByMotivoContaining(consulta);
     }
 
     /*  SAVE  */
@@ -60,6 +65,7 @@ public class CotizacionService {
             c.setDescripcion(cotizacionDetails.getDescripcion());
             c.setMonto(cotizacionDetails.getMonto());
             c.setDepartamento(cotizacionDetails.getDepartamento());
+            c.setStatus(cotizacionDetails.getStatus());
             log.info("The object is ready to inyect and is not empty");
             cotizacionRepository.save(c);
         } else {
@@ -72,4 +78,30 @@ public class CotizacionService {
         log.info("Supervisor Service: deleteSupervisor");
         cotizacionRepository.deleteById(id);
     }
+
+    /* STATUS */
+    public List<Status> findAllStatus() {
+        log.info("Cotizacion Service: Buscar Status");
+        return statusRepository.findAllStatus();
+    }
+
+
+    public List<Cotizacion> findByMotivoContaining(String consulta) {
+        if (consulta == null || consulta.isEmpty()) {
+            List<Cotizacion> cotizacionOrdFechVacia = cotizacionRepository.findByMotivoContaining(consulta);
+            cotizacionOrdFechVacia.sort((c1, c2) -> c2.getFecha_cotizacion().compareTo(c1.getFecha_cotizacion()));
+            return cotizacionOrdFechVacia;
+        } else {
+            List<Cotizacion> cotizacionOrdFech = cotizacionRepository.findByMotivoContaining(consulta);
+            cotizacionOrdFech.sort((c1, c2) -> c2.getFecha_cotizacion().compareTo(c1.getFecha_cotizacion()));
+            return cotizacionOrdFech;
+        }
+    }
+
+    /** Método anteriormente ocupado
+     * public List<Cotizacion> busqueda(String consulta) {
+     *         log.info("Cotizacion Service: busqueda");
+     *         return cotizacionRepository.findByMotivoContaining(consulta);
+     *     }
+     */
 }

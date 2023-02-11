@@ -2,6 +2,7 @@ package com.saavedraconstructora.cotizacion.dto;
 
 import com.saavedraconstructora.cotizacion.model.Cotizacion;
 import com.saavedraconstructora.cotizacion.model.Departamento;
+import com.saavedraconstructora.cotizacion.model.Status;
 import com.sun.istack.NotNull;
 import java.time.LocalDate;
 import javax.validation.constraints.NotEmpty;
@@ -18,6 +19,15 @@ public class CotizacionDto {
     private LocalDate fecha_cotizacion;
     @NotNull
     private Departamento departamento;
+    private Status status;
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
 
     public CotizacionDto() {
     }

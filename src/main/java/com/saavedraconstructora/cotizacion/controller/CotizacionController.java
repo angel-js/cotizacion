@@ -2,11 +2,8 @@ package com.saavedraconstructora.cotizacion.controller;
 
 import com.saavedraconstructora.cotizacion.dto.CotizacionDto;
 import com.saavedraconstructora.cotizacion.model.Cotizacion;
-import com.saavedraconstructora.cotizacion.model.Supervisor;
 import com.saavedraconstructora.cotizacion.repository.CotizacionRepository;
 import com.saavedraconstructora.cotizacion.service.CotizacionService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -51,7 +48,7 @@ public class CotizacionController {
     public String busqueda(@RequestParam("q") String consulta, Model model) {
         log.info("Search of cotizacion with any parameter PATH:/busquedaConParametros");
         log.info("The parameter is "+ consulta);
-        List<Cotizacion> todos = cotizacionService.busqueda(consulta);
+        List<Cotizacion> todos = cotizacionService.findByMotivoContaining(consulta);
         model.addAttribute("cotizacion", todos);
         model.addAttribute("consulta", consulta);
         if(!todos.isEmpty()){
@@ -83,6 +80,7 @@ public class CotizacionController {
         log.info("Create of cotizacion PATH:/crear");
         model.addAttribute("departamentos", cotizacionService.buscarDepart());
         model.addAttribute("cotizacion", new CotizacionDto());
+        model.addAttribute("status", cotizacionService.findAllStatus());
         return "CotizacionCreate";
     }
 
@@ -93,6 +91,7 @@ public class CotizacionController {
             model.addAttribute("departamentos", cotizacionService.buscarDepart());
             model.addAttribute("errM", "Uno de los campos esta vacío!!!");
             model.addAttribute("cotizacion", new CotizacionDto());
+            model.addAttribute("status", cotizacionService.findAllStatus());
             return "CotizacionCreate";
         }
         log.info("Save of cotizacion PATH:/crear ---> " + cotizacionDto);
@@ -102,6 +101,7 @@ public class CotizacionController {
             model.addAttribute("errM", "Uno de los campos esta vacío!!!");
             model.addAttribute("departamentos", cotizacionService.buscarDepart());
             model.addAttribute("cotizacion", new CotizacionDto());
+            model.addAttribute("status", cotizacionService.findAllStatus());
             return "CotizacionCreate";
         }
         try {
@@ -109,12 +109,10 @@ public class CotizacionController {
             cotizacion.setDescripcion(cotizacionDto.getDescripcion());
             cotizacion.setMonto(cotizacionDto.getMonto());
             cotizacion.setDepartamento(cotizacionDto.getDepartamento());
+            cotizacion.setStatus(cotizacionDto.getStatus());
             cotizacionService.guardar(cotizacion);
         } catch (Exception e) {
             log.debug(e.getMessage());
-            model.addAttribute("errM", "Uno de los campos esta vacío!!!");
-            model.addAttribute("departamentos", cotizacionService.buscarDepart());
-            model.addAttribute("cotizacion", new CotizacionDto());
             return "CotizacionCreate/";
         }
         return "redirect:/admin/cotizacion/home/";
@@ -129,6 +127,7 @@ public class CotizacionController {
             Cotizacion cot = cotizacion.get();
             model.addAttribute("cotizacion", cot);
             model.addAttribute("departamentos", cotizacionService.buscarDepart());
+            model.addAttribute("status", cotizacionService.findAllStatus());
             return "CotizacionUpdateForm";
         } else {
             log.debug("The object is empty");
@@ -139,6 +138,7 @@ public class CotizacionController {
     @PostMapping("/update/{id}")
     public String updateCotizacion(@PathVariable Integer id, @ModelAttribute Cotizacion cotizacion) {
         log.info("This is save instance of supervisor PATH: /update/{id}");
+        System.out.println("COTIZACION STATUS RECIBIDO------------------------->: " + cotizacion.getStatus());
         log.info("Update info  ------> " + cotizacion);
         cotizacionService.update(id, cotizacion);
         return "redirect:/admin/cotizacion/buscar";

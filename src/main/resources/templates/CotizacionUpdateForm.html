@@ -52,6 +52,13 @@
           <input type="number" class="form-control" th:field="*{monto}" id="monto" placeholder="Monto $">
         </div>
         <div class="mb-3">
+          <label for="status" class="form-label">Status</label>
+          <select class="form-control" id="status" th:field="*{status}">
+            <option th:each="st: ${status}" th:value="${st.id}"
+                    th:text="${st.name}"></option>
+          </select>
+        </div>
+        <div class="mb-3">
           <label for="Local" class="form-label">Local</label>
           <select class="form-control" id="Local" th:field="*{departamento}">
             <option th:each="dep: ${departamentos}" th:value="${dep.id}"
