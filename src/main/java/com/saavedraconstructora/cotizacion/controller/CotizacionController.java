@@ -83,7 +83,7 @@ public class CotizacionController {
     @PostMapping("/guardar")
     public String guardar(Cotizacion cotizacion) {
         log.info("Save of cotizacion PATH:/crear ---> " + cotizacion);cotizacionService.guardar(cotizacion);
-        return "redirect:/admin/home/";
+        return "redirect:/admin/cotizacion/home/";
     }
 
     /* UPDATE */

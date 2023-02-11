@@ -14,7 +14,7 @@
 <!-- Navbar -->
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
     <div class="container-fluid d-flex">
-        <a class="navbar-brand" th:href="@{/admin/home/}">Saavedra</a>
+        <a class="navbar-brand" th:href="@{/admin/cotizacion/home/}">Saavedra</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -37,7 +37,7 @@
     <div class="row">
         <div class="col-md-12 m-4 d-flex justify-content-around pt-2">
             <h2>Personal</h2>
-            <form class="form-inline d-flex justify-content-around" th:action="@{/personal/busquedaPersonalizada}" role="search">
+            <form class="form-inline d-flex justify-content-around" th:action="@{/admin/personal/busquedaPersonalizada}" role="search">
                 <input class="form-control me-2 fmSb" type="search" placeholder="Buscar" aria-label="Buscar" name="q">
                 <button class="btn btn-outline-success btnSb" type="submit">Buscar</button>
             </form>
@@ -46,7 +46,7 @@
     <div class="row">
         <div class="col-md-12 pt-4 pb-4 d-flex justify-content-around bg-dark bg-gradient">
             <h3 class="text-white">Crear un Usuario</h3>
-            <a th:href="@{/personal/crear}">
+            <a th:href="@{/admin/personal/crear}">
                 <button class="btn btn-success">Crear Supervisor</button>
             </a>
         </div>

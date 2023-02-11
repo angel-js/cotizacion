@@ -594,6 +594,8 @@ insert into cotizacion ( id, motivo, descripcion, monto, fecha_cotizacion, depar
 (2, 'Cortina Metalica', 'Instalacion de cortina metalica',600000,'2022-12-26', 2),
 (3, 'Servicio Electrico', 'La luz presenta problemas y cortes electricos se debe realizar chequeo general', 150000, '2022-12-30', 3);
 
+
+
 insert into supervisor_departamento (supervisor_id, departamento_id)  values
 (1,1),
 (1,2),

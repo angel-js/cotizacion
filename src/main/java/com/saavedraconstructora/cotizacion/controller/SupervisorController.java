@@ -82,7 +82,7 @@ public class SupervisorController {
         log.info("This is a save of create instance PATH: /guardar");
         log.info("Se guarda la informacion del Supervisor  ------> " + supervisor);
         supervisorService.guardar(supervisor);
-        return "redirect:/personal/buscar";
+        return "redirect:/admin/personal/buscar";
     }
 
     /* UPDATE */
@@ -100,7 +100,7 @@ public class SupervisorController {
         log.info("This is save instance of supervisor PATH: /update/{id}");
         log.info("Update info  ------> " + supervisor);
         supervisorService.update(id, supervisor);
-        return "redirect:/personal/buscar";
+        return "redirect:/admin/personal/buscar";
     }
 
     /* DELETE */
@@ -110,7 +110,7 @@ public class SupervisorController {
             log.info("This is delete of supervisor PATH: /delete/{id}");
             log.info("Delete supervisor of DATABASE  ------> " + id);
             supervisorService.deleteSupervisor(id);
-            return "redirect:/personal/buscar";
+            return "redirect:/admin/personal/buscar";
         } else {
             log.debug("Error to eliminate  ------> " + id);
             return "Error 404";

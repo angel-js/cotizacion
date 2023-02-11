@@ -22,7 +22,7 @@
 <!-- Navbar -->
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
   <div class="container-fluid d-flex">
-    <a class="navbar-brand" th:href="@{/admin/home}">Saavedra</a>
+    <a class="navbar-brand" th:href="@{/admin/cotizacion/home/}">Saavedra</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -45,7 +45,7 @@
   <div class="row">
     <div class="col-md-12">
       <h1>Actualizar Supervisor</h1>
-      <form  method="post" th:action="@{/personal/update/__${supervisor.id}__}"
+      <form  method="post" th:action="@{/admin/personal/update/__${supervisor.id}__}"
              th:object="${supervisor}">
         <div class="mb-3">
           <label for="nombre" class="form-label">Nombre</label>

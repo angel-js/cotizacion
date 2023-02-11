@@ -10,7 +10,6 @@ public class Comuna {
     private Integer id;
     private String nombre;
     @ManyToOne
-    @JoinColumn(unique = true)
     private Region region;
     public Integer getId() {
         return id;
