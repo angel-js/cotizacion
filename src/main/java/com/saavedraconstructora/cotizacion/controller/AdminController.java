@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -44,5 +45,19 @@ public class AdminController {
     }
 
     @PostMapping("/guardar")
-    public String SaveUser(Model model) { return "redirect:/admin/users/"; }
+    public String SaveUser(@ModelAttribute("usuarioDto") UsuarioDto usuarioDto, Model model) {
+        if (!usuarioDto.getPassword().equals(usuarioDto.getPassword2())) {
+            model.addAttribute("errM", "Las contraseñas no coinciden");
+            model.addAttribute("usuarioDto", usuarioDto);
+            model.addAttribute("roles", adminService.RolefindAll());
+            return "AdminCreateUsers";
+        } else {
+            Usuario usuario = new Usuario();
+            usuario.setUsername(usuarioDto.getUsername());
+            usuario.setPassword(usuarioDto.getPassword());
+            usuario.setRole(usuarioDto.getRole());
+            adminService.saveUser(usuario);
+            return "redirect:/admin/users/";
+        }
+    }
 }
