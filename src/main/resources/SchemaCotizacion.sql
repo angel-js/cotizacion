@@ -783,7 +783,7 @@ insert into gerente_departamento (gerente_id, departamento_id)  values
 (14, 63),
 (14, 64);
 
-insert into role (id, name) values
+insert into rol (id, name) values
 (1, "ADMIN"),
 (2, "USER");
 

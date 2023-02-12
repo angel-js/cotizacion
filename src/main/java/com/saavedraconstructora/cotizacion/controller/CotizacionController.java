@@ -34,7 +34,7 @@ public class CotizacionController {
     /* READ */
     @RequestMapping("/home")
     public String  homePage(){
-        return"Home";
+        return "Home";
     }
 
     @RequestMapping("/buscar")

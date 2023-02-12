@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Saavedra Constructora</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+    <!-- comment -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <div class="container-fluid d-flex">
+        <a class="navbar-brand" th:href="@{/admin/cotizacion/home/}">Saavedra</a>
+    </div>
+</nav>
+<div class="container">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6 ">
+            <div th:if=${param.exito}>
+                <div class="alert alert-info pt-4">Se ha registrado exitosamente a
+                    la aplicación
+                </div>
+            </div>
+            <h3 class="display-3 text-center pt-4 pb-4">Registrar Usuarios</h3>
+            <form th:action="@{/registro}" method="post" th:object="${usuario}">
+                <div class="form-group">
+                    <label class="control-label" for="name">Nombre : </label> <input
+                        id="name" type="text" class="form-control" th:field="*{name}"
+                        required autofocus="autofocus">
+                </div>
+                <div class="form-group pt-2">
+                    <label class="control-label" for="lastname">Apellido : </label> <input
+                        id="lastname" class="form-control" th:field="*{lastname}"
+                        required autofocus="autofocus">
+                </div>
+                <div class="form-group pt-2">
+                    <label class="control-label" for="email">Email : </label> <input
+                        id="email" type="email" class="form-control" th:field="*{email}"
+                        required autofocus="autofocus">
+                </div>
+                <div class="form-group pt-2">
+                    <label class="control-label" for="password">Password : </label> <input
+                        type="password" id="password" class="form-control" th:field="*{password}"
+                        required autofocus="autofocus">
+                </div>
+                <div class="form-group pt-2">
+                    <label for="rol" class="form-label">Local</label>
+                    <select class="form-control" id="rol" th:field="*{rol}">
+                        <option th:each="rol: ${roles}" th:value="${rol.id}"
+                                th:text="${rol.name}"></option>
+                    </select>
+                </div>
+                <div class="form-group d-flex justify-content-around pt-2">
+                    <button type="submit" class="btn btn-success">Registrar</button>
+                    <span>Si estas registrado <a th:href="@{/login}">inicia sesión aqui</a></span>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</div>
+<!-- Latest compiled and minified JavaScript -->
+</body>
+</html>

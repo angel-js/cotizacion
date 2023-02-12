@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Saavedra Constructora</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+    <!-- comment -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!--<link href="/static/loginStyle.css" rel="stylesheet">-->
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <div class="container-fluid d-flex">
+        <a class="navbar-brand">Saavedra</a>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <h3 class="display-3 text-center pt-4 pb-4">Inicio de sesión</h3>
+            <form method="post" th:action="@{/login}">
+                <div th:if=${param.error}>
+                    <div class="alert alert-danger m-2 p-2">Usuario o contraseña
+                        inválidos</div>
+                </div>
+                <div th:if=${param.logout}>
+                    <div class="alert alert-info">Ha cerrado sesión exitosamente
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label  for="username">Nombre de
+                        usuario : </label> <input id="username"  name="username" type="text" class="form-control"
+                                                  required autofocus="autofocus" placeholder="Digite su email ID">
+                </div>
+                <div class="form-group">
+                    <label  for="password">Password : </label> <input
+                        id="password" type="password"  name="password" class="form-control" required
+                        autofocus="autofocus" placeholder="Digite su password">
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-3 pt-4"></div>
+                        <div class="col-md-6">
+                            <button type="submit" name="login-submit" id="login-submit" class="btn btn-primary form-control">Iniciar sesión</button>
+                        </div>
+                        <div class="col-md-3"></div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,21 +1,23 @@
-package com.saavedraconstructora.cotizacion.model;
+package com.saavedraconstructora.cotizacion.dto;
 
-import javax.persistence.*;
-import java.util.Collection;
-import java.util.Set;
+import com.saavedraconstructora.cotizacion.model.Rol;
 
-@Entity
-@Table(name = "usuario", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
-public class Usuario {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+public class UsuarioRegistroDto {
     private Integer id;
     private String name;
     private String lastname;
     private String email;
     private String password;
-    @ManyToOne
     private Rol rol;
+
+    public Rol getRol() {
+        return rol;
+    }
+
+    public void setRol(Rol rol) {
+        this.rol = rol;
+    }
 
     public Integer getId() {
         return id;
@@ -57,27 +59,29 @@ public class Usuario {
         this.password = password;
     }
 
-    public Rol getRol() {
-        return rol;
-    }
-
-    public void setRol(Rol rol) {
-        this.rol = rol;
-    }
-
-    public Usuario() {
-    }
-
-    public Usuario(Integer id, String name, String lastname, String email, String password, Rol rol) {
+    public UsuarioRegistroDto(Integer id, String name, String lastname, String email, String password) {
         this.id = id;
         this.name = name;
         this.lastname = lastname;
         this.email = email;
         this.password = password;
-        this.rol = rol;
     }
 
-    public Usuario(String name, String lastname, String email, String password, Rol rol) {
+    public UsuarioRegistroDto(String name, String lastname, String email, String password) {
+        this.name = name;
+        this.lastname = lastname;
+        this.email = email;
+        this.password = password;
+    }
+
+    public UsuarioRegistroDto(String email) {
+        this.email = email;
+    }
+
+    public UsuarioRegistroDto() {
+    }
+
+    public UsuarioRegistroDto(String name, String lastname, String email, String password, Rol rol) {
         this.name = name;
         this.lastname = lastname;
         this.email = email;
