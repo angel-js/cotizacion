@@ -13,27 +13,109 @@
 <!-- Navbar -->
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
     <div class="container-fluid d-flex">
-        <a class="navbar-brand" th:href="@{/home/}">Saavedra</a>
+        <a class="navbar-brand" th:href="@{/admin/cotizacion/home/}">Saavedra</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
             <span class="navbar-toggler-icon"></span>
         </button>
+        <div class="collapse navbar-collapse  justify-content-end" id="collapsibleNavbar">
+            <div class="">
+                <ul class="navbar-nav ">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">SERVICIO</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">CONTACTO</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
 </nav>
-<div class="container">
+<div class="container-fluid">
     <div class="row pt-4">
         <div class="col-md-12">
             <div class="jumbotron jumbotron-fluid">
                 <div class="container">
-                    <h1 class="display-4 text-center">Bienvenidos a Saavedra Construcciones!</h1>
+                    <h1 class="display-4 text-center">Saavedra Construcciones!</h1>
                 </div>
-            </div>
-            <div class="d-flex justify-content-center pt-5">
-                <a th:href="@{/home/login}">
-                    <button type="button" class="btn btn-lg btn-primary">Iniciar Sesi&oacute;n</button>
-                </a>
             </div>
         </div>
     </div>
+    <!--Carousel-->
+    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <!--<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>-->
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="/static/img/construcciones-curiosas.jpg" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="/static/img/cortinasMetalicas.jpg" class="d-block w-100" alt="...">
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+    <div class="row pt-4">
+        <div class="col-md-6 col-sm-12 ">
+            <h3 class="display-3 text-center">
+                Contáctanos
+            </h3>
+            <form class="pb-4 p-2 m-2">
+                <div class="mb-3">
+                    <label for="nombre" class="form-label">Nombres</label>
+                    <input type="text" class="form-control" id="nombre" aria-describedby="Nombre">
+                </div>
+                <div class="mb-3">
+                    <label for="apellido" class="form-label">Apellidos</label>
+                    <input type="text" class="form-control" id="apellido" aria-describedby="apellido">
+                </div>
+                <div class="mb-3">
+                    <label for="telefono" class="form-label">Teléfono</label>
+                    <input type="text" class="form-control" id="telefono" aria-describedby="telefono">
+                </div>
+                <div class="mb-3">
+                    <label for="descripcion" class="form-label">¿Que desea cotizar?</label>
+                    <input type="text-area" class="form-control" id="descripcion" aria-describedby="descripcion">
+                </div>
+                <div class="d-flex justify-content-center">
+                    <button type="submit" class="btn btn-primary">Enviar</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-6 col-sm-12">
+            <h3 class="display-3 text-center">
+                Acerca de nosotros
+            </h3>
+            <h6 class="text-center p-4">
+                En Saavedra Construcciones nos especializamos en construcción, reparación y mantención.
+                Tales como pintura, techumbres, gasfitería, estructuras metálicas, electricidad, albañilería,
+                pavimentaciones, carpintería, impermeabilizaciones, destapes de alcantarillado.<br/>
+                Nuestro equipo de trabajo multidisciplinario le permitirá descansar en nosotros todos sus proyectos,
+                otorgándole un servicio que cumplirá con todos sus objetivos <br/>
+                Experiencia servicio y calidad es nuestro compromiso, además de garantía y el mejor precio.
+                No dude en cotizar con nosotros. Realizaremos todos sus proyectos tal como los imaginó.<br/>
+            </h6>
+        </div>
+    </div>
 </div>
+<!--Footer-->
+<footer class="bg-dark text-center text-lg-start">
+    <!-- Copyright -->
+    <div class="text-center p-3 text-white">
+        © 2023 Copyright:
+        <a class="text-white" href="#">Saavedraconstruciones.com</a>
+    </div>
+    <!-- Copyright -->
+</footer>
 </body>
 </html>

@@ -15,4 +15,6 @@ public interface CotizacionRepository extends JpaRepository<Cotizacion, Integer>
     @Query("from Cotizacion c")
     List<Cotizacion> findByMotivoContaining(@Param("consulta") String consulta);
 
+    @Query("from Cotizacion c where c.motivo like %:consulta% and c.status.name = :status")
+    List<Cotizacion> findByMotivoContainingAndStatus(@Param("consulta") String consulta, @Param("status") String status);
 }

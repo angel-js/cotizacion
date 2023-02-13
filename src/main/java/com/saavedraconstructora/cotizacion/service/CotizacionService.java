@@ -86,13 +86,13 @@ public class CotizacionService {
     }
 
 
-    public List<Cotizacion> findByMotivoContaining(String consulta) {
+    public List<Cotizacion> findByMotivoContaining(String consulta, String status) {
         if (consulta == null || consulta.isEmpty()) {
-            List<Cotizacion> cotizacionOrdFechVacia = cotizacionRepository.findByMotivoContaining(consulta);
+            List<Cotizacion> cotizacionOrdFechVacia = cotizacionRepository.findByMotivoContainingAndStatus(consulta, status);
             cotizacionOrdFechVacia.sort((c1, c2) -> c2.getFecha_cotizacion().compareTo(c1.getFecha_cotizacion()));
             return cotizacionOrdFechVacia;
         } else {
-            List<Cotizacion> cotizacionOrdFech = cotizacionRepository.findByMotivoContaining(consulta);
+            List<Cotizacion> cotizacionOrdFech = cotizacionRepository.findByMotivoContainingAndStatus(consulta, status);
             cotizacionOrdFech.sort((c1, c2) -> c2.getFecha_cotizacion().compareTo(c1.getFecha_cotizacion()));
             return cotizacionOrdFech;
         }

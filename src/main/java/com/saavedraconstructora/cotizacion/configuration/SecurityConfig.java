@@ -37,9 +37,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests().antMatchers(
                         "/registro**",
-                        "/js/**",
-                        "/css/**",
-                        "/img/**").permitAll()
+                        "/home",
+                        "/static/js/**",
+                        "/static/css/**",
+                        "/static/img/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -58,35 +59,3 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll();
     }
 }
-
-
-/**
- * @Bean protected SecurityFilterChain configure (HttpSecurity http) throws Exception {
- * return http
- * .csrf(csrf -> csrf.disable())
- * .authorizeRequests(auth -> {
- * auth.antMatchers("/home").permitAll();
- * auth.antMatchers("/user").hasRole("USER");
- * auth.antMatchers("/admin").hasRole("ADMIN");
- * }
- * ).httpBasic(Customizer.withDefaults())
- * .build();
- * }
- * @Value("${USUARIO}") private String usuario;
- * @Value("${PASSWORD}") private String password;
- * @Value("${ROL}") private String roles;
- * @Bean public InMemoryUserDetailsManager userDetailsManager() {
- * System.out.println("Valor de usuario: " + usuario);
- * System.out.println("Valor de password: " + password);
- * System.out.println("Valor de roles: " + roles);
- * if (usuario == null) {
- * throw new IllegalArgumentException("El nombre de usuario no puede ser nulo");
- * }
- * UserDetails admin = User.withDefaultPasswordEncoder()
- * .username(usuario)
- * .password(password)
- * .roles(roles)
- * .build();
- * return new InMemoryUserDetailsManager(admin);
- * }
- **/

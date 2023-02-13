@@ -44,11 +44,12 @@ public class CotizacionController {
         return "CotizacionList";
     }
 
-    @RequestMapping("/busquedaConParametros")
-    public String busqueda(@RequestParam("q") String consulta, Model model) {
+    @PostMapping("/busquedaConParametros")
+    public String busqueda(@RequestParam("q") String consulta, @RequestParam("status") String status,
+        Model model) {
         log.info("Search of cotizacion with any parameter PATH:/busquedaConParametros");
         log.info("The parameter is "+ consulta);
-        List<Cotizacion> todos = cotizacionService.findByMotivoContaining(consulta);
+        List<Cotizacion> todos = cotizacionService.findByMotivoContaining(consulta, status);
         model.addAttribute("cotizacion", todos);
         model.addAttribute("consulta", consulta);
         if(!todos.isEmpty()){

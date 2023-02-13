@@ -49,7 +49,15 @@
         <div class="col-md-2 col-sm-12"></div>
         <div class="col-md-8 col-sm-12">
             <!-- Search form -->
-            <form class="form-inline" th:action="@{/admin/cotizacion/busquedaConParametros}" role="search">
+            <form class="form-inline" th:action="@{/admin/cotizacion/busquedaConParametros}"
+                  method="post" role="search">
+                <div class="d-flex justify-content-center">
+                <select name="status" class="form-select" aria-label="Default select example">
+                    <option value="En proceso" selected>En proceso</option>
+                    <option value="Por cobrar">Por cobrar</option>
+                    <option value="Terminado">Terminado</option>
+                </select>
+                </div>
                 <i class="fas fa-search" aria-hidden="true"></i>
                 <div class="d-flex justify-content-center">
                     <input class="form-control form-control-sm ml-3 w-75" autofocus="autofocus" type="text"
