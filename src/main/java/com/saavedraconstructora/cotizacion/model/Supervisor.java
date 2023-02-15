@@ -20,6 +20,7 @@ public class Supervisor {
             joinColumns = @JoinColumn(name = "supervisor_id"),
             inverseJoinColumns = @JoinColumn(name = "departamento_id")
     )
+    private Set<Departamento> departamentos;
 
     @OneToMany(mappedBy = "usuario")
     private List<Trabajo> trabajos;
@@ -30,8 +31,6 @@ public class Supervisor {
     public void setTrabajos(List<Trabajo> trabajos) {
         this.trabajos = trabajos;
     }
-
-    private Set<Departamento> departamentos;
 
     public Set<Departamento> getDepartamentos() {
         return departamentos;

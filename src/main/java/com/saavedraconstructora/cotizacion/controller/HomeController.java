@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
@@ -42,8 +43,12 @@ public class HomeController {
     }
 
     @GetMapping("/")
-    public String redirect() {
-        return "redirect:/admin/cotizacion/home";
+    public String redirect(Authentication authentication) {
+        if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("ADMIN"))) {
+            return "redirect:/admin/cotizacion/home";
+        } else {
+            return "redirect:/user/home";
+        }
     }
 
     @GetMapping("/login")

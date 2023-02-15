@@ -7,17 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TrabajoService {
+public class UsuarioRolService {
 
     @Autowired
     private TrabajoRepository trabajoRepository;
-
     public Trabajo findById(Integer id) {
         return trabajoRepository.findById(id).
                 orElseThrow(() -> new ResourceNotFoundException("Supervisor not found with id ", "id", id));
     }
 
-    public void deleteTrabajo(Integer id) {
-        trabajoRepository.deleteById(id);
-    }
 }

@@ -38,6 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers(
                         "/registro**",
                         "/home",
+                        "/home/registro",
                         "/static/js/**",
                         "/static/css/**",
                         "/static/img/**").permitAll()
@@ -46,7 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/login")
                 .permitAll()
-                .defaultSuccessUrl("/admin/cotizacion/home", true) //aqui
+                .defaultSuccessUrl("/", true) //aqui
                 .permitAll()
                 .and()
                 .logout()

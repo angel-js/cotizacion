@@ -33,7 +33,7 @@ public class RegistroController {
     @GetMapping
     public String mostrarFormularioDeRegistro(Model model) {
         model.addAttribute("roles",registroService.mostrarRoles() );
-        return "home/RegistroHome";
+        return "registro/RegistroHome";
     }
 
     @PostMapping

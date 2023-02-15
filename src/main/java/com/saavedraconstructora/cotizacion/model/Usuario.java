@@ -15,6 +15,7 @@ public class Usuario {
     private String email;
     private String password;
     @ManyToOne
+    @JoinColumn(name = "rol_id")
     private Rol rol;
     @OneToMany(mappedBy = "usuario")
     private List<Trabajo> trabajos;
