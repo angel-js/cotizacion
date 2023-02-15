@@ -5,6 +5,7 @@ import com.saavedraconstructora.cotizacion.model.Supervisor;
 import com.saavedraconstructora.cotizacion.repository.SupervisorRepository;
 import com.saavedraconstructora.cotizacion.service.CotizacionService;
 import com.saavedraconstructora.cotizacion.service.SupervisorService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,6 +19,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
+@PreAuthorize("isAuthenticated()")
 @RequestMapping("/admin/personal")
 public class SupervisorController {
 
@@ -40,7 +42,7 @@ public class SupervisorController {
         List<Supervisor> supervisores = supervisorService.buscar();
         Collections.sort(supervisores, (s1, s2) -> Integer.compare(s1.getId(), s2.getId()));
         model.addAttribute("supervisores", supervisores);
-        return "SupervisorBuscar";
+        return "supervisor/SupervisorBuscar";
     }
 
     @RequestMapping("/busquedaPersonalizada")
@@ -50,10 +52,10 @@ public class SupervisorController {
         model.addAttribute("supervisores", todos);
         if (!todos.isEmpty()) { /* If request is not empty show Template with JPA */
             log.info("Return a list of HTML with JPA parameters");
-            return "SupervisorBuscarPersonalizado";
+            return "supervisor/SupervisorBuscarPersonalizado";
         } else {
             log.debug("The request is empty!");
-            return "SupervisorErrorView";
+            return "supervisor/SupervisorErrorView";
         }
     }
 
@@ -65,10 +67,10 @@ public class SupervisorController {
         if (supervisorOptional.isPresent()) { // Validate if the object come in the array and if unpacking
             Supervisor supervisor = supervisorOptional.get(); // Then turn in the new object
             model.addAttribute("supervisor", supervisor); //And finally show in the template
-            return "SupervisorDetalle";
+            return "supervisor/SupervisorDetalle";
         } else {
             log.debug("The request is empty!");
-            return "SupervisorErrorView";
+            return "supervisor/SupervisorErrorView";
         }
     }
 
@@ -78,7 +80,7 @@ public class SupervisorController {
         log.info("This is a create Method of supervisor PATH: /crear");
         model.addAttribute("departamentos", cotizacionService.buscarDepart());
         model.addAttribute("supervisor", new Supervisor());
-        return "SupervisorCreate";
+        return "supervisor/SupervisorCreate";
     }
 
     @PostMapping("/guardar")
@@ -92,13 +94,13 @@ public class SupervisorController {
             model.addAttribute("departamentos", cotizacionService.buscarDepart());
             model.addAttribute("supervisor", new Supervisor());
             model.addAttribute("errorMessage", "Uno de los campos esta vacío!!!");
-            return "SupervisorCreate";
+            return "supervisor/SupervisorCreate";
         }
 
         if (result.hasErrors()) {
             model.addAttribute("departamentos", cotizacionService.buscarDepart());
             model.addAttribute("supervisor", new Supervisor());
-            return "SupervisorCreate";
+            return "supervisor/SupervisorCreate";
         }
 
         Supervisor supervisor = new Supervisor();
@@ -113,7 +115,7 @@ public class SupervisorController {
             log.debug(e.getMessage());
             model.addAttribute("departamentos", cotizacionService.buscarDepart());
             model.addAttribute("supervisor", new Supervisor());
-            return "SupervisorCreate";
+            return "supervisor/SupervisorCreate";
         }
 
         log.info("Se guarda la informacion del Supervisor  ------> " + supervisor);
@@ -128,7 +130,7 @@ public class SupervisorController {
         Supervisor supervisor = supervisorService.findById(id);
         model.addAttribute("supervisor", supervisor);
         model.addAttribute("departamentos", cotizacionService.buscarDepart());
-        return "SupervisorUpdateForm";
+        return "supervisor/SupervisorUpdateForm";
     }
 
     @PostMapping("/update/{id}")
@@ -149,7 +151,7 @@ public class SupervisorController {
             return "redirect:/admin/personal/buscar";
         } else {
             log.debug("Error to eliminate  ------> " + id);
-            return "Error404";
+            return "supervisor/Error404";
         }
     }
 }

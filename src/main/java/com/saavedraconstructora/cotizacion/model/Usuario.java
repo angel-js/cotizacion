@@ -2,7 +2,7 @@ package com.saavedraconstructora.cotizacion.model;
 
 import javax.persistence.*;
 import java.util.Collection;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Table(name = "usuario", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
@@ -16,6 +16,16 @@ public class Usuario {
     private String password;
     @ManyToOne
     private Rol rol;
+    @OneToMany(mappedBy = "usuario")
+    private List<Trabajo> trabajos;
+
+    public List<Trabajo> getTrabajos() {
+        return trabajos;
+    }
+
+    public void setTrabajos(List<Trabajo> trabajos) {
+        this.trabajos = trabajos;
+    }
 
     public Integer getId() {
         return id;

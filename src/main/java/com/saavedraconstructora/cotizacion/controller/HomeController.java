@@ -30,15 +30,15 @@ public class HomeController {
         if (authenticated) {
             System.out.println("Auntenticado -----------------");
             request.login(username, password);
-            return "Home";
+            return "home/Home";
         } else {
-            return "HomeLoginV";
+            return "home/HomeLoginV";
         }
     }
 
     @GetMapping("/home")
     public String homePage() {
-        return "HomeLogin";
+        return "home/HomeLogin";
     }
 
     @GetMapping("/")
@@ -49,7 +49,7 @@ public class HomeController {
     @GetMapping("/login")
     public String login() {
         System.out.println("VER EL FORMULARIO -----------------");
-        return "HomeLoginV";
+        return "home/HomeLoginV";
     }
 
     @GetMapping("/logout")

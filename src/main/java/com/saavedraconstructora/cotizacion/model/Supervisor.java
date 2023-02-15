@@ -1,6 +1,7 @@
 package com.saavedraconstructora.cotizacion.model;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -19,6 +20,17 @@ public class Supervisor {
             joinColumns = @JoinColumn(name = "supervisor_id"),
             inverseJoinColumns = @JoinColumn(name = "departamento_id")
     )
+
+    @OneToMany(mappedBy = "usuario")
+    private List<Trabajo> trabajos;
+    public List<Trabajo> getTrabajos() {
+        return trabajos;
+    }
+
+    public void setTrabajos(List<Trabajo> trabajos) {
+        this.trabajos = trabajos;
+    }
+
     private Set<Departamento> departamentos;
 
     public Set<Departamento> getDepartamentos() {

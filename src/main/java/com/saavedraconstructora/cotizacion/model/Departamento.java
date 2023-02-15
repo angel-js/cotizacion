@@ -1,6 +1,7 @@
 package com.saavedraconstructora.cotizacion.model;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -15,6 +16,17 @@ public class Departamento {
     private Comuna comuna;
     @ManyToMany(mappedBy = "departamentos")
     private Set<Supervisor> supervisors;
+
+    @OneToMany(mappedBy = "usuario")
+    private List<Trabajo> trabajos;
+
+    public List<Trabajo> getTrabajos() {
+        return trabajos;
+    }
+
+    public void setTrabajos(List<Trabajo> trabajos) {
+        this.trabajos = trabajos;
+    }
 
     public Set<Supervisor> getSupervisors() {
         return supervisors;

@@ -34,14 +34,14 @@ public class CotizacionController {
     /* READ */
     @RequestMapping("/home")
     public String  homePage(){
-        return "Home";
+        return "home/Home";
     }
 
     @RequestMapping("/buscar")
     public String buscarCotizaciones(Model model) {
         log.info("Search of all cotizaciones PATH:/buscar");
         log.info("Retorno de Lista en HTML con JPA");
-        return "CotizacionList";
+        return "cotizacion/CotizacionList";
     }
 
     @PostMapping("/busquedaConParametros")
@@ -54,11 +54,11 @@ public class CotizacionController {
         model.addAttribute("consulta", consulta);
         if(!todos.isEmpty()){
             log.info("Return a list of JPA parameters");
-            return "CotizacionBuscado";
+            return "cotizacion/CotizacionBuscado";
         } else {
             log.debug("The request is empty!");
             log.debug("The Request has empty parameters");
-            return "CotizacionErrorView";
+            return "cotizacion/CotizacionErrorView";
         }
     }
     @RequestMapping("/detalle/{id}")
@@ -69,10 +69,10 @@ public class CotizacionController {
             log.info("The object is ready to inyect and is not empty");
             Cotizacion cot = cotOptional.get(); // Para ser pasado en nuevo objeto
             model.addAttribute("cotizacion", cot); // Y finalmente mostrado en la vista
-            return "CotizacionDetalle";
+            return "cotizacion/CotizacionDetalle";
         } else {
             log.debug("The object is empty");
-            return "CotizacionErrorView";
+            return "cotizacion/CotizacionErrorView";
         }
     }
     /* CREATE */
@@ -82,7 +82,7 @@ public class CotizacionController {
         model.addAttribute("departamentos", cotizacionService.buscarDepart());
         model.addAttribute("cotizacion", new CotizacionDto());
         model.addAttribute("status", cotizacionService.findAllStatus());
-        return "CotizacionCreate";
+        return "cotizacion/CotizacionCreate";
     }
 
     @PostMapping("/guardar")
@@ -93,7 +93,7 @@ public class CotizacionController {
             model.addAttribute("errM", "Uno de los campos esta vacío!!!");
             model.addAttribute("cotizacion", new CotizacionDto());
             model.addAttribute("status", cotizacionService.findAllStatus());
-            return "CotizacionCreate";
+            return "cotizacion/CotizacionCreate";
         }
         log.info("Save of cotizacion PATH:/crear ---> " + cotizacionDto);
         Cotizacion cotizacion = new Cotizacion();
@@ -103,7 +103,7 @@ public class CotizacionController {
             model.addAttribute("departamentos", cotizacionService.buscarDepart());
             model.addAttribute("cotizacion", new CotizacionDto());
             model.addAttribute("status", cotizacionService.findAllStatus());
-            return "CotizacionCreate";
+            return "cotizacion/CotizacionCreate";
         }
         try {
             cotizacion.setMotivo(cotizacionDto.getMotivo());
@@ -114,7 +114,7 @@ public class CotizacionController {
             cotizacionService.guardar(cotizacion);
         } catch (Exception e) {
             log.debug(e.getMessage());
-            return "CotizacionCreate/";
+            return "cotizacion/CotizacionCreate/";
         }
         return "redirect:/admin/cotizacion/home/";
     }
@@ -129,10 +129,10 @@ public class CotizacionController {
             model.addAttribute("cotizacion", cot);
             model.addAttribute("departamentos", cotizacionService.buscarDepart());
             model.addAttribute("status", cotizacionService.findAllStatus());
-            return "CotizacionUpdateForm";
+            return "cotizacion/CotizacionUpdateForm";
         } else {
             log.debug("The object is empty");
-            return "CotizacionErrorView";
+            return "cotizacion/CotizacionErrorView";
         }
     }
 
