@@ -10,7 +10,16 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.Collection;
 
 @Configuration
 @EnableWebSecurity
@@ -47,7 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/login")
                 .permitAll()
-                .defaultSuccessUrl("/", true) //aqui
+                .successHandler(authenticationSuccessHandler())
                 .permitAll()
                 .and()
                 .logout()
@@ -58,5 +67,31 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/login?logout")
                 .permitAll();
+    }
+
+    // Este método crea una instancia de la clase SuccessHandler personalizada
+    @Bean
+    public AuthenticationSuccessHandler authenticationSuccessHandler(){
+        return new CustomAuthenticationSuccessHandler();
+    }
+
+    // Clase SuccessHandler personalizada que redirige según el rol del usuario
+    public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
+
+        @Override
+        public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
+                                            Authentication authentication) throws IOException, ServletException {
+            Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+            for (GrantedAuthority authority : authorities) {
+                if (authority.getAuthority().equals("ADMIN")) {
+                    response.sendRedirect("/admin/cotizacion/home");
+                    return;
+                } else if (authority.getAuthority().equals("USER")) {
+                    response.sendRedirect("/user/home");
+                    return;
+                }
+            }
+            response.sendRedirect("/");
+        }
     }
 }

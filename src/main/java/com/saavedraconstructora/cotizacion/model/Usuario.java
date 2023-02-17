@@ -95,4 +95,17 @@ public class Usuario {
         this.password = password;
         this.rol = rol;
     }
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", rol=" + rol +
+                ", trabajos=" + trabajos +
+                '}';
+    }
 }

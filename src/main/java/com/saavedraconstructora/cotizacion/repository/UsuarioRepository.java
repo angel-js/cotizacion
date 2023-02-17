@@ -8,7 +8,6 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 
     public Usuario findByEmail(String email);
 
-
     /**
     @Query("from Usuario us order by us.id")
     List<Usuario> findAll();

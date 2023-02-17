@@ -17,7 +17,6 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-@PreAuthorize("isAuthenticated()")
 @RequestMapping("/admin/cotizacion")
 public class CotizacionController {
 

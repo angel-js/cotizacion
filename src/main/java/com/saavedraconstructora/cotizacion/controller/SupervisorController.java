@@ -19,7 +19,6 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-@PreAuthorize("isAuthenticated()")
 @RequestMapping("/admin/personal")
 public class SupervisorController {
 
