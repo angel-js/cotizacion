@@ -49,6 +49,13 @@
                                 th:text="${dep.nombre}"></option>
                     </select>
                 </div>
+                <div class="mb-3">
+                    <label for="supervisor" class="form-label">Supervisor</label>
+                    <select class="form-control" id="supervisor" th:field="*{supervisor}">
+                        <option th:each="sup: ${supervisor}" th:value="${sup.id}"
+                                th:text="${sup.nombre}"></option>
+                    </select>
+                </div>
                 <div id="items-section">
                     <table class="table">
                         <thead>

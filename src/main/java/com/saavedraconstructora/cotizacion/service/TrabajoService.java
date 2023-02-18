@@ -1,14 +1,8 @@
 package com.saavedraconstructora.cotizacion.service;
 
 import com.saavedraconstructora.cotizacion.exception.ResourceNotFoundException;
-import com.saavedraconstructora.cotizacion.model.Departamento;
-import com.saavedraconstructora.cotizacion.model.Status;
-import com.saavedraconstructora.cotizacion.model.Trabajo;
-import com.saavedraconstructora.cotizacion.model.Usuario;
-import com.saavedraconstructora.cotizacion.repository.DepartamentoRepository;
-import com.saavedraconstructora.cotizacion.repository.StatusRepository;
-import com.saavedraconstructora.cotizacion.repository.TrabajoRepository;
-import com.saavedraconstructora.cotizacion.repository.UsuarioRepository;
+import com.saavedraconstructora.cotizacion.model.*;
+import com.saavedraconstructora.cotizacion.repository.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +19,8 @@ public class TrabajoService {
     private DepartamentoRepository departamentoRepository;
     @Autowired
     private TrabajoRepository trabajoRepository;
-
+    @Autowired
+    private SupervisorRepository supervisorRepository;
     @Autowired
     private StatusRepository statusRepository;
 
@@ -54,5 +49,10 @@ public class TrabajoService {
     public List<Status> findAllStatus() {
         log.info("Cotizacion Service: Buscar Status");
         return statusRepository.findAllStatus();
+    }
+
+    // Traer todos los supervisores
+    public List<Supervisor> findAllSupervisores(){
+        return supervisorRepository.findAll();
     }
 }

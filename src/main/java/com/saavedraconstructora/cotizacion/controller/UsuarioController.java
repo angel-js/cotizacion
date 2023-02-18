@@ -57,6 +57,7 @@ public class UsuarioController {
         model.addAttribute("trabajo", new Trabajo());
         model.addAttribute("status",trabajoService.findAllStatus() );
         model.addAttribute("departamentos", trabajoService.buscarDepart());
+        model.addAttribute("supervisor", trabajoService.findAllSupervisores());
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Usuario user = trabajoService.buscarUsuarioXMail(auth.getName());
         model.addAttribute("usuario", user);
