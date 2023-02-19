@@ -12,3 +12,36 @@
     var itemRow = button.parentNode.parentNode;
     itemRow.parentNode.removeChild(itemRow);
 }
+/**
+function buscarSupervisoresPorDepartamento() {
+    var departamentoId = $('#Local').val();
+    if (departamentoId) { // Verificar que el valor no es nulo o undefined
+        $.ajax({
+            url: "/user/supervisoresPorDepartamento",
+            data: { idDepartamento: departamentoId },
+            success: function(data) {
+                var supervisorSelect = $("#supervisor");
+                supervisorSelect.empty();
+                $.each(data, function(index, supervisor) {
+                    supervisorSelect.append($('<option>', {
+                        value: supervisor.id,
+                        text: supervisor.nombre
+                    }));
+                });
+            }
+        });
+    }
+}
+
+function buscarSupervisoresPorDepartamento(idDepartamento) {
+    $.ajax("/user/supervisoresPorDepartamento?idDepartamento=" + idDepartamento, function(data) {
+        var supervisorSelect = $("#supervisor");
+        supervisorSelect.empty();
+        $.each(data, function(index, supervisor) {
+            supervisorSelect.append($('<option>', {
+                value: supervisor.id,
+                text: supervisor.nombre
+            }));
+        });
+    });
+}**/

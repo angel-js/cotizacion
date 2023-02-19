@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -23,7 +24,6 @@ public class TrabajoService {
     private SupervisorRepository supervisorRepository;
     @Autowired
     private StatusRepository statusRepository;
-
     public Trabajo findById(Integer id) {
         return trabajoRepository.findById(id).
                 orElseThrow(() -> new ResourceNotFoundException("Supervisor not found with id ", "id", id));
@@ -55,4 +55,20 @@ public class TrabajoService {
     public List<Supervisor> findAllSupervisores(){
         return supervisorRepository.findAll();
     }
+
+    // Guardar un TRABAJO
+    public Trabajo guardarTrabajo(Trabajo trabajo) {
+        return trabajoRepository.save(trabajo);
+    }
+
+    // Buscar supervisor por departamento
+    public List<Supervisor> buscarSupervisoresPorDepartamento(Integer idDepartamento) {
+        //Integer id = Integer.parseInt(idDepartamento);
+        Departamento departamento = departamentoRepository.findById(idDepartamento).orElse(null);
+        if (departamento == null) {
+            return Collections.emptyList();
+        }
+        return supervisorRepository.findByDepartamentos_Id(idDepartamento);
+    }
+
 }

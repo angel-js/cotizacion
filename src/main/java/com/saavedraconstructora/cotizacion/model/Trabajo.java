@@ -28,6 +28,11 @@ public class Trabajo {
 
     @Column(name = "fecha_trabajo", columnDefinition = "DATETIME NOT NULL")
     private LocalDateTime fecha_trabajo;
+
+    @PrePersist
+    protected void onCreate() {
+        fecha_trabajo = LocalDateTime.now();
+    }
     @ManyToOne
     private Status status;
 

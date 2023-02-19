@@ -14,4 +14,7 @@ public interface SupervisorRepository extends JpaRepository<Supervisor, Integer>
     List<Supervisor> findByNombreContainingIgnoreCaseOrApellidoContainingIgnoreCase(String nombre, String apellido);
 
      void deleteById(Integer id); // Delete Supervisor
+
+    // Buscar Supevisores por id de Departamento
+    List<Supervisor> findByDepartamentos_Id(Integer idDepartamento);
 }

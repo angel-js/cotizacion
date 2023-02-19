@@ -1,5 +1,6 @@
 package com.saavedraconstructora.cotizacion.controller;
 
+import com.saavedraconstructora.cotizacion.model.Supervisor;
 import com.saavedraconstructora.cotizacion.model.Trabajo;
 import com.saavedraconstructora.cotizacion.model.Usuario;
 import com.saavedraconstructora.cotizacion.service.TrabajoService;
@@ -11,12 +12,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping("/user")
@@ -50,19 +50,25 @@ public class UsuarioController {
         return "trabajo/listarTrabajo";
     }
 
-    // Create
+    /*@GetMapping("/supervisoresPorDepartamento")
+    public @ResponseBody List<Supervisor> supervisoresPorDepartamento(@RequestParam Integer idDepartamento) {
+        log.info("Entra a EL AJAX SUPERVISORES X DEPARTAMENTOS");
+        return trabajoService.buscarSupervisoresPorDepartamento(idDepartamento);
+    }*/
+
     @GetMapping("/create")
     public String crearTrabajo(Model model) {
         log.info("SOY CREATE TRABAJO-----------------");
         model.addAttribute("trabajo", new Trabajo());
         model.addAttribute("status",trabajoService.findAllStatus() );
         model.addAttribute("departamentos", trabajoService.buscarDepart());
-        model.addAttribute("supervisor", trabajoService.findAllSupervisores());
+        //model.addAttribute("supervisor", trabajoService.findAllSupervisores());
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Usuario user = trabajoService.buscarUsuarioXMail(auth.getName());
         model.addAttribute("usuario", user);
         return "usuario/crearTrabajo";
     }
+
     // Update
     @GetMapping("/update/{id}")
     public String actualizarTrabajo(@PathVariable Integer id, Model model) {
@@ -73,8 +79,23 @@ public class UsuarioController {
 
     // SAVE
     @PostMapping("/guardar")
-    public String guardarTrabajos(@Valid Trabajo trabajo, Model model) {
-        return "redirect:/user/home";
+    public String guardarTrabajos(@Valid Trabajo trabajo, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            // Si hay errores de validación, regresa a la página de crear trabajo
+            model.addAttribute("status", trabajoService.findAllStatus());
+            model.addAttribute("departamentos", trabajoService.buscarDepart());
+            //model.addAttribute("supervisor", trabajoService.findAllSupervisores());
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            Usuario user = trabajoService.buscarUsuarioXMail(auth.getName());
+            model.addAttribute("usuario", user);
+            return "usuario/crearTrabajo";
+        }
+        if(trabajo.getUsuario() == null || trabajo.getSupervisor() == null){
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            Usuario user = trabajoService.buscarUsuarioXMail(auth.getName());
+            trabajo.setUsuario(user);
+        }
+        trabajoService.guardarTrabajo(trabajo);
+        return "redirect:/user/trabajos";
     }
-
 }
