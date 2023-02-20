@@ -1,5 +1,6 @@
 package com.saavedraconstructora.cotizacion.controller;
 
+import com.saavedraconstructora.cotizacion.model.Departamento;
 import com.saavedraconstructora.cotizacion.model.Supervisor;
 import com.saavedraconstructora.cotizacion.model.Trabajo;
 import com.saavedraconstructora.cotizacion.model.Usuario;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/user")
@@ -91,9 +93,15 @@ public class UsuarioController {
             return "usuario/crearTrabajo";
         }
         if(trabajo.getUsuario() == null || trabajo.getSupervisor() == null){
+            // Añadir usuario
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             Usuario user = trabajoService.buscarUsuarioXMail(auth.getName());
             trabajo.setUsuario(user);
+            // Añadir supervisor
+            List<Supervisor> supervisores = trabajoService.buscarSupervisoresPorDepartamento(
+                    trabajo.getDepartamento().getId());
+            // Asingar el primero de la lista
+            trabajo.setSupervisor(supervisores.get(0));
         }
         trabajoService.guardarTrabajo(trabajo);
         return "redirect:/user/trabajos";
