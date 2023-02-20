@@ -1,9 +1,6 @@
 package com.saavedraconstructora.cotizacion.controller;
 
-import com.saavedraconstructora.cotizacion.model.Departamento;
-import com.saavedraconstructora.cotizacion.model.Supervisor;
-import com.saavedraconstructora.cotizacion.model.Trabajo;
-import com.saavedraconstructora.cotizacion.model.Usuario;
+import com.saavedraconstructora.cotizacion.model.*;
 import com.saavedraconstructora.cotizacion.service.TrabajoService;
 import com.saavedraconstructora.cotizacion.service.UsuarioRolService;
 import org.slf4j.Logger;
@@ -49,8 +46,31 @@ public class UsuarioController {
 
     @GetMapping("/list")
     public String listarTrabajo(Model model) {
-        return "trabajo/listarTrabajo";
+        return "usuario/listarTrabajo";
     }
+
+    @PostMapping("/busquedaConParametros")
+    public String busquedaConParametros(@RequestParam("status") Integer status, Model model) {
+        try {
+            log.info("Search of Trabajo with any parameter PATH:/busquedaConParametros");
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            Usuario user = trabajoService.buscarUsuarioXMail(auth.getName());
+            log.info("USUARIO ------------------------------------ ID: " + user.getId());
+            List<Trabajo> trabajos = trabajoService.findByStatusContaining(status, user.getId());
+            if (trabajos.isEmpty()) {
+                log.debug("The request is empty!");
+                log.debug("The Request has empty parameters");
+                return "redirect:/user/list";
+            } else {
+                return "usuario/resultadoParametros";
+            }
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            log.debug("Hay un error al intentar buscar los trabajos");
+            return "redirect:/user/list";
+        }
+    }
+
 
     /*@GetMapping("/supervisoresPorDepartamento")
     public @ResponseBody List<Supervisor> supervisoresPorDepartamento(@RequestParam Integer idDepartamento) {
@@ -102,6 +122,10 @@ public class UsuarioController {
                     trabajo.getDepartamento().getId());
             // Asingar el primero de la lista
             trabajo.setSupervisor(supervisores.get(0));
+        }
+        // Guardar los items del trabajo
+        for (Item item : trabajo.getItems()) {
+            item.setTrabajo(trabajo);
         }
         trabajoService.guardarTrabajo(trabajo);
         return "redirect:/user/trabajos";

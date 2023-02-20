@@ -71,4 +71,8 @@ public class TrabajoService {
         return supervisorRepository.findByDepartamentos_Id(idDepartamento);
     }
 
+    // Buscar Trabajo por status
+    public List<Trabajo> findByStatusContaining(Integer status, Integer usuarioId) {
+       return trabajoRepository.findByStatusAndUsuario(status, usuarioId);
+    }
 }
