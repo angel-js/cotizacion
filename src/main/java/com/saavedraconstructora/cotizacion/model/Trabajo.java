@@ -8,11 +8,9 @@ import java.util.List;
 @Entity
 @Table(name = "trabajo")
 public class Trabajo {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
     @ManyToOne
     @JoinColumn(name = "departamento_id")
     private Departamento departamento;
@@ -102,5 +100,18 @@ public class Trabajo {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "Trabajo{" +
+                "id=" + id +
+                ", departamento=" + departamento +
+                ", supervisor=" + supervisor +
+                ", usuario=" + usuario +
+                ", items=" + items +
+                ", fecha_trabajo=" + fecha_trabajo +
+                ", status=" + status +
+                '}';
     }
 }

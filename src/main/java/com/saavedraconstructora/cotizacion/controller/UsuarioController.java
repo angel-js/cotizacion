@@ -62,6 +62,7 @@ public class UsuarioController {
                 log.debug("The Request has empty parameters");
                 return "redirect:/user/list";
             } else {
+                model.addAttribute("trabajos", trabajos);
                 return "usuario/resultadoParametros";
             }
         } catch (Exception e) {
@@ -129,5 +130,11 @@ public class UsuarioController {
         }
         trabajoService.guardarTrabajo(trabajo);
         return "redirect:/user/trabajos";
+    }
+
+    // DETALLE
+    @GetMapping("/trabajo/detalle/{id}")
+    public String detalleTrabajo(@PathVariable Integer id, Model mode){
+        return "usario/detalleTrabajo";
     }
 }
