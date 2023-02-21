@@ -78,12 +78,14 @@ public class Trabajo {
         this.usuario = usuario;
     }
 
-    public List<Item> getItems() {
-        return items;
+    // Métodos de conveniencia para manejar la relación bidireccional con Item
+    public void addItem(Item item) {
+        items.add(item);
+        item.setTrabajo(this);
     }
-
-    public void setItems(List<Item> items) {
-        this.items = items;
+    public void removeItem(Item item) {
+        items.remove(item);
+        item.setTrabajo(null);
     }
 
     public LocalDateTime getFecha_trabajo() {

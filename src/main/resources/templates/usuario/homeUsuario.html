@@ -37,7 +37,7 @@
         <div class="col-md-12">
             <div>
                 <h4 class="display-4 pt-5 ps-5">
-                    Bienvenido a tu sesión: <span th:text="${nombre}"></span>
+                    Bienvenido a tu sesión: <span th:text="${user.name + ' ' + user.lastname}"></span>
                 </h4>
             </div>
         </div>

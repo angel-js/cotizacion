@@ -51,59 +51,35 @@
                     </select>
                 </div>
                 <div id="items-section" class="d-flex flex-column align-items-center">
-                    <div class="d-flex justify-content-center pt-3 pb-3">
-                        <button type="button" class="btn btn-primary" onclick="agregarItem()">Agregar Item</button>
-                    </div>
-                    <table class="table w-100">
+                    <input type="hidden" id="item-count" name="itemCount" value="0" />
+                    <table>
+                        <button type="button" class="btn btn-primary mt-4" onclick="agregarFila()">Agregar Item</button>
                         <thead>
                         <tr>
                             <th>Nombre</th>
-                            <!--<th>Monto</th>-->
-                            <th>Agregar</th>
-                            <th>Eliminar</th>
+                            <th>Monto</th>
+                            <th></th>
+                            <th></th>
                         </tr>
                         </thead>
-                        <tbody>
-                        <div class="d-flex justify-content-around">
-                            <tr th:each="item, itemStat : ${trabajo.items}" class="item-rowe">
-                                <td>
-                                    <input type="text" class="form-control"
-                                           th:field="*{items[__${itemStat.index}__].nombre}"/>
-                                </td>
-                                <td>
-                                    <input type="number" class="form-control"
-                                           th:field="*{items[__${itemStat.index}__].monto}"/>
-                                </td>
-                                <td>
-                                    <button type="button" class="btn btn-danger" onclick="eliminarItem(this)">Eliminar
-                                    </button>
-                                </td>
-                            </tr>
-                        </div>
-                        <div class="d-flex justify-content-around">
-                            <tr class="item-row d-none" id="item-row-template">
-                                <td>
-                                    <input type="text" class="form-control"
-                                           th:field="*{items[__${#lists.size(trabajo.items)}__].nombre}"
-                                           placeholder="Detalle"/>
-                                </td>
-                                <td>
-                                    <input type="number" class="form-control"
-                                           th:field="*{items[__${#lists.size(trabajo.items)}__].monto}" readonly
-                                           value="0" placeholder="Por definir"/>
-                                </td>
-                                <td>
-                                    <button type="button" class="btn btn-danger" onclick="eliminarItem(this)">(-)
-                                    </button>
-                                </td>
-                                <td>
-                                    <button type="button" class="btn btn-primary" onclick="agregarItem(this)">(+)
-                                    </button>
-                                </td>
-                            </tr>
-                        </div>
+                        <tbody id="item-table-body">
+                        <tr class="item-row d-none" id="item-row-template">
+                            <td>
+                                <input type="text" class="form-control" name="nombre" placeholder="Detalle" />
+                            </td>
+                            <td>
+                                <input type="number" class="form-control" name="monto" value="0" readonly />
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-danger" onclick="eliminarItem(this)">(-)</button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-primary" onclick="agregarFila(this)">(+)</button>
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
+
                 </div>
                 <div class="mb-3">
                     <label for="usuario" class="form-label">Usuario</label>

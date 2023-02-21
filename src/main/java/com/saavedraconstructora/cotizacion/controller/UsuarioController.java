@@ -13,28 +13,25 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
 @Controller
 @RequestMapping("/user")
 public class UsuarioController {
-
     private static final Logger log = LoggerFactory.getLogger(CotizacionController.class);
     @Autowired
-    private UsuarioRolService usuarioRolService;
-
-    @Autowired
     private TrabajoService trabajoService;
-
-
     //HOME VIEW
     @GetMapping("/home")
     public String homeTrabajo(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Usuario user = trabajoService.buscarUsuarioXMail(auth.getName());
-        model.addAttribute("nombre", user); // TODO make a Service Method with only NAME and LASTNAME
+        model.addAttribute("user", user); // TODO make a Service Method with only NAME and LASTNAME
         return "usuario/homeUsuario";
     }
     // -------- CRUD --------
@@ -82,59 +79,85 @@ public class UsuarioController {
     @GetMapping("/create")
     public String crearTrabajo(Model model) {
         log.info("SOY CREATE TRABAJO-----------------");
-        model.addAttribute("trabajo", new Trabajo());
+        Trabajo trabajo = new Trabajo();
+        model.addAttribute("trabajo", trabajo);
         model.addAttribute("status",trabajoService.findAllStatus() );
         model.addAttribute("departamentos", trabajoService.buscarDepart());
-        //model.addAttribute("supervisor", trabajoService.findAllSupervisores());
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Usuario user = trabajoService.buscarUsuarioXMail(auth.getName());
         model.addAttribute("usuario", user);
+        // No se si me falte instanciar o declarar un objeto de tipo ITEM
         return "usuario/crearTrabajo";
     }
 
     // Update
-    @GetMapping("/update/{id}")
+    @GetMapping("trabajo/update/{id}")
     public String actualizarTrabajo(@PathVariable Integer id, Model model) {
-        Trabajo trbj = usuarioRolService.findById(id);
+        Trabajo trbj = trabajoService.findById(id);
         model.addAttribute("trabajo",trbj);
-        return "trabajo/actualizarTrabajo";
+        return "usuario/actualizarTrabajo";
     }
 
     // SAVE
     @PostMapping("/guardar")
-    public String guardarTrabajos(@Valid Trabajo trabajo, BindingResult bindingResult, Model model) {
+    public String guardarTrabajos(@Valid Trabajo trabajo, BindingResult bindingResult, Model model,
+                                  HttpServletRequest request) {
         if (bindingResult.hasErrors()) {
-            // Si hay errores de validación, regresa a la página de crear trabajo
             model.addAttribute("status", trabajoService.findAllStatus());
             model.addAttribute("departamentos", trabajoService.buscarDepart());
-            //model.addAttribute("supervisor", trabajoService.findAllSupervisores());
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             Usuario user = trabajoService.buscarUsuarioXMail(auth.getName());
             model.addAttribute("usuario", user);
             return "usuario/crearTrabajo";
         }
         if(trabajo.getUsuario() == null || trabajo.getSupervisor() == null){
-            // Añadir usuario
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             Usuario user = trabajoService.buscarUsuarioXMail(auth.getName());
             trabajo.setUsuario(user);
-            // Añadir supervisor
             List<Supervisor> supervisores = trabajoService.buscarSupervisoresPorDepartamento(
                     trabajo.getDepartamento().getId());
-            // Asingar el primero de la lista
             trabajo.setSupervisor(supervisores.get(0));
         }
-        // Guardar los items del trabajo
-        for (Item item : trabajo.getItems()) {
-            item.setTrabajo(trabajo);
+        // obtener los items enviados desde el formulario
+        String[] nombres = request.getParameterValues("nombre");
+        String[] montos = request.getParameterValues("monto");
+
+        // agregar cada item al trabajo
+        for (int i = 0; i < nombres.length; i++) {
+            String nombre = nombres[i];
+            int monto = Integer.parseInt(montos[i]);
+            Item item = new Item();
+            item.setNombre(nombre);
+            item.setMonto(monto);
+            trabajo.addItem(item);
         }
         trabajoService.guardarTrabajo(trabajo);
-        return "redirect:/user/trabajos";
+        return "redirect:/user/trabajo";
     }
 
     // DETALLE
     @GetMapping("/trabajo/detalle/{id}")
-    public String detalleTrabajo(@PathVariable Integer id, Model mode){
-        return "usario/detalleTrabajo";
+    public String detalleTrabajo(@PathVariable Integer id, Model model){
+        Trabajo trbj = trabajoService.findById(id);
+        model.addAttribute("trabajo", trbj);
+        return "usuario/detalleTrabajo"; /*TODO debo hacer un response para cuando sea vacion con una validacion*/
+    }
+
+    // DELETE
+    @GetMapping("trabajo/delete/{id}")
+    public String eliminarTrabajo(@PathVariable Integer id) {
+        trabajoService.DeleteByID(id);
+        log.info("TRABAJO ID DELETE: -------------------> " + id);
+        return "redirect:/user/trabajo";
     }
 }
+
+/*List<Item> items = new ArrayList<>();
+        int count = Integer.parseInt(request.getParameter("itemCount"));
+        for (int i = 0; i < count; i++) {
+            String nombre = request.getParameter("items[" + i + "].nombre");
+            int monto = Integer.parseInt(request.getParameter("items[" + i + "].monto"));
+            items.add(new Item(nombre, monto, trabajo));
+        }
+        trabajo.setItems(items);
+        */

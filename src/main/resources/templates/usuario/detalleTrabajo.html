@@ -1,10 +1,80 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
+    <title>Saavedra Constructora</title>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+    <!-- comment -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!--<link href="/static/loginStyle.css" rel="stylesheet">-->
 </head>
 <body>
-Detalle
+<!-- Navbar -->
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <div class="container-fluid d-flex">
+        <a class="navbar-brand" th:href="@{/user/home/}">Saavedra</a>
+    </div>
+</nav>
+<!--Body-->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 pt-4 d-flex justify-content-center">
+            <h2 class="display-2">Detalle del Trabajo</h2>
+        </div>
+        <div class="col-md-12 pt-4 d-flex justify-content-center">
+            <h4 class="display-4" th:text="${trabajo.usuario.name + ' ' +  trabajo.usuario.lastname}"></h4>
+        </div>
+        <div class="col-sm-12 col-md-6 pt-4 ">
+            <div class="d-flex justify-content-center">
+                <h6>ID: <span th:text="${trabajo.id}"></span></h6>
+            </div>
+            <div class="d-flex justify-content-center">
+                <h6> Fecha: <span th:text="${#temporals.format(trabajo.fecha_trabajo, 'dd/MM/yyyy HH:mm')}"></span></h6>
+            </div>
+            <div class="d-flex justify-content-center">
+                <h4>Local: <span th:text="${trabajo.departamento.nombre}"></span></h4>
+            </div>
+            <div class="d-flex justify-content-center">
+                <h4>Supervisor: </h4>
+            </div>
+            <div class="d-flex justify-content-center pe-4 ps-4">
+                <h6 th:text="${trabajo.supervisor.nombre + ' ' + trabajo.supervisor.apellido }"></h6>
+            </div>
+            <div class="d-flex justify-content-center pe-4 ps-4   pt-2 pb-2">
+                <h4 th:class="${trabajo.status.id == 1 ? 'card-text text-black p-3 bg-gradient bg-warning' :
+                        (trabajo.status.id == 2 ? 'card-text p-3 bg-gradient bg-danger text-black' :
+                        (trabajo.status.id == 3 ? 'card-text p-3 bg-gradient bg-success text-black' : ''))}"
+                    th:text="${trabajo.status.name}"></h4>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12 pt-4">
+            <div class="d-flex justify-content-center">
+                <h4>Items: </h4>
+            </div>
+            <div class="d-flex justify-content-center">
+                <ul>
+                    <li th:each="traItem: ${trabajo.items}" th:text="${traItem.nombre}"></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-12 col-sm-12 pt-4 pb-4 m-2">
+            <div class="d-flex justify-content-around">
+                <a th:href="@{/user/trabajo/update/__${trabajo.id}__}">
+                    <button class="btn btn-primary">Editar</button>
+                </a>
+                <form method="post" th:action="@{/user/trabajo/delete/__${trabajo.id}__}">
+                    <input type="hidden" name="_method" value="delete"/>
+                    <button class="btn btn-danger" type="submit"
+                            onclick="return confirm('¿Esta seguro que desea eliminar este Trabajo?');">Eliminar
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 </body>
 </html>

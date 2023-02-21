@@ -24,6 +24,10 @@ public class TrabajoService {
     private SupervisorRepository supervisorRepository;
     @Autowired
     private StatusRepository statusRepository;
+    @Autowired
+    private ItemRepository itemRepository;
+
+
     public Trabajo findById(Integer id) {
         return trabajoRepository.findById(id).
                 orElseThrow(() -> new ResourceNotFoundException("Supervisor not found with id ", "id", id));
@@ -70,9 +74,17 @@ public class TrabajoService {
         }
         return supervisorRepository.findByDepartamentos_Id(idDepartamento);
     }
-
     // Buscar Trabajo por status
     public List<Trabajo> findByStatusContaining(Integer status, Integer usuarioId) {
        return trabajoRepository.findByStatusAndUsuario(status, usuarioId);
+    }
+    // ELIMINAR Trabajo
+    public void DeleteByID(Integer id){
+        trabajoRepository.deleteById(id);
+    }
+
+    // Guardar Item
+    public void addItem(Item item) {
+        itemRepository.save(item);
     }
 }
