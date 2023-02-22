@@ -59,9 +59,23 @@ public class UsuarioController {
             return "usuario/SupervisorDetalle";
         } else {
             log.debug("The request is empty!");
-            return "supervisor/SupervisorErrorView";
+            return "redirect:/user/home";
         }
     }
+    @RequestMapping("/personal/busquedaPersonalizada")
+    public String busqueda(@RequestParam("q") String consulta, Model model) {
+        log.info("This is the search of supervisor with any parameter PATH: /busquedaPersonalizada");
+        List<Supervisor> todos = supervisorService.busqueda(consulta);
+        model.addAttribute("supervisores", todos);
+        if (!todos.isEmpty()) { /* If request is not empty show Template with JPA */
+            log.info("Return a list of HTML with JPA parameters");
+            return "usuario/SupervisorBuscarPersonalizado";
+        } else {
+            log.debug("The request is empty!");
+            return "redirect:/user/home";
+        }
+    }
+
     // -------- CRUD --------
     // Read
     @GetMapping("/trabajo")
