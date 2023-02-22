@@ -1,6 +1,8 @@
 package com.saavedraconstructora.cotizacion.controller;
 
 import com.saavedraconstructora.cotizacion.model.*;
+import com.saavedraconstructora.cotizacion.repository.SupervisorRepository;
+import com.saavedraconstructora.cotizacion.service.SupervisorService;
 import com.saavedraconstructora.cotizacion.service.TrabajoService;
 import com.saavedraconstructora.cotizacion.service.UsuarioRolService;
 import org.slf4j.Logger;
@@ -15,10 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Controller
 @RequestMapping("/user")
@@ -26,6 +25,11 @@ public class UsuarioController {
     private static final Logger log = LoggerFactory.getLogger(CotizacionController.class);
     @Autowired
     private TrabajoService trabajoService;
+    @Autowired
+    private SupervisorService supervisorService;
+    @Autowired
+    private SupervisorRepository supervisorRepository;
+
     //HOME VIEW
     @GetMapping("/home")
     public String homeTrabajo(Model model) {
@@ -33,6 +37,30 @@ public class UsuarioController {
         Usuario user = trabajoService.buscarUsuarioXMail(auth.getName());
         model.addAttribute("user", user); // TODO make a Service Method with only NAME and LASTNAME
         return "usuario/homeUsuario";
+    }
+    // Ruta Supervisores
+    @RequestMapping("/supervisores")
+    public String supervisoresView(Model model) {
+        log.info("This is the search of supervisor PATH: /buscar");
+        List<Supervisor> supervisores = supervisorService.buscar();
+        Collections.sort(supervisores, (s1, s2) -> Integer.compare(s1.getId(), s2.getId()));
+        model.addAttribute("supervisores", supervisores);
+        return "usuario/SupervisorBuscar";
+    }
+
+    @RequestMapping("/personal/detalle/{id}")
+    public String detalle(@PathVariable Integer id, Model model) {
+        Optional<Supervisor> supervisorOptional = supervisorRepository.findById(id);
+        log.info("This is unique info of supervisor with ID PATH: /detalle/{id}");
+        log.info("COTIZACION OBJECT BEFORE JPA ------------> " + supervisorOptional);
+        if (supervisorOptional.isPresent()) { // Validate if the object come in the array and if unpacking
+            Supervisor supervisor = supervisorOptional.get(); // Then turn in the new object
+            model.addAttribute("supervisor", supervisor); //And finally show in the template
+            return "usuario/SupervisorDetalle";
+        } else {
+            log.debug("The request is empty!");
+            return "supervisor/SupervisorErrorView";
+        }
     }
     // -------- CRUD --------
     // Read
@@ -127,9 +155,13 @@ public class UsuarioController {
             String nombre = nombres[i];
             int monto = Integer.parseInt(montos[i]);
             Item item = new Item();
-            item.setNombre(nombre);
-            item.setMonto(monto);
-            trabajo.addItem(item);
+            if (nombre != null &&  !nombre.isEmpty()) {
+                System.out.println("nombre --------------"+ nombre);
+                item.setNombre(nombre);
+                item.setMonto(monto);
+                System.out.printf("AÑADIENDO ITEM ---------- "+ item);
+                trabajo.addItem(item);
+            }
         }
         trabajoService.guardarTrabajo(trabajo);
         return "redirect:/user/trabajo";
@@ -139,6 +171,7 @@ public class UsuarioController {
     @GetMapping("/trabajo/detalle/{id}")
     public String detalleTrabajo(@PathVariable Integer id, Model model){
         Trabajo trbj = trabajoService.findById(id);
+        System.out.println(trbj.getItems()); // Agrega esta línea para verificar que la lista se está cargando correctamente
         model.addAttribute("trabajo", trbj);
         return "usuario/detalleTrabajo"; /*TODO debo hacer un response para cuando sea vacion con una validacion*/
     }

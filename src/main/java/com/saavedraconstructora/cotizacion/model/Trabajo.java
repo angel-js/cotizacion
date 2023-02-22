@@ -88,6 +88,14 @@ public class Trabajo {
         item.setTrabajo(null);
     }
 
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public void setItems(List<Item> items) {
+        this.items = items;
+    }
+
     public LocalDateTime getFecha_trabajo() {
         return fecha_trabajo;
     }
@@ -116,4 +124,5 @@ public class Trabajo {
                 ", status=" + status +
                 '}';
     }
+
 }

@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-  <title>Saavedra Constructora</title>
+  <title>Personal</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
   <!-- comment -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-  <!--<link href="/static/loginStyle.css" rel="stylesheet">-->
+  <!--<link href="/static/style.css" rel="stylesheet">-->
 </head>
 <body>
 <!-- Navbar -->
@@ -32,37 +32,41 @@
     </div>
   </div>
 </nav>
-<!--Title-->
-<div class="row">
-  <h4 class="display-4 text-center">Búsqueda</h4>
-</div>
-<!-- Form -->
-<div class="row pt-4">
-  <div class="col-md-2 col-sm-12"></div>
-  <div class="col-md-8 col-sm-12">
-    <!-- Search form -->
-    <form class="form-inline" th:action="@{/user/busquedaConParametros}"
-          method="post" role="search">
-      <i class="fas fa-search" aria-hidden="true"></i>
-      <div class="d-flex justify-content-center pt-3 pb-3">
-        <select name="status" class="form-select form-control form-control-lg ml-3 w-75" aria-label="form-select-lg example">
-          <option value="1" selected>En proceso</option>
-          <option value="2">Por cobrar</option>
-          <option value="3">Terminado</option>
-        </select>
-      </div>
-      <!--<div class="d-flex justify-content-center">
-        <input class="form-control form-control-lg ml-3 w-75" autofocus="autofocus" type="text"
-               placeholder="Buscar"
-               aria-label="Search" name="q">
-      </div>-->
-      <div class="d-flex justify-content-center pt-4">
-        <button type="submit" class="btn btn-primary m-2">Buscar</button>
-      </div>
-    </form>
+<!-- Listas -->
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 m-1 pt-2">
+      <h2 class="text-center pt-3">Supervisor</h2>
+      <form class="form-inline d-flex justify-content-around mb-4 mt-2" th:action="@{/admin/personal/busquedaPersonalizada}" role="search">
+        <input class="form-control fmSb" type="search" placeholder="Buscar" aria-label="Buscar" name="q">
+        <button class="btn btn-outline-success btnSb" type="submit">Buscar</button>
+      </form>
+    </div>
   </div>
-  <div class="col-md-2 col-sm-12"></div>
+  <table class="table table-striped table-responsive pt-4">
+    <thead class="thead-light">
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Apellido</th>
+      <th scope="col">Detalle</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="sup: ${supervisores}">
+      <th th:text="${sup.id}"></th>
+      <td th:text="${sup.nombre}"></td>
+      <td th:text="${sup.apellido}"></td>
+      <td>
+        <div class="d-flex justify-content-center">
+          <a th:href="@{/user/personal/detalle/__${sup.id}__}">
+            <button class="btn btn-primary">Info</button>
+          </a>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
 </div>
-
 </body>
 </html>
