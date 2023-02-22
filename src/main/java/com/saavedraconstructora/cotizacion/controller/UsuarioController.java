@@ -35,7 +35,7 @@ public class UsuarioController {
     public String homeTrabajo(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Usuario user = trabajoService.buscarUsuarioXMail(auth.getName());
-        model.addAttribute("user", user); // TODO make a Service Method with only NAME and LASTNAME
+        model.addAttribute("user", user);
         return "usuario/homeUsuario";
     }
     // Ruta Supervisores
@@ -138,6 +138,16 @@ public class UsuarioController {
         Trabajo trbj = trabajoService.findById(id);
         model.addAttribute("trabajo",trbj);
         return "usuario/actualizarTrabajo";
+    }
+
+    @PostMapping("/admin/trabajo/update/{id}")
+    public String actualizarTrabajo(@PathVariable Integer id, @ModelAttribute("trabajo") Trabajo trabajoActualizado) {
+        Trabajo trabajoExistente = trabajoService.findById(id);
+        trabajoExistente.setDepartamento(trabajoActualizado.getDepartamento());
+        trabajoExistente.setItems(trabajoActualizado.getItems());
+        trabajoExistente.setStatus(trabajoActualizado.getStatus());
+        trabajoService.guardarTrabajo(trabajoExistente);
+        return "redirect:/admin/trabajo/lista";
     }
 
     // SAVE

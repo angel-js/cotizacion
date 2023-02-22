@@ -1,10 +1,135 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
 <head>
+    <title>Saavedra Constructora</title>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+    <!-- comment -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!--<link href="/static/loginStyle.css" rel="stylesheet">-->
+    <script src="/static/javascript/item.js"></script>
 </head>
 <body>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <div class="container-fluid d-flex">
+        <a class="navbar-brand" th:href="@{/admin/cotizacion/home/}">Saavedra</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse  justify-content-end" id="collapsibleNavbar">
+            <div class="">
+                <ul class="navbar-nav ">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/admin/trabajo/home}">Trabajos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/admin/cotizacion/crear}">Crear Cotización</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/admin/users/}">Administrador</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/admin/personal/buscar}">Personal</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/admin/cotizacion/buscar}">Buscar</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/logout}">Cerrar Sesión</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+<!-- Formulario -->
+<div class="container mt-4 as-destacados">
+    <div class="row">
+        <div class="col-md-12">
 
+            <h2 class="display-2 p-5 text-center">Actualizar Trabajo</h2>
+            <!-- TODO <h5 th:text="${errM}" class="text-center text-danger"></h5> -->
+            <form method="post" th:action="@{/admin/trabajo/update/{id}}" th:object="${trabajo}">
+                <input type="hidden" name="_method" value="PUT" />
+
+                <div class="mb-3">
+                    <label for="Local" class="form-label">Local</label>
+                    <select class="form-control" id="Local" th:field="*{departamento}">
+                        <option th:each="dep: ${departamentos}" th:value="${dep.id}" th:text="${dep.nombre}"
+                                th:selected="${dep.id == trabajo.departamento.id}"></option>
+                    </select>
+                </div>
+                <!--
+                <div id="items-section" class="d-flex flex-column align-items-center">
+                    <input type="hidden" id="item-count" name="itemCount" value="0" />
+                    <table>
+                        <button type="button" class="btn btn-primary mt-4" onclick="agregarFila()">Agregar Item</button>
+                        <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Monto</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody id="item-table-body">
+                        <tr class="item-row d-none" id="item-row-template">
+                            <td>
+                                <input type="text" class="form-control" name="nombre" placeholder="Detalle" th:field="*{items[__${itemStat.index}__].nombre}" th:value="${item.nombre}" />
+                            </td>
+                            <td>
+                                <input type="number" class="form-control" name="monto" placeholder="Monto" th:field="*{items[__${itemStat.index}__].monto}" th:value="${item.monto}" />
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-danger" onclick="eliminarItem(this)">(-)</button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-primary" onclick="agregarFila(this)">(+)</button>
+                            </td>
+                        </tr>
+                        <tr th:each="item, itemStat : ${trabajo.items}" th:class="${itemStat.odd} ? 'odd' : 'even'">
+                            <td>
+                                <input type="text" class="form-control" name="nombre" placeholder="Detalle" th:field="*{items[__${itemStat.index}__].nombre}" th:value="${item.nombre}" />
+                            </td>
+                            <td>
+                                <input type="number" class="form-control" name="monto" placeholder="Monto" th:field="*{items[__${itemStat.index}__].monto}" th:value="${item.monto}" />
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-danger" onclick="eliminarItem(this)">(-)</button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-primary" onclick="agregarFila(this)">(+)</button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class="mb-3">
+                    <label for="usuario" class="form-label">Usuario</label>
+                    <input type="text" class="form-control" th:field="*{usuario}" id="usuario"
+                           th:placeholder="${usuario.name + ' ' + usuario.lastname}"
+                           readonly="readonly" th:value="${usuario.id}"/>
+                </div>
+                <div class="mb-3">
+                    <label for="status" class="form-label">Estado</label>
+                    <select class="form-control" id="status" th:field="*{status}">
+                        <option th:each="st: ${status}" th:value="${st.id}"
+                                th:text="${st.name}"
+                                th:selected="${st.id == 1}">
+                        </option>
+                    </select>
+                </div>-->
+                <div class="d-flex justify-content-center pb-5">
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 </body>
 </html>

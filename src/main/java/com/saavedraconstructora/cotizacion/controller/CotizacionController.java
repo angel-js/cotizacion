@@ -2,9 +2,14 @@ package com.saavedraconstructora.cotizacion.controller;
 
 import com.saavedraconstructora.cotizacion.dto.CotizacionDto;
 import com.saavedraconstructora.cotizacion.model.Cotizacion;
+import com.saavedraconstructora.cotizacion.model.Usuario;
 import com.saavedraconstructora.cotizacion.repository.CotizacionRepository;
 import com.saavedraconstructora.cotizacion.service.CotizacionService;
+import com.saavedraconstructora.cotizacion.service.TrabajoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,6 +26,8 @@ import java.util.Optional;
 public class CotizacionController {
 
     //Injection of dependencies
+    @Autowired
+    private TrabajoService trabajoService;
     private CotizacionService cotizacionService;
     private final CotizacionRepository cotizacionRepository;
     private static final Logger log = LoggerFactory.getLogger(CotizacionController.class);
@@ -32,7 +39,10 @@ public class CotizacionController {
 
     /* READ */
     @RequestMapping("/home")
-    public String  homePage(){
+    public String  homePage(Model model){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Usuario user = trabajoService.buscarUsuarioXMail(auth.getName());
+        model.addAttribute("user", user);
         return "home/Home";
     }
 

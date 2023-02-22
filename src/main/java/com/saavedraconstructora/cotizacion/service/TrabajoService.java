@@ -3,6 +3,7 @@ package com.saavedraconstructora.cotizacion.service;
 import com.saavedraconstructora.cotizacion.exception.ResourceNotFoundException;
 import com.saavedraconstructora.cotizacion.model.*;
 import com.saavedraconstructora.cotizacion.repository.*;
+import com.sun.jdi.IntegerValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,6 +79,10 @@ public class TrabajoService {
     public List<Trabajo> findByStatusContaining(Integer status, Integer usuarioId) {
        return trabajoRepository.findByStatusAndUsuario(status, usuarioId);
     }
+    // Buscar Trabajo por Status para el ADMIN con todos los Usuarios
+    public List<Trabajo> findByStatusAdmin(Integer status) {
+        return  trabajoRepository.findByStatus(status);
+    }
     // ELIMINAR Trabajo
     public void DeleteByID(Integer id){
         trabajoRepository.deleteById(id);
@@ -86,5 +91,10 @@ public class TrabajoService {
     // Guardar Item
     public void addItem(Item item) {
         itemRepository.save(item);
+    }
+
+    // Buscar Items según trabajo_id
+    public List<Item> findByTrabajoId(Integer id) {
+        return itemRepository.findByTrabajoId(id);
     }
 }
