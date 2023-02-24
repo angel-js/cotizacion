@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TrabajoService {
@@ -96,5 +97,19 @@ public class TrabajoService {
     // Buscar Items según trabajo_id
     public List<Item> findByTrabajoId(Integer id) {
         return itemRepository.findByTrabajoId(id);
+    }
+
+    public void update(Trabajo trabajoUdp) {
+        try {
+            Optional<Trabajo> trbjOpt = trabajoRepository.findById(trabajoUdp.getId());
+            if (trbjOpt.isPresent()) {
+                Trabajo trbjAct = trbjOpt.get();
+                trbjAct.setDepartamento(trabajoUdp.getDepartamento());
+                trbjAct.setItems(trabajoUdp.getItems());
+                trabajoRepository.save(trbjAct);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

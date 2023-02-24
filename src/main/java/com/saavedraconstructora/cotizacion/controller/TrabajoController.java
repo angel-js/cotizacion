@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -37,12 +38,14 @@ public class TrabajoController {
         model.addAttribute("user", user);
         return "trabajo/homeTrabajo";
     }
+
     // -------- CRUD --------
     // Read and Search
     @GetMapping("/list")
     public String listarTrabajo() {
         return "trabajo/listarTrabajo";
     }
+
     @PostMapping("/busquedaConParametros")
     public String busquedaConParametros(@RequestParam("status") Integer status, Model model) {
         try {
@@ -63,6 +66,7 @@ public class TrabajoController {
         return "trabajo/detalleTrabajo";
     }
 
+
     // Update
     @GetMapping("/update/{id}")
     public String actualizarTrabajo(@PathVariable Integer id, Model model) {
@@ -74,7 +78,7 @@ public class TrabajoController {
         Usuario user = trabajoService.buscarUsuarioXMail(trbj.getUsuario().getEmail());
         model.addAttribute("items", items);
         System.out.println("ITEMS --------> " + items);
-        model.addAttribute("trabajo",trbj);
+        model.addAttribute("trabajo", trbj);
         model.addAttribute("departamentos", trabajoService.buscarDepart());
         model.addAttribute("departamento", new Departamento()); // Agregar el objeto departamento vacío
         model.addAttribute("usuario", user);
@@ -82,18 +86,54 @@ public class TrabajoController {
         return "trabajo/actualizarTrabajo";
     }
 
-    //@PostMapping(value = "/update/{id}", consumes = "application/json")
     @PostMapping("/update/{id}")
     public String actualizarTrabajo(@PathVariable Integer id, @ModelAttribute("trabajo") Trabajo trabajoUpd,
-                                    List<Item> items) {
-        // Iterar sobre la lista de items y guardar cada uno
-        for(Item item : items) {
-            itemRepository.save(item);
+                                    @RequestParam(name = "nombre[]", required = false) String[] nombres,
+                                    @RequestParam(name = "monto[]", required = false) Integer[] montos) {
+// Obtener los items originales del trabajo a actualizar desde la base de datos
+        Trabajo trabajoOriginal = trabajoRepository.findById(id).orElseThrow();
+        List<Item> nuevosItems = new ArrayList<>();
+        if (nombres != null && montos != null) {
+            // Comparar los items originales con los nuevos items enviados desde el formulario
+            for (int i = 0; i < nombres.length; i++) {
+                String nombre = nombres[i];
+                Integer monto = montos[i];
+                if (nombre != null && !nombre.isEmpty() && monto != null) {
+                    Item item = new Item();
+                    item.setNombre(nombre);
+                    item.setMonto(monto);
+                    item.setTrabajo(trabajoUpd);
+                    // Para cada item nuevo o actualizado, guardar o actualizar el objeto Item en la base de datos
+                    itemRepository.save(item);
+                    nuevosItems.add(item);
+                }
+            }
         }
-        // Ejecutar la actualización en la base de datos
-        trabajoRepository.save(trabajoUpd);
-        return "redirect:/admin/trabajo/detalle/__${trabajoUpd.id}__";
+    // Para cada item original que no se encuentre en la lista de nuevos items, eliminarlo de la base de datos
+        for (Item item : trabajoOriginal.getItems()) {
+            if (!nuevosItems.contains(item)) {
+                itemRepository.delete(item);
+            }
+        }
+    // Asignar la lista de nuevos items al trabajo a actualizar
+        trabajoUpd.setItems(nuevosItems);
+    // Guardar el trabajo en la base de datos
+        trabajoService.update(trabajoUpd);
+        return "redirect:/admin/trabajo/detalle/" + id;
     }
+
+    /**
+     * @PostMapping("/update/{id}") public String actualizarTrabajo(@PathVariable Integer id, @ModelAttribute("trabajo") Trabajo trabajoUpd,
+     * List<Item> items) {
+     * // Iterar sobre la lista de items y guardar cada uno
+     * for(Item item : items) {
+     * itemRepository.save(item);
+     * }
+     * // Ejecutar la actualización en la base de datos
+     * trabajoRepository.save(trabajoUpd);
+     * return "redirect:/admin/trabajo/detalle/__${trabajoUpd.id}__";
+     * }
+     */
 
     // Delete
     @GetMapping("/delete/{id}")
