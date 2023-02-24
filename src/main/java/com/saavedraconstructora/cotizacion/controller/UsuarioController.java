@@ -140,15 +140,6 @@ public class UsuarioController {
         return "usuario/actualizarTrabajo";
     }
 
-    @PostMapping("/admin/trabajo/update/{id}")
-    public String actualizarTrabajo(@PathVariable Integer id, @ModelAttribute("trabajo") Trabajo trabajoActualizado) {
-        Trabajo trabajoExistente = trabajoService.findById(id);
-        trabajoExistente.setDepartamento(trabajoActualizado.getDepartamento());
-        trabajoExistente.setItems(trabajoActualizado.getItems());
-        trabajoExistente.setStatus(trabajoActualizado.getStatus());
-        trabajoService.guardarTrabajo(trabajoExistente);
-        return "redirect:/admin/trabajo/lista";
-    }
 
     // SAVE
     @PostMapping("/guardar")

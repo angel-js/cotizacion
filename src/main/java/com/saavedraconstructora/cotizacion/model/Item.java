@@ -13,6 +13,7 @@ public class Item {
     @JoinColumn(name = "trabajo_id")
     private Trabajo trabajo;
 
+
     public Item(Integer id, String nombre, int monto, Trabajo trabajo) {
         this.id = id;
         this.nombre = nombre;

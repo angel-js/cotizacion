@@ -1,8 +1,11 @@
 package com.saavedraconstructora.cotizacion.controller;
 
+import com.saavedraconstructora.cotizacion.model.Departamento;
 import com.saavedraconstructora.cotizacion.model.Item;
 import com.saavedraconstructora.cotizacion.model.Trabajo;
 import com.saavedraconstructora.cotizacion.model.Usuario;
+import com.saavedraconstructora.cotizacion.repository.ItemRepository;
+import com.saavedraconstructora.cotizacion.repository.TrabajoRepository;
 import com.saavedraconstructora.cotizacion.service.TrabajoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -20,6 +23,11 @@ import java.util.List;
 public class TrabajoController {
     @Autowired
     private TrabajoService trabajoService;
+    private boolean itemsAgregados = false;
+    @Autowired
+    private TrabajoRepository trabajoRepository;
+    @Autowired
+    private ItemRepository itemRepository;
 
     //HOME VIEW
     @GetMapping("/home")
@@ -61,14 +69,32 @@ public class TrabajoController {
         // Lista de Items según trabajoID
         List<Item> items = trabajoService.findByTrabajoId(id);
         System.out.println("ITEMS --------------> " + items);
+
         Trabajo trbj = trabajoService.findById(id);
+        Usuario user = trabajoService.buscarUsuarioXMail(trbj.getUsuario().getEmail());
+        model.addAttribute("items", items);
+        System.out.println("ITEMS --------> " + items);
         model.addAttribute("trabajo",trbj);
         model.addAttribute("departamentos", trabajoService.buscarDepart());
-        Usuario user = trabajoService.buscarUsuarioXMail(trbj.getUsuario().getEmail());
+        model.addAttribute("departamento", new Departamento()); // Agregar el objeto departamento vacío
         model.addAttribute("usuario", user);
         model.addAttribute("status", trabajoService.findAllStatus());
         return "trabajo/actualizarTrabajo";
     }
+
+    //@PostMapping(value = "/update/{id}", consumes = "application/json")
+    @PostMapping("/update/{id}")
+    public String actualizarTrabajo(@PathVariable Integer id, @ModelAttribute("trabajo") Trabajo trabajoUpd,
+                                    List<Item> items) {
+        // Iterar sobre la lista de items y guardar cada uno
+        for(Item item : items) {
+            itemRepository.save(item);
+        }
+        // Ejecutar la actualización en la base de datos
+        trabajoRepository.save(trabajoUpd);
+        return "redirect:/admin/trabajo/detalle/__${trabajoUpd.id}__";
+    }
+
     // Delete
     @GetMapping("/delete/{id}")
     public String eliminarTrabajo(@PathVariable Integer id) {
