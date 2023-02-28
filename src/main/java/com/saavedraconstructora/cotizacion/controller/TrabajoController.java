@@ -7,6 +7,8 @@ import com.saavedraconstructora.cotizacion.model.Usuario;
 import com.saavedraconstructora.cotizacion.repository.ItemRepository;
 import com.saavedraconstructora.cotizacion.repository.TrabajoRepository;
 import com.saavedraconstructora.cotizacion.service.TrabajoService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -22,6 +24,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/admin/trabajo")
 public class TrabajoController {
+    private static final Logger log = LoggerFactory.getLogger(HomeController.class);
     @Autowired
     private TrabajoService trabajoService;
     private boolean itemsAgregados = false;
@@ -100,6 +103,7 @@ public class TrabajoController {
                 Integer monto = montos[i];
                 if (nombre != null && !nombre.isEmpty() && monto != null) {
                     Item item = new Item();
+                    log.info("Item: " + item);
                     item.setNombre(nombre);
                     item.setMonto(monto);
                     item.setTrabajo(trabajoUpd);
@@ -136,9 +140,9 @@ public class TrabajoController {
      */
 
     // Delete
-    @GetMapping("/delete/{id}")
+    @PostMapping("/delete/{id}")
     public String eliminarTrabajo(@PathVariable Integer id) {
         trabajoService.deleteTrabajo(id);
-        return "trabajo/eliminarTrabajo";
+        return "redirect:/admin/trabajo/home";
     }
 }
