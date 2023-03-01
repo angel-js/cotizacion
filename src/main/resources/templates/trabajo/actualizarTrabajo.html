@@ -54,19 +54,9 @@
 
             <h2 class="display-2 p-5 text-center">Actualizar Trabajo</h2>
             <!-- TODO <h5 th:text="${errM}" class="text-center text-danger"></h5> -->
-            <form method="post" th:action="@{/admin/trabajo/update/__${trabajo.id}__}" th:object="${trabajo}">
-                <input type="hidden" name="_method" value="PUT"/>
-                <div class="mb-3">
-                    <label for="Local" class="form-label">Local</label>
-                    <select class="form-control" id="Local" th:field="*{departamento}">
-                        <option th:each="dep: ${departamentos}" th:value="${dep.id}" th:text="${dep.nombre}"
-                                th:selected="${dep.id == trabajo.departamento.id}"></option>
-                    </select>
-                </div>
+            <form method="post" th:action="@{/admin/trabajo/item/update}" th:object="${itemForm}">
                 <div id="items-section" class="d-flex flex-column align-items-center">
                     <table>
-                        <button id="agregar-item-btn" type="button" class="btn btn-primary mt-4 mb-4"
-                                onclick="habilitarAgregarItem(); agregarFila(); itemsAgregados = true;">Agregar Item</button>
                         <thead>
                         <tr>
                             <th>Nombre</th>
@@ -75,17 +65,16 @@
                             <th></th>
                         </tr>
                         </thead>
-                        <tbody id="item-table-body">
-                        <tr class="item-row d-none" id="item-row-template" th:each="item:${items}">
+                        <tbody>
+                        <tr th:each="item, itemStat : ${itemForm.items}">
                             <td>
+                                <input type="hidden" th:field="*{items[__${itemStat.index}__].id}" th:value="${item.id}" />
                                 <input type="text" class="form-control" name="nombre" placeholder="Detalle"
-                                       th:each="item, itemStat: ${items}"
-                                       th:field="*{items[__${itemStat.index}__].nombre}"/>
+                                       th:field="*{items[__${itemStat.index}__].nombre}" th:value="${item.nombre ?: ''}" />
                             </td>
                             <td>
                                 <input type="number" class="form-control" name="monto" placeholder="Monto"
-                                       th:each="item, itemStat: ${items}"
-                                       th:field="*{items[__${itemStat.index}__].monto}"/>
+                                       th:field="*{items[__${itemStat.index}__].monto}" th:value="${item.monto ?: ''}" />
                             </td>
                         </tr>
                         </tbody>

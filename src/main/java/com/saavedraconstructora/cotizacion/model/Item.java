@@ -61,4 +61,13 @@ public class Item {
     public void setTrabajo(Trabajo trabajo) {
         this.trabajo = trabajo;
     }
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", monto=" + monto +
+                '}';
+    }
 }

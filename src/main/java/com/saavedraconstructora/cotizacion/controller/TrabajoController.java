@@ -1,9 +1,6 @@
 package com.saavedraconstructora.cotizacion.controller;
 
-import com.saavedraconstructora.cotizacion.model.Departamento;
-import com.saavedraconstructora.cotizacion.model.Item;
-import com.saavedraconstructora.cotizacion.model.Trabajo;
-import com.saavedraconstructora.cotizacion.model.Usuario;
+import com.saavedraconstructora.cotizacion.model.*;
 import com.saavedraconstructora.cotizacion.repository.ItemRepository;
 import com.saavedraconstructora.cotizacion.repository.TrabajoRepository;
 import com.saavedraconstructora.cotizacion.service.TrabajoService;
@@ -69,23 +66,19 @@ public class TrabajoController {
         return "trabajo/detalleTrabajo";
     }
 
-
-    // Update
+    //UPDATE
     @GetMapping("/update/{id}")
     public String actualizarTrabajo(@PathVariable Integer id, Model model) {
-        // Lista de Items según trabajoID
+        // Obtener lista de Items según trabajoID
         List<Item> items = trabajoService.findByTrabajoId(id);
-        System.out.println("ITEMS --------------> " + items);
-
-        Trabajo trbj = trabajoService.findById(id);
-        Usuario user = trabajoService.buscarUsuarioXMail(trbj.getUsuario().getEmail());
-        model.addAttribute("items", items);
-        System.out.println("ITEMS --------> " + items);
-        model.addAttribute("trabajo", trbj);
-        model.addAttribute("departamentos", trabajoService.buscarDepart());
-        model.addAttribute("departamento", new Departamento()); // Agregar el objeto departamento vacío
-        model.addAttribute("usuario", user);
-        model.addAttribute("status", trabajoService.findAllStatus());
+        // Crear objeto ItemForm y asignar la lista de items
+        ItemForm itemForm = new ItemForm();
+        itemForm.setItems(items);
+        System.out.println(itemForm.getItems());
+        // Agregar itemForm y Trabajo al modelo
+        model.addAttribute("itemForm", itemForm);
+        model.addAttribute("trabajo", trabajoService.findById(id));
+        // Devolver la vista con el modelo
         return "trabajo/actualizarTrabajo";
     }
 

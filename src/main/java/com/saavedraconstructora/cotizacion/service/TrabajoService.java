@@ -7,6 +7,7 @@ import com.sun.jdi.IntegerValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -28,6 +29,20 @@ public class TrabajoService {
     private StatusRepository statusRepository;
     @Autowired
     private ItemRepository itemRepository;
+
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
+    public void actualizarItem(Integer id, String nombre, int monto) {
+        String query = "UPDATE cotizacion.item SET nombre = ?, monto = ? WHERE id = ?";
+        jdbcTemplate.update(query, nombre, monto, id);
+    }
+    public void actualizarItems(List<Item> items) {
+        // Iterar por cada item y actualizar en la base de datos
+        for (Item item: items){
+            System.out.println("Lo logre!!!");
+        }
+    }
 
 
     public Trabajo findById(Integer id) {
