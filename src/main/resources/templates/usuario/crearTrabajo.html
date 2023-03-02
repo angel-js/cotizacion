@@ -29,6 +29,9 @@
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/user/trabajo}">Trabajos</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/logout}">Cerrar Sesión</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -57,18 +60,15 @@
                         <thead>
                         <tr>
                             <th>Nombre</th>
-                            <th>Monto</th>
-                            <th></th>
-                            <th></th>
                         </tr>
                         </thead>
                         <tbody id="item-table-body">
-                        <tr class="item-row d-none" id="item-row-template">
+                        <tr class="item-row d-none mb-4" id="item-row-template">
                             <td>
                                 <input type="text" class="form-control" name="nombre" placeholder="Detalle" />
                             </td>
                             <td>
-                                <input type="number" class="form-control" name="monto" value="0" readonly />
+                                <input type="number" class="form-control" name="monto" value="0" hidden/>
                             </td>
                             <td>
                                 <button type="button" class="btn btn-danger" onclick="eliminarItem(this)">(-)</button>
@@ -81,7 +81,7 @@
                     </table>
 
                 </div>
-                <div class="mb-3">
+                <div class="mb-3 mt-3">
                     <label for="usuario" class="form-label">Usuario</label>
                     <input type="text" class="form-control" th:field="*{usuario}" id="usuario"
                            th:placeholder="${usuario.name + ' ' + usuario.lastname}"

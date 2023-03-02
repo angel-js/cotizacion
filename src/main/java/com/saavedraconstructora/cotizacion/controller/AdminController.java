@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @Controller
-@PreAuthorize("hasRole('ADMIN')")
 @RequestMapping("/admin/users")
 public class AdminController {
 
