@@ -21,13 +21,22 @@
             <div class="">
                 <ul class="navbar-nav ">
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/admin/personal/buscar}">Personal</a>
+                        <a class="nav-link" th:href="@{/admin/trabajo/home}">Trabajos</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/admin/cotizacion/crear}">Crear Cotización</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" th:href="@{/admin/users/}">Administrador</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/admin/personal/buscar}">Personal</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" th:href="@{/admin/cotizacion/buscar}">Buscar</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/logout}">Cerrar Sesión</a>
                     </li>
                 </ul>
             </div>
@@ -62,13 +71,13 @@
                         <p class="card-text pb-2"
                            th:text="${#temporals.format(coti.fecha_cotizacion, 'dd/MM/yyyy')}"></p>
                     </div>
-                    <div class="d-flex justify-content-center text-black pb-2">
+                    <!--<div class="d-flex justify-content-center text-black pb-2">
                         <p th:class="${coti.status.id == 1 ? 'card-text text-black  pb-2 badge bg-warning' :
                         (coti.status.id == 2 ? 'card-text pb-2  text-black  badge bg-danger' :
                         (coti.status.id == 3 ? 'card-text pb-2 text-black  badge bg-success' : ''))}"
                            th:text="${coti.status.name}">
                         </p>
-                    </div>
+                    </div>-->
                     <div class="d-flex justify-content-center">
                         <a th:href="@{/admin/cotizacion/detalle/__${coti.id}__}">
                             <button class="btn btn-primary">Ver más detalle</button>

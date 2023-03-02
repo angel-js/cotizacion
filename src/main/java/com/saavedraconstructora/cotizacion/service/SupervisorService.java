@@ -20,7 +20,6 @@ public class SupervisorService {
         this.gerenteRepository = gerenteRepository;
         this.supervisorRepository = supervisorRepository;
     }
-
     /* READ */
     public List<Supervisor> busqueda(String consulta) {
         log.info("Supervisor Service: busqueda");

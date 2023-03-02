@@ -37,13 +37,6 @@ public class TrabajoService {
         String query = "UPDATE cotizacion.item SET nombre = ?, monto = ? WHERE id = ?";
         jdbcTemplate.update(query, nombre, monto, id);
     }
-    public void actualizarItems(List<Item> items) {
-        // Iterar por cada item y actualizar en la base de datos
-        for (Item item: items){
-            System.out.println("Lo logre!!!");
-        }
-    }
-
 
     public Trabajo findById(Integer id) {
         return trabajoRepository.findById(id).

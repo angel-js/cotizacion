@@ -21,10 +21,22 @@
       <div class="">
         <ul class="navbar-nav ">
           <li class="nav-item">
+            <a class="nav-link" th:href="@{/admin/trabajo/home}">Trabajos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" th:href="@{/admin/cotizacion/crear}">Crear Cotización</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" th:href="@{/admin/users/}">Administrador</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" th:href="@{/admin/personal/buscar}">Personal</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" th:href="@{/admin/cotizacion/buscar}">Buscar</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" th:href="@{/logout}">Cerrar Sesión</a>
           </li>
         </ul>
       </div>
@@ -52,13 +64,13 @@
           <label for="monto" class="form-label">Monto</label>
           <input type="number" class="form-control" th:field="*{monto}" id="monto" placeholder="Monto $">
         </div>
-        <div class="mb-3">
+        <!--<div class="mb-3">
           <label for="status" class="form-label">Estado</label>
           <select class="form-control" id="status" th:field="*{status}">
             <option th:each="st: ${status}" th:value="${st.id}"
                     th:text="${st.name}"></option>
           </select>
-        </div>
+        </div>-->
         <div class="mb-3">
           <label for="Local" class="form-label">Local</label>
           <select class="form-control" id="Local" th:field="*{departamento}">

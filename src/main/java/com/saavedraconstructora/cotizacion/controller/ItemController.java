@@ -5,11 +5,11 @@ import com.saavedraconstructora.cotizacion.model.ItemForm;
 import com.saavedraconstructora.cotizacion.repository.ItemRepository;
 import com.saavedraconstructora.cotizacion.service.TrabajoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.net.URI;
-import java.util.List;
+import org.springframework.web.servlet.view.RedirectView;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/admin/trabajo/item")
@@ -20,11 +20,11 @@ public class ItemController {
     private TrabajoService trabajoService;
 
     @PostMapping("/update")
-    public ResponseEntity<String> update(@ModelAttribute("itemForm") ItemForm itemForm) {
+    public RedirectView update(@ModelAttribute("itemForm") ItemForm itemForm) {
         for (Item item : itemForm.getItems()) {
             System.out.println("item ---->>>>>>>> " + item);
             trabajoService.actualizarItem(item.getId(), item.getNombre(), item.getMonto());
         }
-        return ResponseEntity.ok().body("redirect:/admin/trabajo/home");
+        return new RedirectView("/admin/trabajo/home", true) ;
     }
 }

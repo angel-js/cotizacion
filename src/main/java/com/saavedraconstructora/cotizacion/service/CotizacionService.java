@@ -98,6 +98,18 @@ public class CotizacionService {
         }
     }
 
+    public List<Cotizacion> findByConsultaContaining(String consulta) {
+        if (consulta == null || consulta.isEmpty()) {
+            List<Cotizacion> cotizacionOrdFechVacia = cotizacionRepository.findByMotivoContaining(consulta);
+            cotizacionOrdFechVacia.sort((c1, c2) -> c2.getFecha_cotizacion().compareTo(c1.getFecha_cotizacion()));
+            return cotizacionOrdFechVacia;
+        } else {
+            List<Cotizacion> cotizacionOrdFech = cotizacionRepository.findByMotivoContaining(consulta);
+            cotizacionOrdFech.sort((c1, c2) -> c2.getFecha_cotizacion().compareTo(c1.getFecha_cotizacion()));
+            return cotizacionOrdFech;
+        }
+    }
+
     /** Método anteriormente ocupado
      * public List<Cotizacion> busqueda(String consulta) {
      *         log.info("Cotizacion Service: busqueda");
