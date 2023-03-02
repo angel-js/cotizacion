@@ -8,6 +8,7 @@
     <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
     <!-- comment -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="/static/css/styleTrabajoView.css" rel="stylesheet">
 </head>
 <body>
 <!-- Navbar -->
@@ -44,15 +45,60 @@
     </div>
 </nav>
 <div class="container">
-    <div class="row pt-4">
-        <div class="col-md-12">
+    <div class="row pt-4 pb-4">
+        <div class="col-md-12 pb-4">
             <div class="jumbotron jumbotron-fluid">
                 <div class="container">
-                    <h3 class="display-3 text-center">Saavedra Construcciones!</h3>
-                    <h6 class="display-5 ps-5 text-center">
-                        Bienvenido a tu sesión: <span th:text="${user.name + ' ' + user.lastname }"></span>
+                    <b><h4 class="display-4 text-center">Saavedra Construcciones</h4></b>
+                    <h6 class="display-6 ps-5 text-center">
+                        Bienvenido a tu sesión: <span class="text-center"
+                                                      th:text="${user.name + ' ' + user.lastname }"></span>
                     </h6>
                 </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12">
+            <div class="card p-5 me-2 ms-2  mt-4 bg-primary">
+                <a th:href="@{/admin/trabajo/list}">
+                    <div class="card-body ">
+                        <h6 class="display-6 text-center text-white">
+                            Trabajos
+                        </h6>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12">
+            <div class="card p-5 me-2 ms-2  mt-4 bg-success">
+                <a th:href="@{/admin/cotizacion/buscar}">
+                    <div class="card-body ">
+                        <h6 class="display-6 text-center text-white">
+                            Cotizaciones
+                        </h6>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12">
+            <div class="card p-5 me-2 ms-2  mt-4 bg-danger">
+                <a th:href="@{/admin/personal/buscar}">
+                    <div class="card-body ">
+                        <h6 class="display-6 text-center text-white">
+                            Supervisores
+                        </h6>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12">
+            <div class="card p-5 me-2 ms-2  mt-4 bg-warning">
+                <a th:href="@{/admin/users/}">
+                    <div class="card-body ">
+                        <h6 class="display-6 text-center text-white">
+                            Usuarios
+                        </h6>
+                    </div>
+                </a>
             </div>
         </div>
     </div>
