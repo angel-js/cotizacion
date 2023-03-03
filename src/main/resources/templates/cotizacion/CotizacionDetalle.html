@@ -142,6 +142,9 @@
                 <a th:href="@{/admin/cotizacion/update/__${cotizacion.id}__}">
                     <button class="btn btn-primary">Editar</button>
                 </a>
+                <a th:href="@{/admin/reporte/cotizacion/__${cotizacion.id}__}" target="_blank">
+                    <button class="btn btn-secondary">Imprimir Cotización</button>
+                </a>
                 <form method="post" th:action="@{/admin/cotizacion/delete/__${cotizacion.id}__}">
                     <input type="hidden" name="_method" value="delete"/>
                     <button class="btn btn-danger" type="submit"
