@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Invoice" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4eedbb89-b4f6-4469-9ab6-f642a1688cf7">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
+			  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+			  xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
+			  name="Invoice" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20"
+			  topMargin="20" bottomMargin="20" uuid="4eedbb89-b4f6-4469-9ab6-f642a1688cf7">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
 	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true"/>
 	<style name="Detail" mode="Transparent" fontName="Times New Roman"/>
 	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+
 		<conditionalStyle>
 			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
 			<style mode="Opaque" backcolor="#EEEFF0"/>
@@ -60,145 +65,252 @@
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
-	<!-- Definición de parámetros -->
-	<parameter name="clienteNombre" class="java.lang.String"/>
 	<title>
-		<band height="196" splitType="Stretch">
+		<band height="355" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="90" width="84" height="25" uuid="57aed2b1-4f4e-40a3-a6ad-54dae8dd4c5a">
+				<reportElement x="0" y="165" width="119" height="25" uuid="57aed2b1-4f4e-40a3-a6ad-54dae8dd4c5a">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement>
 					<font size="16" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Bill to:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="0" y="115" width="120" height="15" uuid="33274f5d-5b7e-4be2-a2ff-65d452a618ed"/>
-				<text><![CDATA[ABC Company]]></text>
+				<text><![CDATA[Presupuesto]]></text>
 			</staticText>
 			<line>
-				<reportElement x="0" y="80" width="556" height="1" uuid="806ce5df-1219-4876-ae0c-ca7405b1f246">
+				<reportElement x="-10" y="165" width="556" height="1" uuid="806ce5df-1219-4876-ae0c-ca7405b1f246">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 			</line>
-			<staticText>
-				<reportElement x="0" y="130" width="120" height="15" uuid="1d3045ed-03d6-4253-a959-aeeb491b73ca"/>
-				<text><![CDATA[Company Address]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="0" y="145" width="120" height="15" uuid="235bf8b6-1e1e-49c7-b59f-7a46c30b8209"/>
-				<text><![CDATA[Company state1]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="0" y="160" width="120" height="15" uuid="665f25c2-8663-4951-b699-1ab863bdeb76"/>
-				<text><![CDATA[Company state 2]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="410" y="145" width="120" height="15" uuid="b62092ec-9053-4f27-b387-9b25d2909a68"/>
-				<text><![CDATA[Ship state1]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="410" y="115" width="120" height="15" uuid="edbd74ac-0cbd-44c9-8a8e-ccf745191172"/>
-				<text><![CDATA[Ship name]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="410" y="90" width="84" height="25" uuid="139ebe8d-25b0-411e-986c-270015400874">
-					<property name="local_mesure_unitheight" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-				<textElement>
-					<font size="16" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Ship to:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="410" y="160" width="120" height="15" uuid="dd52166a-1135-4931-adef-51e7972118bc"/>
-				<text><![CDATA[Ship state 2]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="410" y="130" width="120" height="15" uuid="2d2f365d-7b12-4a8f-990d-ff528a2660bc"/>
-				<text><![CDATA[Ship Address]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="415" y="10" width="50" height="20" uuid="0f86baff-6386-4f3f-b3fe-2388707babe8"/>
-				<box rightPadding="4"/>
-				<textElement textAlignment="Right"/>
-				<text><![CDATA[Date:]]></text>
-			</staticText>
-			<textField pattern="EEEEE dd MMMMM yyyy">
-				<reportElement x="465" y="10" width="84" height="20" uuid="bb10dbe1-0a4f-4722-9953-c163b63cf979"/>
-				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
-			</textField>
 			<image hAlign="Center">
-				<reportElement x="0" y="0" width="65" height="60" uuid="94883631-a913-43e2-b182-ab8d77d0181e"/>
-				<!--<imageExpression><![CDATA["invoice_logo.png"]]></imageExpression>-->
+				<reportElement x="-1" y="0" width="557" height="50" uuid="94883631-a913-43e2-b182-ab8d77d0181e"/>
+				<imageExpression><![CDATA["C:/Angel Projects/Imagenes/ConstructoraSaavedra.png"]]></imageExpression>
 			</image>
-			<textField pattern="EEEEE dd MMMMM yyyy">
-				<reportElement x="465" y="30" width="84" height="20" uuid="3836ce65-eca3-4cad-a6de-b1818def0a2b"/>
-				<textFieldExpression><![CDATA["INV0001"]]></textFieldExpression>
-			</textField>
 			<staticText>
-				<reportElement x="415" y="30" width="50" height="20" uuid="0b3f9342-da78-4cfa-9fc5-2301c4749678"/>
-				<box rightPadding="4"/>
-				<textElement textAlignment="Right"/>
-				<text><![CDATA[Invoice #]]></text>
+				<reportElement x="0" y="60" width="95" height="15" uuid="c226e44d-3bb5-4145-b0b3-903bf1d79fde"/>
+				<text><![CDATA[RUT : 761054643]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="95" y="0" width="265" height="30" uuid="e622555d-198b-4ccd-a4a1-c59c53304058">
+				<reportElement x="0" y="75" width="50" height="15" uuid="b96f7183-44f8-43ad-ba60-43d8fbf50b6e"/>
+				<textElement markup="">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dirección: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="427" y="60" width="129" height="15" uuid="5b095c25-9265-4625-a3e2-fb913586bec7"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[NRO: $P{cotizacionID}]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="140" y="60" width="235" height="15" uuid="7a3d0764-8e91-4e79-af10-17c15154fce6"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[PRESUPUESTO Y/O TRABAJO A REALIZAR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="50" y="75" width="130" height="15" uuid="a04f0e16-e505-4449-a6e4-3bee60115d7c"/>
+				<textElement markup="">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Alfredo Silva Carvallo 1743]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="240" y="75" width="50" height="15" uuid="e229bb9b-1304-42b4-8010-5f451ea42f94"/>
+				<textElement markup="">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Comuna:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="427" y="75" width="50" height="15" uuid="e0945b3e-9266-4234-8ce3-810486309ce5"/>
+				<textElement markup="">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Region:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="290" y="75" width="40" height="15" uuid="e7441f60-b0ac-4df1-868d-b80636876047"/>
+				<textElement markup="">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Maipu]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="477" y="75" width="80" height="15" uuid="76a5a7ae-1020-46eb-9f94-ac8da8a387c9"/>
+				<textElement markup="">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Metropolitana]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="90" width="30" height="15" uuid="40f1778b-3fbd-4c54-a955-041dc0770e94"/>
+				<textElement markup="">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Giro: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="90" width="170" height="15" uuid="4a9830ec-0d3b-494a-85d1-2a5d96f8ddb7"/>
+				<textElement markup="">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Contratista General Obras Menores]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="240" y="90" width="90" height="15" uuid="58e85b0d-9a21-4d06-90b4-7e36856757a9"/>
+				<textElement markup="">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[FONO: 941848973
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="105" width="50" height="15" uuid="e33fa478-0d42-43a6-9e97-f96bf80caf1b"/>
+				<textElement markup="">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Contacto: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="50" y="105" width="170" height="15" uuid="f44e0025-8d4f-4fde-85f3-6e3aab2f47c6"/>
+				<textElement markup="">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Contratista General Obras Menores]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="240" y="105" width="150" height="15" uuid="45cf33d5-2e14-4532-a13f-16f7d04067c1"/>
+				<textElement markup="">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Web: constructorasaavedra.cl]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="120" width="95" height="15" uuid="deb39da2-b25d-4d26-bcd6-671c3bca31fa"/>
+				<textElement markup="">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Datos Cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="135" width="50" height="15" uuid="30867609-224a-482a-87ef-b70d73ab76ef"/>
+				<textElement markup="">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="50" y="135" width="110" height="15" uuid="34ce8867-ecec-4a0c-85ec-3c573af6184c"/>
+				<textElement markup="">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[$P{cotizacionNombre}]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="427" y="90" width="33" height="15" uuid="4c333df0-93c6-4254-8326-8a42d84a6ad0"/>
+				<textElement markup="">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="460" y="90" width="96" height="15" uuid="215ab32b-3f14-4ee2-9c27-910ca4eacb6d"/>
+				<textElement markup="">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[$P{cotizacionFecha}]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="150" width="50" height="15" uuid="5dba13cf-3278-4b26-b0ea-a51362e74989"/>
+				<textElement markup="">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Correo:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="50" y="150" width="110" height="15" uuid="135682e0-89dd-4d04-998c-a2700fdc92d2"/>
+				<textElement markup="">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[$P{cotizacionCorreo}]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="160" y="135" width="30" height="15" uuid="df329d65-4d73-4862-86df-e76221ae00c0"/>
+				<textElement markup="">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Local:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="190" y="135" width="200" height="15" uuid="b003c549-11f6-494c-8659-b4a11ef168e0"/>
+				<textElement markup="">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[$P{DepartamentoNombre}]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="0" y="190" width="555" height="160" uuid="d0eee9c7-ae61-4227-b340-3c9214830687"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="190" width="390" height="25" uuid="18ff75aa-42f1-4b0b-a6aa-4cdc83ce78b0">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
-				<textElement>
-					<font size="19" isBold="true"/>
+				<textElement textAlignment="Center">
+					<font size="13" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Saavedra Construcciones]]></text>
+				<text><![CDATA[Descripcion]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="95" y="55" width="205" height="15" uuid="b8cc42fd-b569-497d-834d-7e854040ad18"/>
-				<text><![CDATA[Phone number, web address, ecc.]]></text>
+				<reportElement x="390" y="190" width="165" height="25" uuid="e26b8008-915d-4b38-8614-179fff28c02e">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Monto]]></text>
 			</staticText>
-			<staticText>
-				<reportElement x="95" y="25" width="205" height="15" uuid="c226e44d-3bb5-4145-b0b3-903bf1d79fde"/>
-				<text><![CDATA[Street address]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="95" y="40" width="205" height="15" uuid="b96f7183-44f8-43ad-ba60-43d8fbf50b6e"/>
-				<text><![CDATA[City, street, ZIP code]]></text>
-			</staticText>
+			<textField>
+				<reportElement x="0" y="215" width="390" height="135" uuid="ff64be07-ac84-42c5-a5f5-061b463ac49a"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[" P{cotizacionDescripcion}"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="390" y="215" width="165" height="135" uuid="a76030d8-7e6e-4a62-b67d-fa82c4da2697"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[" P{cotizacionMonto} "]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
+
 	<columnHeader>
-		<band height="20"/>
+		<band height="40"/>
 	</columnHeader>
 	<detail>
-		<band height="20"/>
+		<band height="90"/>
 	</detail>
 	<lastPageFooter>
 		<band height="177">
-			<textField>
-				<reportElement x="100" y="100" width="200" height="20"/>
-				<textElement/>
-				<textFieldExpression><![CDATA[$P{clienteNombre}]]></textFieldExpression>
-			</textField>
 			<staticText>
-				<reportElement positionType="Float" x="-1" y="30" width="261" height="101" uuid="1a0d7088-5af7-4865-8be1-41ec5f51fb36"/>
-				<box>
-					<topPen lineWidth="1.1" lineStyle="Dashed"/>
-					<leftPen lineWidth="1.1" lineStyle="Dashed"/>
-					<bottomPen lineWidth="1.1" lineStyle="Dashed"/>
-					<rightPen lineWidth="1.1" lineStyle="Dashed"/>
-				</box>
-				<text><![CDATA[Your notes here]]></text>
-			</staticText>
-			<staticText>
-				<reportElement positionType="Float" mode="Opaque" x="0" y="147" width="556" height="30" backcolor="#E6E8E9" uuid="36aa233d-4305-48e6-974a-1bbf89bb3c8f"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Serif" size="9" isItalic="true"/>
+				<reportElement x="8" y="43" width="554" height="90" uuid="2ee1eabf-21d3-4184-8894-fc4927c18cef">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="11" isBold="false"/>
 				</textElement>
-				<text><![CDATA[THANKYOU FOR YOUR BUSINESS]]></text>
+				<text><![CDATA[Constructora Brayan Saavedra Cubas Empresa Individual De Responsabilidad Limitada 
+77055081-5
+Banco de Chile
+Cuenta Corriente
+00-800-52335-00
+brayansaavedrac@gmail.com]]></text>
 			</staticText>
 		</band>
 	</lastPageFooter>

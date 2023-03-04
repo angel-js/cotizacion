@@ -31,24 +31,25 @@ public class ReporteController {
     @GetMapping("/cotizacion/{id}")
     public ResponseEntity<byte[]> generarReporte(@PathVariable Integer id) throws IOException, JRException {
         try {
-            InputStream inputStream = this.getClass().getResourceAsStream("/static/reportes/reporteCotizacion2.jrxml");
+            InputStream inputStream = this.getClass().getResourceAsStream("/static/reportes/reporteCotizacion.jrxml");
             JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
             Map<String, Object> params = new HashMap<>();
             // llamar al id
             Optional<Cotizacion> cotOptional = cotizacionService.findById(id);
             if (cotOptional.isPresent()) {
                 Cotizacion cot = cotOptional.get();
-                params.put("cotizacionID", cot.getId());
-                params.put("cotizacionDepartamento", cot.getDepartamento());
-                params.put("cotizacionFecha", cot.getFecha_cotizacion());
-                params.put("cotizacionDescripcion", cot.getDescripcion());
-                params.put("cotizacionMonto", cot.getMonto());
-                params.put("cotizacionMotivo", cot.getMotivo());
+                //params.put("cotizacionID", cot.getId());
+                //params.put("cotizacionDepartamento", cot.getDepartamento());
+                //params.put("cotizacionFecha", cot.getFecha_cotizacion());
+                //params.put("cotizacionDescripcion", cot.getDescripcion());
+                //params.put("cotizacionMonto", cot.getMonto());
+                //params.put("cotizacionMotivo", cot.getMotivo());
                 log.info("Imprimiendo los parametros" + params);
             } else {
                 log.info("The obcject is EMPTY!");
             }
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, new JREmptyDataSource());
+            //JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, new JREmptyDataSource());
 
             byte[] pdfBytes = JasperExportManager.exportReportToPdf(jasperPrint);
 
