@@ -1,8 +1,11 @@
 package com.saavedraconstructora.cotizacion.controller;
 
 import com.saavedraconstructora.cotizacion.model.Cotizacion;
+import com.saavedraconstructora.cotizacion.model.Supervisor;
 import com.saavedraconstructora.cotizacion.service.CotizacionService;
+import com.saavedraconstructora.cotizacion.service.SupervisorService;
 import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.data.JRBeanArrayDataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +20,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Controller
 @RequestMapping("/admin/reporte")
@@ -27,35 +29,53 @@ public class ReporteController {
     private static final Logger log = LoggerFactory.getLogger(CotizacionController.class);
     @Autowired
     private CotizacionService cotizacionService;
-
+    @Autowired
+    private SupervisorService supervisorService;
     @GetMapping("/cotizacion/{id}")
     public ResponseEntity<byte[]> generarReporte(@PathVariable Integer id) throws IOException, JRException {
         try {
-            InputStream inputStream = this.getClass().getResourceAsStream("/static/reportes/reporteCotizacion.jrxml");
+            InputStream inputStream = this.getClass().getResourceAsStream("/static/reportes/cotizacionReporte.jrxml");
+            InputStream logoEmpresa = this.getClass().getResourceAsStream("/static/reportes/img/ConstructoraSaavedra.png");
             JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
             Map<String, Object> params = new HashMap<>();
             // llamar al id
             Optional<Cotizacion> cotOptional = cotizacionService.findById(id);
             if (cotOptional.isPresent()) {
                 Cotizacion cot = cotOptional.get();
-                //params.put("cotizacionID", cot.getId());
-                //params.put("cotizacionDepartamento", cot.getDepartamento());
-                //params.put("cotizacionFecha", cot.getFecha_cotizacion());
-                //params.put("cotizacionDescripcion", cot.getDescripcion());
-                //params.put("cotizacionMonto", cot.getMonto());
+                params.put("logoEmpresa", logoEmpresa);
+                params.put("cotizacionID", cot.getId());
+                params.put("cotizacionDepartamento", cot.getDepartamento().getNombre());
+                params.put("cotizacionFecha", cot.getFecha_cotizacion().toString());
+                params.put("cotizacionDescripcion", cot.getDescripcion());
+                params.put("cotizacionMonto", cot.getMonto());
+                List<Supervisor> supervisores = supervisorService.findSupervisorsByLocalId(cot.getDepartamento().getId());
                 //params.put("cotizacionMotivo", cot.getMotivo());
+                Supervisor supervisor = supervisores.get(0);
+                System.out.println("supervisor: " + supervisor.toString());
+                String fullname = supervisor.getNombre().toString() + " " + supervisor.getApellido().toString();
+                params.put("nombreSupervisor", fullname);
+                params.put("correoSupervisor", supervisor.getCorreo());
+                List<Cotizacion> cotizaciones = new ArrayList<>();
+                List<Cotizacion> cotizaciones2 = new ArrayList<>();
+                cotizaciones.add(new Cotizacion());
+                cotizaciones2.add(cot);
+                cotizaciones.addAll(cotizaciones2);
+                JRBeanArrayDataSource ds = new JRBeanArrayDataSource(cotizaciones.toArray());
+                params.put("ds", ds);
                 log.info("Imprimiendo los parametros" + params);
             } else {
-                log.info("The obcject is EMPTY!");
+                log.info("The object is EMPTY!");
             }
-            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, new JREmptyDataSource());
-            //JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, new JREmptyDataSource());
 
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, new JREmptyDataSource());
             byte[] pdfBytes = JasperExportManager.exportReportToPdf(jasperPrint);
+
 
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_PDF);
-            headers.setContentDispositionFormData("reporte", "reporte.pdf");
+            String filename = "Cotizacion_" + new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss")
+                    .format(new Date()) + ".pdf";
+            headers.setContentDispositionFormData("attachment", filename);
             headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
             ResponseEntity<byte[]> response = new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
 

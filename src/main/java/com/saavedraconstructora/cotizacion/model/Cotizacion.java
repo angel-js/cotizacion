@@ -12,7 +12,7 @@ public class Cotizacion {
     private Integer id;
     private String motivo;
     private String descripcion;
-    private int monto;
+    private Integer monto;
 
     @Column(name = "fecha_cotizacion", columnDefinition = "date not null")
     @CreationTimestamp
