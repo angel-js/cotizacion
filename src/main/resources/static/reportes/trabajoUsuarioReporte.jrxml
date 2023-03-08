@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="cotizacionReporte" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8e682aa6-68e8-4990-96ab-420ec14f7b18">
+	<subDataset name="dsReporteCotizacion" uuid="d172928d-61ae-4ff7-aef9-623d4b31fc53">
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+		<queryString>
+			<![CDATA[]]>
+		</queryString>
+		<field name="id" class="java.lang.Integer"/>
+		<field name="descripcion" class="java.lang.String"/>
+		<field name="monto" class="java.lang.Integer"/>
+	</subDataset>
+	<subDataset name="Empty Dataset1" uuid="8d20d6a7-702e-4f69-8c1f-4dce09288499">
+		<field name="descripcion" class="java.lang.String"/>
+		<field name="monto" class="java.lang.Integer"/>
+	</subDataset>
+	<parameter name="logoEmpresa" class="java.io.InputStream"/>
+	<parameter name="ds" class="net.sf.jasperreports.engine.data.JRBeanArrayDataSource"/>
+	<parameter name="cotizacionID" class="java.lang.Integer"/>
+	<parameter name="cotizacionFecha" class="java.lang.String"/>
+	<parameter name="cotizacionDepartamento" class="java.lang.String"/>
+	<parameter name="cotizacionMonto" class="java.lang.Integer"/>
+	<parameter name="cotizacionDescripcion" class="java.lang.String"/>
+	<parameter name="nombreSupervisor" class="java.lang.String"/>
+	<parameter name="correoSupervisor" class="java.lang.String"/>
+	<parameter name="trabajoID" class="java.lang.Integer"/>
+	<parameter name="trabajador" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="187" splitType="Stretch">
+			<image hAlign="Center" onErrorType="Blank">
+				<reportElement x="-1" y="0" width="557" height="50" uuid="7f46a86c-ae8c-4486-a37f-4c7d4e970240"/>
+				<imageExpression><![CDATA[$P{logoEmpresa}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="0" y="50" width="95" height="15" uuid="09033154-9e9c-4b23-98f0-38068e547780"/>
+				<text><![CDATA[RUT : 761054643]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="65" width="50" height="15" uuid="156032a4-fecb-4288-a4ef-85119957f01d"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dirección: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="427" y="50" width="33" height="15" uuid="21586e80-c26b-487c-9846-262661ad56ba"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[NRO:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="140" y="50" width="235" height="15" uuid="81c34ba3-a44d-4fea-9d0c-6b9b16f5fbfc"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[PRESUPUESTO Y/O TRABAJO A REALIZAR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="50" y="65" width="130" height="15" uuid="2271a8e7-b4d9-4b42-8b87-cbfb780efed9"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Alfredo Silva Carvallo 1743]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="240" y="65" width="50" height="15" uuid="05b1c138-8783-4c50-91f2-de06e303ede3"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Comuna:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="427" y="65" width="50" height="15" uuid="6ed97cd9-95fa-4f52-ab8e-ecf94c3a9849"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Region:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="290" y="65" width="40" height="15" uuid="4075fcce-0b98-4e33-9b71-8e11655280ee"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Maipu]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="477" y="65" width="79" height="15" uuid="4dee9082-9658-47fe-b3a6-6d02ee093817"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Metropolitana]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="80" width="30" height="15" uuid="ab656b2c-6d75-4706-8484-69e12670ee19"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Giro: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="80" width="170" height="15" uuid="9cfe4eaf-ad42-4861-bc9b-b9c1f96b1553"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Contratista General Obras Menores]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="240" y="80" width="90" height="15" uuid="0e02d406-51a7-478f-9515-28dd37f6f5eb"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[FONO: 941848973
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="95" width="50" height="15" uuid="4d1055e7-ddb4-4df0-9abf-c21173b2ad91"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Contacto: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="50" y="95" width="170" height="15" uuid="9f638afc-777c-4b31-bcec-3aa8dbb0fb4b"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Contratista General Obras Menores]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="240" y="95" width="150" height="15" uuid="3b081956-6b90-40bd-a495-edecf16a76ff"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Web: constructorasaavedra.cl]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="110" width="95" height="15" uuid="176d87e3-d0fb-4a0c-bce4-635f8e9a7e95"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Datos Cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="125" width="50" height="15" uuid="a7ad9c00-1381-48e9-9ccf-82b96f22f6a2"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="427" y="80" width="33" height="15" uuid="a087c624-cb60-4a66-9374-6ea35031b79b"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="140" width="50" height="15" uuid="a03fe609-9fca-4e25-a1f1-624d8ab6ab0a"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Correo:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="240" y="125" width="30" height="15" uuid="271bd335-fe51-436e-8778-c4cf24d40ffa"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Local:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="1" y="180" width="555" height="1" uuid="1bbf3fac-b23f-4956-b756-36f0d26ffc0c">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</line>
+			<textField>
+				<reportElement x="460" y="50" width="100" height="15" uuid="88d51218-8697-4fc1-adfd-2fbedc530d8e"/>
+				<textFieldExpression><![CDATA[$P{trabajoID}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="460" y="80" width="100" height="15" uuid="d85cd53a-55f3-45d2-ac9e-dc39737f00ea"/>
+				<textFieldExpression><![CDATA[$P{cotizacionFecha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="270" y="125" width="205" height="15" uuid="f2b2e79e-ce8f-4ef3-8869-d53ce7f19f9f"/>
+				<textFieldExpression><![CDATA[$P{cotizacionDepartamento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="50" y="125" width="180" height="15" uuid="7dedc257-bf88-464c-b3a6-6345c3134e5b"/>
+				<textFieldExpression><![CDATA[$P{nombreSupervisor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="50" y="140" width="180" height="15" uuid="b6116eaf-825f-409d-bf6f-20a751e50513"/>
+				<textFieldExpression><![CDATA[$P{correoSupervisor}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="240" y="140" width="30" height="15" uuid="17ab4e24-eb4f-47d5-b6fc-f2f43ee0cf9b"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Local:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="270" y="140" width="206" height="15" uuid="3ab325e4-cb9e-41a7-9ef7-cf899e2196a1"/>
+				<textFieldExpression><![CDATA[$P{trabajador}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="557" height="30" uuid="421a70d7-671c-41d0-8def-7f864009e79b"/>
+				<textElement textAlignment="Center">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Detalle de la cotización]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="276" splitType="Stretch">
+			<rectangle>
+				<reportElement x="-1" y="0" width="557" height="60" backcolor="rgba(145, 145, 145, 0.5019608)" uuid="a98fc6e8-5d99-4e66-961c-146b10eff8c3"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="0" width="380" height="60" backcolor="rgba(145, 145, 145, 0.0)" uuid="0fc3a074-df63-46de-9bd4-3b54f9f5293f"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="0" width="380" height="60" uuid="5e4c790b-6133-408c-be2c-cbb7bb362395"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Descripción]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="380" y="0" width="176" height="60" uuid="c67ed250-6246-4229-960a-7228169c380b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Monto]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="-1" y="60" width="381" height="198" uuid="60d4e5a8-5061-42cf-9328-fa13c9f1b28a"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="380" y="60" width="177" height="198" uuid="ef814f67-3567-4452-9e6e-cef4ad1834d7"/>
+			</rectangle>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="140" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="20" width="554" height="90" uuid="0c3e4a84-e9b8-441e-9376-2a17421cf577">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Constructora Brayan Saavedra Cubas Empresa Individual De Responsabilidad Limitada 
+77055081-5
+Banco de Chile
+Cuenta Corriente
+00-800-52335-00
+brayansaavedrac@gmail.com]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+</jasperReport>

@@ -2,8 +2,10 @@ package com.saavedraconstructora.cotizacion.controller;
 
 import com.saavedraconstructora.cotizacion.model.Cotizacion;
 import com.saavedraconstructora.cotizacion.model.Supervisor;
+import com.saavedraconstructora.cotizacion.model.Trabajo;
 import com.saavedraconstructora.cotizacion.service.CotizacionService;
 import com.saavedraconstructora.cotizacion.service.SupervisorService;
+import com.saavedraconstructora.cotizacion.service.TrabajoService;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanArrayDataSource;
 import org.slf4j.Logger;
@@ -31,6 +33,9 @@ public class ReporteController {
     private CotizacionService cotizacionService;
     @Autowired
     private SupervisorService supervisorService;
+    @Autowired
+    private TrabajoService trabajoService;
+
     @GetMapping("/cotizacion/{id}")
     public ResponseEntity<byte[]> generarReporte(@PathVariable Integer id) throws IOException, JRException {
         try {
@@ -79,6 +84,54 @@ public class ReporteController {
             headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
             ResponseEntity<byte[]> response = new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
 
+            return response;
+        } catch (Exception e) {
+            System.out.println("ERROR -----------------------------------");
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+    @GetMapping("/trabajo/usr/{id}")
+    public ResponseEntity<byte[]> generarReporteTrabajoUsuario(@PathVariable Integer id) throws IOException, JRException {
+        log.info("Obtener Informe de Trabajo - USUARIO");
+        try {
+            InputStream inputStream = this.getClass().getResourceAsStream("/static/reportes/trabajoUsuarioReporte.jrxml");
+            InputStream logoEmpresa = this.getClass().getResourceAsStream("/static/reportes/img/ConstructoraSaavedra.png");
+            JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
+            Map<String, Object> params = new HashMap<>();
+
+            // llamar al id
+            Trabajo trbj = trabajoService.findById(id);
+            if (trbj != null) {
+                params.put("trabajoID", trbj.getId());
+                params.put("logoEmpresa", logoEmpresa);
+                List<Supervisor> supervisores = supervisorService.findSupervisorsByLocalId(trbj.getDepartamento().getId());
+                Supervisor supervisor = supervisores.get(0);
+                System.out.println("supervisor: " + supervisor.toString());
+                String fullname = supervisor.getNombre().toString() + " " + supervisor.getApellido().toString();
+                params.put("nombreSupervisor", fullname);
+                params.put("correoSupervisor", supervisor.getCorreo());
+                params.put("cotizacionDepartamento", trbj.getDepartamento().getNombre());
+                params.put("cotizacionFecha", trbj.getFecha_trabajo().toString());
+                String fullnameUsr = trbj.getUsuario().getName().toString() + " " + trbj.getUsuario().getLastname().toString();
+                params.put("trabajador", fullnameUsr);
+                //JRBeanArrayDataSource ds = new JRBeanArrayDataSource(cotizaciones.toArray());
+                //params.put("ds", ds);
+            } else {
+                log.info("The object is EMPTY!");
+            }
+
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, new JREmptyDataSource());
+            byte[] pdfBytes = JasperExportManager.exportReportToPdf(jasperPrint);
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_PDF);
+            String filename = "Trabajo_" + new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss")
+                    .format(new Date()) + ".pdf";
+            headers.setContentDispositionFormData("attachment", filename);
+            headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
+            ResponseEntity<byte[]> response = new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
             return response;
         } catch (Exception e) {
             System.out.println("ERROR -----------------------------------");

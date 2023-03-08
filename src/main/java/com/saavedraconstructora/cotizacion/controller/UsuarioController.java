@@ -199,13 +199,3 @@ public class UsuarioController {
         return "redirect:/user/trabajo";
     }
 }
-
-/*List<Item> items = new ArrayList<>();
-        int count = Integer.parseInt(request.getParameter("itemCount"));
-        for (int i = 0; i < count; i++) {
-            String nombre = request.getParameter("items[" + i + "].nombre");
-            int monto = Integer.parseInt(request.getParameter("items[" + i + "].monto"));
-            items.add(new Item(nombre, monto, trabajo));
-        }
-        trabajo.setItems(items);
-        */

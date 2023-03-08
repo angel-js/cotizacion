@@ -52,8 +52,6 @@ public class TrabajoService {
         return departamentoRepository.buscarTodos();
     }
 
-    //TODO create a method can search for mail and return usuario (OBJECT)
-
     // Devolver data USUARIO segun su EMAIL
     public Usuario buscarUsuarioXMail(String email) {
         return usuarioRepository.findByEmail(email);
