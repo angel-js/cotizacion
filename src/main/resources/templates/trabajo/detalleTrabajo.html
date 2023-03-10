@@ -99,6 +99,11 @@
           <a th:href="@{/admin/trabajo/update/__${trabajo.id}__}">
             <button class="btn btn-primary">Editar</button>
           </a>
+            <div class="d-flex justify-content-center pt-4">
+                <a th:href="@{/admin/reporte/trabajo/adm/__${trabajo.id}__}" target="_blank">
+                    <button class="btn btn-secondary">Imprimir detalle</button>
+                </a>
+            </div>
           <form method="post" th:action="@{/admin/trabajo/delete/__${trabajo.id}__}">
             <input type="hidden" name="_method" value="delete"/>
             <button class="btn btn-danger" type="submit"

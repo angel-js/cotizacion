@@ -121,13 +121,71 @@ public class ReporteController {
                 params.put("cotizacionFecha", trbj.getFecha_trabajo().toString());
                 String fullnameUsr = trbj.getUsuario().getName().toString() + " " + trbj.getUsuario().getLastname().toString();
                 params.put("trabajador", fullnameUsr);
-                params.put("itemsTrabajo", itemsTrabajo);
                 log.info("ITEMS --------- Trabajo: " + itemsTrabajo.toString());
-                dataSource = new JRBeanCollectionDataSource(itemsTrabajo);
-                System.out.println("DATASOURCE: ------------------> " + dataSource.toString());
-                log.info("DATASOURCE: ------------------> " + dataSource.toString());
+                JRBeanArrayDataSource ds = new JRBeanArrayDataSource(itemsTrabajo.toArray());
+                params.put("ds", ds);
+                System.out.println("DATASOURCE: ------------------> " + ds.toString());
+                log.info("DATASOURCE: ------------------> " + ds.toString());
 
-                JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, dataSource);
+                JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, ds);
+                byte[] pdfBytes = JasperExportManager.exportReportToPdf(jasperPrint);
+
+                HttpHeaders headers = new HttpHeaders();
+                headers.setContentType(MediaType.APPLICATION_PDF);
+                String filename = "Trabajo_" + new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss")
+                        .format(new Date()) + ".pdf";
+                headers.setContentDispositionFormData("attachment", filename);
+                headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
+                ResponseEntity<byte[]> response = new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
+                return response;
+
+            } else {
+                log.info("The object is EMPTY!");
+            }
+        } catch (Exception e) {
+            System.out.println("ERROR -----------------------------------");
+            System.out.println(e.getMessage());
+            return null;
+        }
+        ResponseEntity<byte[]> response = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        return response;
+    }
+
+
+    @GetMapping("/trabajo/adm/{id}")
+    public ResponseEntity<byte[]> generarReporteTrabajoAdmin(@PathVariable Integer id) throws IOException, JRException {
+        log.info("Obtener Informe de Trabajo - USUARIO");
+        System.out.println("--------------------------------------------------------");
+        try {
+            InputStream inputStream = this.getClass().getResourceAsStream("/static/reportes/trabajoAdminReporte.jrxml");
+            InputStream logoEmpresa = this.getClass().getResourceAsStream("/static/reportes/img/ConstructoraSaavedra.png");
+            JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
+            Map<String, Object> params = new HashMap<>();
+            JRBeanCollectionDataSource dataSource;
+
+            // llamar al id
+            Trabajo trbj = trabajoService.findById(id);
+            List<Item> itemsTrabajo = trabajoService.findByTrabajoId(trbj.getId());
+            if (trbj != null) {
+                params.put("trabajoID", trbj.getId());
+                params.put("logoEmpresa", logoEmpresa);
+                List<Supervisor> supervisores = supervisorService.findSupervisorsByLocalId(trbj.getDepartamento().getId());
+                Supervisor supervisor = supervisores.get(0);
+                System.out.println("supervisor: " + supervisor.toString());
+                String fullname = supervisor.getNombre().toString() + " " + supervisor.getApellido().toString();
+                params.put("nombreSupervisor", fullname);
+                params.put("correoSupervisor", supervisor.getCorreo());
+                params.put("cotizacionDepartamento", trbj.getDepartamento().getNombre());
+                params.put("cotizacionFecha", trbj.getFecha_trabajo().toString());
+                String fullnameUsr = trbj.getUsuario().getName().toString() + " " + trbj.getUsuario().getLastname().toString();
+                params.put("trabajador", fullnameUsr);
+                log.info("ITEMS --------- Trabajo: " + itemsTrabajo.toString());
+                JRBeanArrayDataSource ds = new JRBeanArrayDataSource(itemsTrabajo.toArray());
+                params.put("ds", ds);
+                System.out.println("DATASOURCE: ------------------> " + ds.toString());
+                log.info("DATASOURCE: ------------------> " + ds.toString());
+
+                JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, ds);
                 byte[] pdfBytes = JasperExportManager.exportReportToPdf(jasperPrint);
 
                 HttpHeaders headers = new HttpHeaders();
