@@ -8,20 +8,20 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nombre;
-    private int monto;
+    private Integer monto;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "trabajo_id")
     private Trabajo trabajo;
 
 
-    public Item(Integer id, String nombre, int monto, Trabajo trabajo) {
+    public Item(Integer id, String nombre, Integer monto, Trabajo trabajo) {
         this.id = id;
         this.nombre = nombre;
         this.monto = monto;
         this.trabajo = trabajo;
     }
 
-    public Item(String nombre, int monto, Trabajo trabajo) {
+    public Item(String nombre, Integer monto, Trabajo trabajo) {
         this.nombre = nombre;
         this.monto = monto;
         this.trabajo = trabajo;
@@ -50,7 +50,7 @@ public class Item {
         return monto;
     }
 
-    public void setMonto(int monto) {
+    public void setMonto(Integer monto) {
         this.monto = monto;
     }
 
