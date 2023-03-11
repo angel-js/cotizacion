@@ -164,17 +164,21 @@ public class UsuarioController {
         // obtener los items enviados desde el formulario
         String[] nombres = request.getParameterValues("nombre");
         String[] montos = request.getParameterValues("monto");
+        String[] cantidades = request.getParameterValues("cantidad");
 
         // agregar cada item al trabajo
         for (int i = 0; i < nombres.length; i++) {
             String nombre = nombres[i];
-            int monto = Integer.parseInt(montos[i]);
+            Integer monto = Integer.parseInt(montos[i]);
+            Integer cantidad = Integer.parseInt(cantidades[i]);
             Item item = new Item();
             if (nombre != null &&  !nombre.isEmpty()) {
                 System.out.println("nombre --------------"+ nombre);
                 item.setNombre(nombre);
                 item.setMonto(monto);
-                System.out.printf("AÑADIENDO ITEM ---------- "+ item);
+                item.setCantidad(cantidad);
+                System.out.println("CANTIDAD ITEM ---------- "+ cantidad);
+                System.out.println("AÑADIENDO ITEM ---------- "+ item);
                 trabajo.addItem(item);
             }
         }

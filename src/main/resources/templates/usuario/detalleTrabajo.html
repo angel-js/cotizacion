@@ -73,7 +73,7 @@
             </div>
             <div class="d-flex justify-content-center">
                 <ul>
-                    <li th:each="traItem: ${trabajo.items}" th:text="${traItem.nombre}"></li>
+                    <li th:each="traItem: ${trabajo.items}" th:text="${'Det: ' +traItem.nombre + ' cant: ' + traItem.cantidad}"></li>
                 </ul>
             </div>
             <div class="d-flex justify-content-center pt-4">

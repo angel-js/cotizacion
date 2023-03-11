@@ -9,15 +9,16 @@ public class Item {
     private Integer id;
     private String nombre;
     private Integer monto;
+    private Integer cantidad;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "trabajo_id")
     private Trabajo trabajo;
 
-
-    public Item(Integer id, String nombre, Integer monto, Trabajo trabajo) {
+    public Item(Integer id, String nombre, Integer monto, Integer cantidad, Trabajo trabajo) {
         this.id = id;
         this.nombre = nombre;
         this.monto = monto;
+        this.cantidad = cantidad;
         this.trabajo = trabajo;
     }
 
@@ -28,6 +29,14 @@ public class Item {
     }
 
     public Item() {
+    }
+
+    public Integer getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(Integer cantidad) {
+        this.cantidad = cantidad;
     }
 
     public Integer getId() {
@@ -68,6 +77,8 @@ public class Item {
                 "id=" + id +
                 ", nombre='" + nombre + '\'' +
                 ", monto=" + monto +
+                ", cantidad=" + cantidad +
+                ", trabajo=" + trabajo +
                 '}';
     }
 }

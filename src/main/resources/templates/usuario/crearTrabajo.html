@@ -60,6 +60,7 @@
                         <thead>
                         <tr>
                             <th>Nombre</th>
+                            <th>Cantidad</th>
                         </tr>
                         </thead>
                         <tbody id="item-table-body">
@@ -68,13 +69,16 @@
                                 <input type="text" class="form-control" name="nombre" placeholder="Detalle" />
                             </td>
                             <td>
-                                <input type="number" class="form-control" name="monto" value="0" hidden/>
+                                <input type="number" class="form-control" name="cantidad" value="1"/>
                             </td>
                             <td>
                                 <button type="button" class="btn btn-danger" onclick="eliminarItem(this)">(-)</button>
                             </td>
                             <td>
                                 <button type="button" class="btn btn-primary" onclick="agregarFila(this)">(+)</button>
+                            </td>
+                            <td>
+                                <input type="number" class="form-control" name="monto" value="0" hidden/>
                             </td>
                         </tr>
                         </tbody>

@@ -23,7 +23,4 @@ public interface TrabajoRepository extends JpaRepository<Trabajo, Integer> {
     List<Trabajo> findByStatus(@Param("statusId") Integer statusId);
 
 
-
-
-
 }
